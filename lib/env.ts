@@ -1,0 +1,27 @@
+import "server-only";
+
+// Each integration switches on as soon as its keys are present.
+// Without keys, the site still runs end to end on this computer:
+// data goes to .data/db.json, emails to .data/outbox, and the calendar
+// only knows about bookings made on the site.
+
+export const integrations = {
+  supabase: Boolean(process.env.SUPABASE_URL && process.env.SUPABASE_SERVICE_ROLE_KEY),
+  google: Boolean(
+    process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL &&
+      process.env.GOOGLE_PRIVATE_KEY &&
+      process.env.GOOGLE_CALENDAR_ID,
+  ),
+  resend: Boolean(process.env.RESEND_API_KEY && process.env.EMAIL_FROM),
+};
+
+export function siteUrl() {
+  return (process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000").replace(/\/$/, "");
+}
+
+export function adminEmails(): string[] {
+  return (process.env.ADMIN_EMAIL ?? "")
+    .split(",")
+    .map((e) => e.trim().toLowerCase())
+    .filter(Boolean);
+}

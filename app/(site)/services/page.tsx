@@ -1,0 +1,110 @@
+import type { Metadata } from "next";
+import Link from "next/link";
+import { CtaBand } from "@/components/cta-band";
+import { ArrowRight, Bolt, Car, Check, FileText, Key, Users } from "@/components/icons";
+import { PageHero } from "@/components/page-hero";
+import { SectionHead } from "@/components/section-head";
+
+export const metadata: Metadata = {
+  title: "Services",
+  description:
+    "Purchase and leasing consultations for GLC, GLE, AMG, EQ electric, Maybach, Certified Pre-Owned, and business and fleet purchases. One point of contact from test drive to delivery.",
+};
+
+const includes = [
+  "A conversation about how you drive, what you need and your budget",
+  "A side-by-side look at the models that fit, and a test drive when you're ready",
+  "Transparent numbers for purchase, lease and finance, with every cost disclosed",
+  "An honest value for your trade-in",
+  "All the paperwork handled for you",
+  "Personal delivery, and a follow-up after every sale",
+];
+
+const specialties = [
+  { Icon: Car, title: "GLC & GLE", text: "The most-requested SUVs among business owners and professionals. New and Certified Pre-Owned, mostly financed." },
+  { Icon: Bolt, title: "AMG", text: "Performance models matched to how you actually drive, with the trade-offs explained plainly." },
+  { Icon: Key, title: "EQ electric", text: "Range, charging at home and on the road, and incentives, all walked through before you decide." },
+  { Icon: Car, title: "Maybach", text: "The highest level of Mercedes-Benz craftsmanship, with an experience to match." },
+  { Icon: FileText, title: "Certified Pre-Owned", text: "Exceptional value with the confidence of certification and a full, disclosed history." },
+  { Icon: Users, title: "Business & fleet", text: "Several vehicles for your company, coordinated by one contact who understands business owners." },
+];
+
+const prepare = [
+  "Your driver's license",
+  "Proof of insurance",
+  "Trade-in title or loan details, if you have one",
+  "A rough monthly budget, or the total you'd like to stay within",
+];
+
+export default function ServicesPage() {
+  return (
+    <>
+      <PageHero eyebrow="Services" title="One point of contact, from test drive to delivery">
+        Whether you buy, lease or finance, Mohsen handles everything: the first test drive, all the paperwork and
+        personal delivery, and stays one call away afterwards.
+      </PageHero>
+
+      <section className="section" aria-labelledby="consult-title">
+        <div className="container split" style={{ alignItems: "start" }}>
+          <div>
+            <SectionHead eyebrow="Purchase & leasing consultation" title="What your consultation includes" id="consult-title">
+              About 45 minutes, in person at the dealership, by phone or by video. No obligation and no pressure.
+            </SectionHead>
+            <Link href="/book" className="btn btn-gold reveal">
+              Book a Consultation <ArrowRight />
+            </Link>
+          </div>
+          <div className="card gold-top reveal">
+            <ul className="check-list">
+              {includes.map((t) => (
+                <li key={t}>
+                  <Check />
+                  <span>{t}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section className="section" aria-labelledby="spec-title">
+        <div className="container">
+          <SectionHead eyebrow="Specialties" title="Every Mercedes-Benz, known in depth" id="spec-title" />
+          <div className="grid grid-3">
+            {specialties.map(({ Icon, title, text }) => (
+              <article key={title} className="card hover reveal">
+                <Icon className="icon" />
+                <h3 className="h3">{title}</h3>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+          <div className="inline-cta reveal">
+            <p className="lede" style={{ flex: "1 1 320px" }}>Not sure which model fits? That is exactly what the consultation is for.</p>
+            <Link href="/book" className="btn btn-gold">
+              Book a Consultation <ArrowRight />
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      <section className="section" aria-labelledby="prep-title">
+        <div className="container split" style={{ alignItems: "start" }}>
+          <SectionHead eyebrow="Before we meet" title="What to bring" id="prep-title">
+            Nothing is required for a first conversation. If you would like to move quickly, these help.
+          </SectionHead>
+          <ul className="check-list reveal" style={{ paddingTop: 8 }}>
+            {prepare.map((t) => (
+              <li key={t}>
+                <Check />
+                <span>{t}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <CtaBand title="Ready when you are" />
+    </>
+  );
+}
