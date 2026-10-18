@@ -512,6 +512,9 @@ strong {
     display: none;
   }
 }
+.header-cta .btn {
+  white-space: nowrap;
+}
 
 /* ---------- hero ---------- */
 

@@ -54,15 +54,17 @@ export default function ContactPage() {
             </div>
 
             {mapQuery ? (
-              <iframe
-                title={`Map to ${contact.address}`}
-                src={`https://www.google.com/maps?q=${mapQuery}&output=embed`}
-                width="100%"
-                height="300"
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                style={{ border: "1px solid var(--line)", filter: "grayscale(1) invert(0.92) contrast(0.9)" }}
-              />
+              <div style={{ border: "1px solid var(--line)", lineHeight: 0 }}>
+                <iframe
+                  title={`Map to ${contact.address}`}
+                  src={`https://www.google.com/maps?q=${mapQuery}&output=embed`}
+                  width="100%"
+                  height="300"
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  style={{ border: 0, filter: "grayscale(1) invert(0.92) contrast(0.9)" }}
+                />
+              </div>
             ) : (
               <div className="frame" style={{ aspectRatio: "16 / 9" }} aria-hidden="true">
                 <span className="frame-label">Map appears once the address is added</span>

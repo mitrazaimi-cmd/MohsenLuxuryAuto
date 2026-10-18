@@ -1,17 +1,37 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { CtaBand } from "@/components/cta-band";
-import { ArrowRight, Award, Globe } from "@/components/icons";
+import { ArrowRight, Award, Globe, Linkedin } from "@/components/icons";
 import { PageHero } from "@/components/page-hero";
 import { SectionHead } from "@/components/section-head";
 import { Stats } from "@/components/stats";
-import { site } from "@/config/site";
+import { fullName, site } from "@/config/site";
+import portrait from "@/public/images/mohsen-portrait.webp";
 
 export const metadata: Metadata = {
   title: "About Me",
   description:
-    "Mohsen is a Master Certified Mercedes-Benz sales specialist with 20 years at Mercedes-Benz, known for full disclosure, patience, and a relationship that continues after delivery.",
+    "Mohsen Mohimani is a Master Certified Sales & Leasing Consultant at Mercedes-Benz of West Chester, with 20 years of experience in luxury automotive sales and dealership management.",
 };
+
+const career = [
+  {
+    role: "Master Certified Sales & Leasing Consultant",
+    place: "Mercedes-Benz of West Chester",
+    text: "Guiding clients through some of their most significant purchase decisions with a consultative, relationship-first approach, consistently exceeding sales targets in a fully commission-based, performance-driven environment.",
+  },
+  {
+    role: "General Manager / Sales Manager",
+    place: "Lancaster County Motor",
+    text: "An insider's understanding of dealership operations: pricing, inventory, staffing, and client relationships.",
+  },
+  {
+    role: "Registered Representative (Series 6 & 63)",
+    place: "Prudential Financial",
+    text: "A disciplined, analytical foundation built on strict compliance standards.",
+  },
+];
 
 const values = [
   { n: "I", title: "Integrity", text: "Everything is disclosed up front, with no hidden costs." },
@@ -22,39 +42,78 @@ const values = [
 export default function AboutPage() {
   return (
     <>
-      <PageHero eyebrow="About me" title={`Hi, I'm ${site.person.firstName}`}>
-        A Master Certified Mercedes-Benz sales specialist with 20 years at Mercedes-Benz, and still the person who
-        picks up when you call.
+      <PageHero eyebrow="About me" title={fullName()}>
+        Master Certified Sales &amp; Leasing Consultant at Mercedes-Benz of West Chester, with 20 years of
+        experience in luxury automotive sales and dealership management.
       </PageHero>
 
       <section className="section" aria-labelledby="story-title">
-        <div className="container split">
-          {/* TODO: replace with Mohsen's professional portrait (next/image, 4:5). */}
-          <div className="frame portrait corners reveal" role="img" aria-label="Portrait of Mohsen (photo coming soon)">
-            <span className="frame-label">Portrait coming soon</span>
+        <div className="container split" style={{ alignItems: "start" }}>
+          <div className="frame portrait corners reveal">
+            <Image
+              src={portrait}
+              alt={`${fullName()}, ${site.person.title}`}
+              fill
+              sizes="(max-width: 960px) 100vw, 560px"
+              placeholder="blur"
+              priority
+              style={{ objectFit: "cover", objectPosition: "50% 20%" }}
+            />
           </div>
           <div>
-            <SectionHead eyebrow="My story" title="It started with an S-Class" id="story-title" />
+            <SectionHead eyebrow="My story" title="A relationship-first approach" id="story-title" />
             <div className="reveal" style={{ display: "grid", gap: 18 }}>
               <p className="lede">
-                I have loved cars since I was a child. The first time I sat behind the wheel of an S-Class, I knew I
-                wanted to give that experience to other people.
+                Mohsen Mohimani is a Master Certified Sales &amp; Leasing Consultant at Mercedes-Benz of West Chester,
+                bringing 20 years of experience in luxury automotive sales and dealership management. Known for a
+                consultative, relationship-first approach, he guides clients through some of their most significant
+                purchase decisions, consistently exceeding sales targets in a fully commission-based,
+                performance-driven environment.
               </p>
               <p>
-                Twenty years later, I am a Master Certified Mercedes-Benz sales specialist. I take the time to show
-                every client each car patiently, advise on what truly fits their needs, and follow up on every sale.
+                Previously General Manager / Sales Manager at Lancaster County Motor, Mohsen brings an insider&apos;s
+                understanding of dealership operations: pricing, inventory, staffing, and client relationships. His
+                earlier career as a Registered Representative (Series 6 &amp; 63) at Prudential Financial gave him a
+                disciplined, analytical foundation built on strict compliance standards.
               </p>
               <p>
-                That is why most of my clients come to me through referrals, and why 80 to 85 percent of them come
-                back when it is time for their next Mercedes-Benz.
+                His philosophy: <span className="gold" style={{ fontFamily: "var(--font-serif)", letterSpacing: "0.12em" }}>EXPECT THE BEST</span>.
               </p>
-              <p className="quote" style={{ fontSize: "1.1rem", marginTop: 8 }}>
+              <p className="quote" style={{ fontSize: "1.1rem", marginTop: 12 }}>
                 “Mohsen always takes good care of us. He is always available, and everybody can easily get in touch
                 with him.”
               </p>
               <p className="quote-by" style={{ marginTop: 0 }}>A returning client</p>
+              {site.social.linkedin ? (
+                <div className="actions" style={{ marginTop: 8 }}>
+                  <a href={site.social.linkedin} className="btn btn-outline btn-sm" target="_blank" rel="noopener noreferrer">
+                    <Linkedin /> View on LinkedIn
+                  </a>
+                </div>
+              ) : null}
             </div>
           </div>
+        </div>
+      </section>
+
+      <section className="section" aria-labelledby="career-title">
+        <div className="container split" style={{ alignItems: "start" }}>
+          <SectionHead eyebrow="Experience" title="Every side of the business" id="career-title">
+            Sales, dealership management and financial services: experience that turns into clear numbers and
+            honest advice for every client.
+          </SectionHead>
+          <ol className="steps reveal" style={{ listStyle: "none", margin: 0, padding: 0 }}>
+            {career.map((c, i) => (
+              <li key={c.place} className="step">
+                <span className="n">{String(i + 1).padStart(2, "0")}</span>
+                <div>
+                  <span className="eyebrow">{c.place}</span>
+                  <h3 className="h3" style={{ marginTop: 8 }}>{c.role}</h3>
+                  <p>{c.text}</p>
+                </div>
+              </li>
+            ))}
+          </ol>
         </div>
       </section>
 

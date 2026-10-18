@@ -91,9 +91,7 @@ All of Mohsen's public details live in **`config/site.ts`**. Empty fields are hi
 
 | What | Where |
 |---|---|
-| Last name, phone, email, dealership name and address | `config/site.ts` → `person`, `contact` |
-| Instagram, LinkedIn, Facebook links | `config/site.ts` → `social` |
-| Professional portrait | `app/(site)/about/page.tsx` (marked TODO) |
+| Instagram and Facebook page links | `config/site.ts` → `social` |
 | Delivery photos, testimonials, client stories | Admin panel |
 | Domain | `NEXT_PUBLIC_SITE_URL` |
 | Privacy policy review | `app/(site)/privacy/page.tsx` |

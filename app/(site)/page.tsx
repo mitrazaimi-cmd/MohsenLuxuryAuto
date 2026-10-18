@@ -161,7 +161,7 @@ export default async function HomePage() {
           <div className="card reveal" style={{ display: "grid", gap: 18 }}>
             <Award className="icon" />
             <p>
-              <strong>Master Certified</strong>, with 20 years at Mercedes-Benz, the highest customer satisfaction and an
+              <strong>Master Certified</strong>, with 20 years in luxury automotive sales, the highest customer satisfaction and an
               outstanding CSI score.
             </p>
             <p className="muted">Speaks English, Farsi and some Spanish.</p>

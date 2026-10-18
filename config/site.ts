@@ -11,28 +11,29 @@ export const site = {
 
   person: {
     firstName: "Mohsen",
-    lastName: "", // TODO: Mohsen's last name
+    lastName: "Mohimani",
     title: "Premium Mercedes-Benz Sales Specialist, Master Certified",
     languages: ["English", "Farsi", "Some Spanish"],
   },
 
   contact: {
-    phone: "", // TODO: e.g. "(610) 555-0123"
-    email: "", // TODO: e.g. "mohsen@mohsenluxuryauto.com"
-    dealershipName: "", // TODO: optional, per the brand guide
-    address: "", // TODO: full dealership street address
+    phone: "717-917-1938",
+    email: "MohsenMohimani@gmail.com",
+    dealershipName: "Mercedes-Benz of West Chester",
+    address: "1260 Wilmington Pike, West Chester, PA 19382",
+    addressParts: { street: "1260 Wilmington Pike", city: "West Chester", region: "PA", postalCode: "19382" },
   },
 
   social: {
-    instagram: "", // TODO: full profile URL
-    linkedin: "", // TODO
-    facebook: "", // TODO
+    instagram: "", // TODO: profile URL for "Mohsen Luxury Auto", e.g. https://www.instagram.com/<handle>/
+    linkedin: "https://www.linkedin.com/in/mohsen-mohimani-4a962636/",
+    facebook: "", // TODO: page URL for "Mohsen Luxury Auto"
   },
 
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
 
   stats: [
-    { value: "20", unit: "yrs", label: "With Mercedes-Benz" },
+    { value: "20", unit: "yrs", label: "In luxury automotive sales" },
     { value: "~20", unit: "", label: "Cars delivered every month" },
     { value: "80–85", unit: "%", label: "Of clients come back to buy again" },
     { value: "Master", unit: "", label: "Certified sales specialist" },

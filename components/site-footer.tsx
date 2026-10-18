@@ -18,7 +18,7 @@ export function SiteFooter() {
           <div>
             <Image className="footer-logo" src="/brand/logo.png" alt="Mohsen Luxury Auto" width={1774} height={887} sizes="220px" />
             <p className="muted" style={{ marginTop: 20, maxWidth: 360 }}>
-              {site.descriptor}. Master Certified, with 20 years at Mercedes-Benz. {site.location}.
+              {site.descriptor}. Master Certified, with 20 years in luxury automotive sales. {site.location}.
             </p>
             {socials.length ? (
               <div className="actions" style={{ marginTop: 20, gap: 10 }}>
