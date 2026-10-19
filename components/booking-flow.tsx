@@ -34,7 +34,7 @@ function Options({
   );
 }
 
-export function BookingFlow({ slotMinutes }: { slotMinutes: number }) {
+export function BookingFlow({ slotMinutes, emailsEnabled }: { slotMinutes: number; emailsEnabled: boolean }) {
   const [state, action, pending] = useActionState<FormState, FormData>(createBookingAction, {});
   const [startAt, setStartAt] = useState(state.values?.startAt ?? "");
   const [step, setStep] = useState<1 | 2>(1);
@@ -168,7 +168,9 @@ export function BookingFlow({ slotMinutes }: { slotMinutes: number }) {
             </span>
           </label>
           <p className="muted" style={{ fontSize: "0.84rem" }}>
-            You will receive a confirmation, a reminder the day before, and a short follow-up after your consultation.
+            {emailsEnabled
+              ? "You will receive a confirmation, a reminder the day before, and a short follow-up after your consultation."
+              : "Mohsen will contact you personally to confirm your consultation."}{" "}
             See our <a href="/privacy" className="gold">privacy policy</a>.
           </p>
 

@@ -5,7 +5,11 @@ import { Calendar, Check } from "@/components/icons";
 import { site } from "@/config/site";
 import { bookingLabels } from "@/lib/calendar";
 import { store } from "@/lib/db";
+import { integrations } from "@/lib/env";
 import { formatDate, formatTime } from "@/lib/time";
+
+// Until Resend is set up no emails go out, so the page must not promise any.
+const confirmBy = { phone: "by phone", email: "by email", text: "by text message" } as const;
 
 export const dynamic = "force-dynamic";
 export const metadata: Metadata = { title: "Consultation confirmed", robots: { index: false } };
@@ -16,12 +20,25 @@ export default async function ConfirmedPage({ searchParams }: { searchParams: Pr
   if (!booking) notFound();
 
   const first = booking.contact.name.split(/\s+/)[0];
+  const emails = integrations.resend;
+  const by = confirmBy[booking.contactMethod];
   const where =
     booking.meetingType === "in_person"
       ? site.contact.address || `The dealership, ${site.location}`
       : booking.meetingType === "phone"
         ? `Mohsen will call you at ${booking.contact.phone}`
-        : "A video link will be sent to your email";
+        : emails
+          ? "A video link will be sent to your email"
+          : "Mohsen will send you the video link";
+  const steps = emails
+    ? [
+        ["Confirmation", "You'll receive an email with the details and a calendar invite."],
+        ["A reminder", "The day before, a short reminder with anything useful to bring."],
+      ]
+    : [
+        ["Mohsen confirms", `He will reach you ${by} to confirm the details.`],
+        ["Save the date", "Add the consultation to your calendar with the button above, and keep this page in case you need to reschedule."],
+      ];
 
   return (
     <section className="section" style={{ paddingTop: 88 }}>
@@ -36,7 +53,11 @@ export default async function ConfirmedPage({ searchParams }: { searchParams: Pr
         <h1 className="h1" style={{ marginTop: 16 }}>Thank you, {first}</h1>
         <div className="rule" style={{ margin: "24px auto 0" }} />
         <p className="lede" style={{ marginTop: 24 }}>
-          A confirmation is on its way to <strong>{booking.contact.email}</strong>. Mohsen will have everything ready.
+          {emails ? (
+            <>A confirmation is on its way to <strong>{booking.contact.email}</strong>. Mohsen will have everything ready.</>
+          ) : (
+            <>Your time is reserved. Mohsen will personally confirm {by}, and he will have everything ready.</>
+          )}
         </p>
 
         <div className="summary card gold-top" style={{ textAlign: "left", marginTop: 48 }}>
@@ -61,8 +82,7 @@ export default async function ConfirmedPage({ searchParams }: { searchParams: Pr
           <h2 className="h3">What happens next</h2>
           <ol className="steps" style={{ listStyle: "none", padding: 0, marginTop: 20 }}>
             {[
-              ["Confirmation", "You'll receive an email with the details and a calendar invite."],
-              ["A reminder", "The day before, a short reminder with anything useful to bring."],
+              ...steps,
               ["Your consultation", "A relaxed conversation, the right models, and clear numbers. No pressure."],
             ].map(([t, d], i) => (
               <li key={t} className="step">

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { BookingFlow } from "@/components/booking-flow";
 import { store } from "@/lib/db";
+import { integrations } from "@/lib/env";
 
 export const dynamic = "force-dynamic";
 
@@ -22,7 +23,7 @@ export default async function BookPage() {
             Pick a time that suits you. You will get an instant confirmation, and Mohsen will have everything ready.
           </p>
         </div>
-        <BookingFlow slotMinutes={settings.slotMinutes} />
+        <BookingFlow slotMinutes={settings.slotMinutes} emailsEnabled={integrations.resend} />
       </div>
     </section>
   );
