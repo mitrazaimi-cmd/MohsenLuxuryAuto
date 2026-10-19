@@ -47,7 +47,7 @@ You need: Mohsen's Google account and a free Google Cloud project.
 4. Fill in `.env.local`:
    - `GOOGLE_SERVICE_ACCOUNT_EMAIL`: `client_email` from the JSON
    - `GOOGLE_PRIVATE_KEY`: `private_key` from the JSON, in double quotes, keeping the `\n`
-   - `GOOGLE_CALENDAR_ID`: from **Calendar settings → Integrate calendar** (usually Mohsen's Gmail address)
+   - `GOOGLE_CALENDAR_ID`: from **Calendar settings → Integrate calendar** (Mohsen's Gmail address, `MohsenLuxuryAuto@gmail.com`)
 
 From then on, busy times in Mohsen's calendar are never offered, and every booking appears in his calendar with the client's details.
 
@@ -58,7 +58,7 @@ You need: the website's domain (for example mohsenluxuryauto.com) and a free Res
 1. Register the domain (any registrar).
 2. At https://resend.com → **Domains**, add the domain and add the DNS records Resend shows you at your registrar. Wait for "Verified".
 3. **API Keys**: create a key and put it in `RESEND_API_KEY`.
-4. Set `EMAIL_FROM`, e.g. `Mohsen Luxury Auto <mohsen@mohsenluxuryauto.com>`, and `EMAIL_REPLY_TO` to the inbox Mohsen reads.
+4. Set `EMAIL_FROM`, e.g. `Mohsen Luxury Auto <mohsen@mohsenluxuryauto.com>`, and `EMAIL_REPLY_TO` to the inbox Mohsen reads (`MohsenLuxuryAuto@gmail.com`). A Gmail address cannot be the sender; `EMAIL_FROM` must be on the verified domain.
 
 Emails sent: booking confirmation (with a calendar invite), an alert to Mohsen, a reminder the day before, a follow-up the day after, plus reschedule and cancellation confirmations. Contacts who tick the news-and-offers box are stored with their consent; export them from **Admin → Contacts**.
 

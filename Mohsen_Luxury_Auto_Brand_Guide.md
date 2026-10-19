@@ -167,10 +167,10 @@ The website launches first, followed by Instagram, LinkedIn and Facebook. The de
 ### Email Signature
 
 ```
-Mohsen [Last Name]
+Mohsen Mohimani
 Premium Mercedes-Benz Sales Specialist, Master Certified
-[Phone] | [Email] | [Website]
-[Dealership address]
+717-917-1938 | MohsenLuxuryAuto@gmail.com | [Website]
+Mercedes-Benz of West Chester, 1260 Wilmington Pike, West Chester, PA 19382
 ```
 
 ### Thank-You Card
@@ -183,7 +183,6 @@ Every delivery ends with a photo of the client and their new car, shot in the br
 
 ## Open Items
 
-- [ ] Contact details: full name, title, phone, email, dealership address
 - [ ] Location: is Westchester the West Chester, PA branch, matching the Philadelphia, PA location line?
 - [ ] Logo: get the source file (vector or transparent PNG), plus the light and one-color versions
 - [ ] One client story for the About section

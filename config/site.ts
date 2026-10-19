@@ -18,7 +18,7 @@ export const site = {
 
   contact: {
     phone: "717-917-1938",
-    email: "MohsenMohimani@gmail.com",
+    email: "MohsenLuxuryAuto@gmail.com",
     dealershipName: "Mercedes-Benz of West Chester",
     address: "1260 Wilmington Pike, West Chester, PA 19382",
     addressParts: { street: "1260 Wilmington Pike", city: "West Chester", region: "PA", postalCode: "19382" },
