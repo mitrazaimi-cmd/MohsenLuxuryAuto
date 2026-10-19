@@ -1,6 +1,6 @@
-import Image from "next/image";
 import Link from "next/link";
 import { CtaBand } from "@/components/cta-band";
+import { HeroLogo } from "@/components/hero-logo";
 import { ArrowRight, Award, Check, Clock, Handshake, Shield } from "@/components/icons";
 import { SectionHead } from "@/components/section-head";
 import { Stats } from "@/components/stats";
@@ -44,15 +44,7 @@ export default async function HomePage() {
           <h1 id="hero-title" className="sr-only">
             Mohsen Luxury Auto: Premium Mercedes-Benz Sales Specialist in Philadelphia, PA
           </h1>
-          <Image
-            className="hero-logo"
-            src="/brand/logo.png"
-            alt="Mohsen Luxury Auto"
-            width={1774}
-            height={887}
-            priority
-            sizes="(max-width: 760px) 92vw, 680px"
-          />
+          <HeroLogo />
           <p className="slogan">Expect the Best</p>
           <div className="rule" />
           <p className="lede">

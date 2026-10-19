@@ -541,6 +541,14 @@ strong {
   height: auto;
   margin: 0 auto;
 }
+.hero-logo-video {
+  display: block;
+  aspect-ratio: 1774 / 888;
+}
+/* Without JS the video can't stop before its fade-out; the <noscript> PNG shows instead. */
+html:not(.js) .hero-logo-video {
+  display: none;
+}
 .hero .slogan {
   margin-top: 28px;
   font-family: var(--font-serif);
