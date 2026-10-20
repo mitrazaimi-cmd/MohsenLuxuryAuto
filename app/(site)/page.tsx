@@ -9,6 +9,7 @@ import { TestimonialFeature, TestimonialGrid } from "@/components/testimonials";
 import { fullName, site } from "@/config/site";
 import { store } from "@/lib/db";
 import heroPortrait from "@/public/images/mohsen-hero.webp";
+import testDrive from "@/public/images/test-drive.webp";
 import happyClient from "@/public/images/happy-client.webp";
 import whyPhoto from "@/public/images/why-clients-handshake.jpg";
 
@@ -123,26 +124,21 @@ export default async function HomePage() {
       </section>
 
       <section className="section" aria-labelledby="how-title">
-        <div className="container split">
-          <div>
-            <SectionHead eyebrow="Your consultation" title="From first question to personal delivery" id="how-title">
-              One relaxed consultation gives you a clear plan, with no obligation and nothing left unexplained.
-            </SectionHead>
-            <ul className="check-list reveal">
-              {["No obligation, no pressure", "In person, by phone or by video", "New and Certified Pre-Owned", "Business and fleet purchases"].map((t) => (
-                <li key={t}>
-                  <Check />
-                  <span>{t}</span>
-                </li>
-              ))}
-            </ul>
-            <div className="actions reveal" style={{ marginTop: 36 }}>
-              <Link href="/services" className="btn btn-outline">
-                Explore services <ArrowRight />
-              </Link>
-            </div>
+        <div className="container">
+          <SectionHead eyebrow="Your consultation" title="From first question to personal delivery" id="how-title" center>
+            One relaxed consultation gives you a clear plan, with no obligation and nothing left unexplained.
+          </SectionHead>
+          <div className="frame corners reveal photo-wide">
+            <Image
+              src={testDrive}
+              alt="A client on a test drive while Mohsen points out a feature on the dashboard"
+              fill
+              sizes="(max-width: 1260px) 100vw, 1200px"
+              placeholder="blur"
+              style={{ objectFit: "cover", objectPosition: "50% 45%" }}
+            />
           </div>
-          <ol className="steps boxed reveal" style={{ listStyle: "none", margin: 0, padding: 0 }}>
+          <ol className="steps boxed grid-4 reveal" style={{ listStyle: "none", margin: "24px 0 0", padding: 0 }}>
             {steps.map((s, i) => (
               <li key={s.title} className="step gold-hover">
                 <span className="n">{String(i + 1).padStart(2, "0")}</span>
@@ -153,6 +149,19 @@ export default async function HomePage() {
               </li>
             ))}
           </ol>
+          <ul className="check-list inline reveal" style={{ marginTop: 40 }}>
+            {["No obligation, no pressure", "In person, by phone or by video", "New and Certified Pre-Owned", "Business and fleet purchases"].map((t) => (
+              <li key={t}>
+                <Check />
+                <span>{t}</span>
+              </li>
+            ))}
+          </ul>
+          <div className="actions reveal" style={{ justifyContent: "center", marginTop: 36 }}>
+            <Link href="/services" className="btn btn-outline">
+              Explore services <ArrowRight />
+            </Link>
+          </div>
         </div>
       </section>
 

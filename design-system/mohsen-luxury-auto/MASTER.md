@@ -54,7 +54,7 @@ Balance: about 70% black, 22% silver, 8% gold. Never large gold areas or long go
 - **Card:** surface background, 1px line border, optional 1px gold top hairline; hover: border turns gold-soft (no layout shift).
 - **Input:** surface-2 background, 1px line border, 16px text, visible label above, error text below the field in `--danger`.
 - **Section header:** gold eyebrow, Cinzel title, short 48px gold hairline.
-- **Centered heading** (the owner's name for it, «عنوان وسط»): the section header with its eyebrow, title, hairline and intro centered on the page, via `<SectionHead center>`. Used for About "Experience" and "Mission", and Portfolio "Reviews".
+- **Centered heading** (the owner's name for it, «عنوان وسط»): the section header with its eyebrow, title, hairline and intro centered on the page, via `<SectionHead center>`. Used for About "Experience" and "Mission", Portfolio "Reviews", and homepage "Your consultation", where a wide `.frame.photo-wide` photo (21:9, 16:9 on phones) sits between the heading and the gold boxes, and `.check-list.inline` puts short check marks in one centered row.
 - **Gold boxes** (the owner's name for it): a list where each item is its own box that fills with a soft gold wash on hover, its border turns gold and its text and icons brighten. Usually laid out side by side. Markup: `.steps.boxed` (numbered) or `.check-list.boxed` (check marks) on the list, `.gold-hover` on each item, and `.grid-3` / `.grid-4` for the row (2 per row on tablets, 1 on phones). `.gold-hover` alone works on any box, such as a `.card`. Used for: homepage "Your consultation", Services "What your consultation includes" and "What to bring", About "Experience".
 - **Photo cards:** `.spec-card` (Services "Specialties"): a photo with the name at the bottom; the description opens on hover under the same gold wash, and always shows on touch screens.
 - **Heading beside a photo:** `.split.intro-split` with the section header and a `.frame.corners` photo (`.photo-3x2` or `.photo-6x5`); stacks below 960px.
@@ -73,7 +73,7 @@ Hero (logo, slogan, CTA) → proof stats → key messages → services → testi
 
 Emoji icons · white page backgrounds · the Mercedes-Benz star · stretched or recolored logo · urgency wording ("last chance") · invisible focus states · placeholder-only labels.
 
-Exceptions, the owner's decision (2026-10-20), made knowing the star rule and the dealership/trademark risk: two photos show the star on a car's grille behind Mohsen, the homepage "Why clients come back" photo (`public/images/why-clients-handshake.jpg`) and the Services consultation photo (`public/images/consultation.webp`). Don't treat them as license for other images.
+Exceptions, the owner's decision (2026-10-20), made knowing the star rule and the dealership/trademark risk: three photos show the star: on a car's grille behind Mohsen in the homepage "Why clients come back" photo (`public/images/why-clients-handshake.jpg`) and the Services consultation photo (`public/images/consultation.webp`), and on the steering wheel in the homepage "Your consultation" test-drive photo (`public/images/test-drive.webp`). Don't treat them as license for other images.
 
 ## Pre-delivery checklist
 

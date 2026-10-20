@@ -250,6 +250,15 @@ strong {
 .frame.photo-6x5 {
   aspect-ratio: 6 / 5;
 }
+/* A wide, cinematic photo across the container, under a centered heading. */
+.frame.photo-wide {
+  aspect-ratio: 21 / 9;
+}
+@media (max-width: 640px) {
+  .frame.photo-wide {
+    aspect-ratio: 16 / 9;
+  }
+}
 
 .grid {
   display: grid;
@@ -1028,6 +1037,13 @@ html:not(.js) .hero-logo-video {
   height: 18px;
   color: var(--gold);
   margin-top: 5px;
+}
+/* Short check marks in one centered row that wraps on small screens. */
+.check-list.inline {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 14px 36px;
 }
 
 /* ---------- quote / testimonials ---------- */
