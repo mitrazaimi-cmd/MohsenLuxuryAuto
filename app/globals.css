@@ -925,6 +925,12 @@ html:not(.js) .hero-logo-video {
   grid-template-columns: 64px minmax(0, 1fr);
   padding: 28px;
 }
+/* Side by side (with .grid-3 / .grid-4) the boxes are narrow, so the number sits above the text. */
+.steps.boxed:is(.grid-3, .grid-4) .step {
+  grid-template-columns: minmax(0, 1fr);
+  align-content: start;
+  gap: 18px;
+}
 .check-list.boxed li {
   padding: 20px 24px;
 }
@@ -965,6 +971,7 @@ html:not(.js) .hero-logo-video {
   color: var(--silver-hi);
 }
 .gold-hover:hover .n,
+.gold-hover:hover .eyebrow,
 .gold-hover:hover svg {
   color: var(--gold-hi);
 }

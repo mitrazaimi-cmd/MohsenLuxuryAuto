@@ -104,14 +104,14 @@ export default function AboutPage() {
       </section>
 
       <section className="section" aria-labelledby="career-title">
-        <div className="container split" style={{ alignItems: "start" }}>
+        <div className="container">
           <SectionHead eyebrow="Experience" title="Every side of the business" id="career-title">
             Sales, dealership management and financial services: experience that turns into clear numbers and
             honest advice for every client.
           </SectionHead>
-          <ol className="steps reveal" style={{ listStyle: "none", margin: 0, padding: 0 }}>
+          <ol className="steps boxed grid-3 reveal" style={{ listStyle: "none", margin: 0, padding: 0 }}>
             {career.map((c, i) => (
-              <li key={c.place} className="step">
+              <li key={c.place} className="step gold-hover">
                 <span className="n">{String(i + 1).padStart(2, "0")}</span>
                 <div>
                   <span className="eyebrow">{c.place}</span>
