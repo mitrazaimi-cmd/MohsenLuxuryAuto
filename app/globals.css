@@ -574,6 +574,47 @@ html:not(.js) .hero-logo-video {
   color: var(--muted);
   letter-spacing: 0.04em;
 }
+/* Portrait on the left, slogan and intro on the right; stacked on phones. */
+.hero-intro {
+  display: grid;
+  grid-template-columns: minmax(0, 340px) minmax(0, 560px);
+  justify-content: center;
+  align-items: center;
+  gap: 56px;
+  margin-top: 48px;
+  text-align: left;
+}
+.hero-intro .slogan {
+  margin-top: 0;
+}
+.hero-intro .rule,
+.hero-intro .lede {
+  margin-left: 0;
+  margin-right: 0;
+}
+.hero-intro .actions {
+  justify-content: flex-start;
+}
+@media (max-width: 760px) {
+  .hero-intro {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 40px;
+    margin-top: 36px;
+    text-align: center;
+  }
+  .hero-portrait {
+    width: min(300px, 100%);
+    margin: 0 auto;
+  }
+  .hero-intro .rule,
+  .hero-intro .lede {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .hero-intro .actions {
+    justify-content: center;
+  }
+}
 
 .page-hero {
   padding: 96px 0 80px;

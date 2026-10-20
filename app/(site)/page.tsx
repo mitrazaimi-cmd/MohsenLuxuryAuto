@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { CtaBand } from "@/components/cta-band";
 import { HeroLogo } from "@/components/hero-logo";
@@ -5,7 +6,9 @@ import { ArrowRight, Award, Check, Clock, Handshake, Shield } from "@/components
 import { SectionHead } from "@/components/section-head";
 import { Stats } from "@/components/stats";
 import { TestimonialList } from "@/components/testimonials";
+import { fullName, site } from "@/config/site";
 import { store } from "@/lib/db";
+import heroPortrait from "@/public/images/mohsen-hero.webp";
 
 export const dynamic = "force-dynamic";
 
@@ -45,21 +48,36 @@ export default async function HomePage() {
             Mohsen Luxury Auto: Premium Mercedes-Benz Sales Specialist in Philadelphia, PA
           </h1>
           <HeroLogo />
-          <p className="slogan">Expect the Best</p>
-          <div className="rule" />
-          <p className="lede">
-            A Mercedes-Benz without the usual dealership stress. A Master Certified specialist who discloses
-            everything up front, handles every detail, and is always one call away.
-          </p>
-          <div className="actions">
-            <Link href="/book" className="btn btn-gold">
-              Book a Consultation <ArrowRight />
-            </Link>
-            <Link href="/services" className="btn btn-outline">
-              How it works
-            </Link>
+          <div className="hero-intro">
+            <div className="frame portrait corners hero-portrait">
+              <Image
+                src={heroPortrait}
+                alt={`${fullName()}, ${site.person.title}`}
+                fill
+                sizes="(max-width: 760px) 300px, 340px"
+                placeholder="blur"
+                priority
+                style={{ objectFit: "cover", objectPosition: "50% 20%" }}
+              />
+            </div>
+            <div>
+              <p className="slogan">Expect the Best</p>
+              <div className="rule" />
+              <p className="lede">
+                A Mercedes-Benz without the usual dealership stress. A Master Certified specialist who discloses
+                everything up front, handles every detail, and is always one call away.
+              </p>
+              <div className="actions">
+                <Link href="/book" className="btn btn-gold">
+                  Book a Consultation <ArrowRight />
+                </Link>
+                <Link href="/services" className="btn btn-outline">
+                  How it works
+                </Link>
+              </div>
+              <p className="hero-note">No-obligation consultation · Purchase, lease or finance</p>
+            </div>
           </div>
-          <p className="hero-note">No-obligation consultation · Purchase, lease or finance</p>
         </div>
       </section>
 
