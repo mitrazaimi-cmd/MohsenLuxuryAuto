@@ -5,6 +5,7 @@ import { CtaBand } from "@/components/cta-band";
 import { ArrowRight, Check } from "@/components/icons";
 import { PageHero } from "@/components/page-hero";
 import { SectionHead } from "@/components/section-head";
+import consultationPhoto from "@/public/images/consultation.webp";
 import amg from "@/public/images/specialties/amg.webp";
 import businessFleet from "@/public/images/specialties/business-fleet.webp";
 import certifiedPreOwned from "@/public/images/specialties/certified-pre-owned.webp";
@@ -85,9 +86,21 @@ export default function ServicesPage() {
 
       <section className="section" aria-labelledby="consult-title">
         <div className="container">
-          <SectionHead eyebrow="Purchase & leasing consultation" title="What your consultation includes" id="consult-title">
-            About 45 minutes, in person at the dealership, by phone or by video. No obligation and no pressure.
-          </SectionHead>
+          <div className="split intro-split">
+            <SectionHead eyebrow="Purchase & leasing consultation" title="What your consultation includes" id="consult-title">
+              About 45 minutes, in person at the dealership, by phone or by video. No obligation and no pressure.
+            </SectionHead>
+            <div className="frame corners reveal photo-3x2">
+              <Image
+                src={consultationPhoto}
+                alt="Mohsen talking a client through her options at a table in the showroom"
+                fill
+                sizes="(max-width: 960px) 100vw, 560px"
+                placeholder="blur"
+                style={{ objectFit: "cover" }}
+              />
+            </div>
+          </div>
           <ul className="check-list boxed grid-3 reveal">
             {includes.map((t) => (
               <li key={t} className="gold-hover">
