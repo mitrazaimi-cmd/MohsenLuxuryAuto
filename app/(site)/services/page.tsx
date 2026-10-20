@@ -109,7 +109,7 @@ export default function ServicesPage() {
               </li>
             ))}
           </ul>
-          <div className="actions reveal" style={{ marginTop: 40 }}>
+          <div className="actions reveal" style={{ justifyContent: "center", marginTop: 40 }}>
             <Link href="/book" className="btn btn-gold">
               Book a Consultation <ArrowRight />
             </Link>
