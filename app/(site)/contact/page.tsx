@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ContactForm } from "@/components/contact-form";
-import { ArrowRight, Calendar, Mail, MapPin, Phone } from "@/components/icons";
+import { ArrowRight, Calendar, Instagram, Mail, MapPin, Phone } from "@/components/icons";
 import { PageHero } from "@/components/page-hero";
-import { site, telHref } from "@/config/site";
+import { site, socialHandle, telHref } from "@/config/site";
 
 export const metadata: Metadata = {
   title: "Contact",
@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 };
 
 export default function ContactPage() {
-  const { contact } = site;
+  const { contact, social } = site;
   const mapQuery = contact.address ? encodeURIComponent(contact.address) : "";
 
   return (
@@ -48,6 +48,13 @@ export default function ContactPage() {
               <ContactRow Icon={Mail} label="Email">
                 {contact.email ? <a href={`mailto:${contact.email}`}>{contact.email}</a> : <span className="todo">To be added</span>}
               </ContactRow>
+              {social.instagram ? (
+                <ContactRow Icon={Instagram} label="Instagram">
+                  <a href={social.instagram} target="_blank" rel="noopener noreferrer">
+                    {socialHandle(social.instagram)}
+                  </a>
+                </ContactRow>
+              ) : null}
               <ContactRow Icon={MapPin} label={contact.dealershipName || "Dealership"}>
                 {contact.address || <span>{site.location} <span className="todo">(full address to be added)</span></span>}
               </ContactRow>

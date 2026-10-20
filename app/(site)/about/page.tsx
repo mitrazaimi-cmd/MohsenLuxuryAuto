@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { CtaBand } from "@/components/cta-band";
-import { ArrowRight, Award, Globe, Linkedin } from "@/components/icons";
+import { ArrowRight, Award, Globe, Instagram, Linkedin } from "@/components/icons";
 import { PageHero } from "@/components/page-hero";
 import { SectionHead } from "@/components/section-head";
 import { Stats } from "@/components/stats";
@@ -84,11 +84,18 @@ export default function AboutPage() {
                 with him.”
               </p>
               <p className="quote-by" style={{ marginTop: 0 }}>A returning client</p>
-              {site.social.linkedin ? (
+              {site.social.linkedin || site.social.instagram ? (
                 <div className="actions" style={{ marginTop: 8 }}>
-                  <a href={site.social.linkedin} className="btn btn-outline btn-sm" target="_blank" rel="noopener noreferrer">
-                    <Linkedin /> View on LinkedIn
-                  </a>
+                  {site.social.linkedin ? (
+                    <a href={site.social.linkedin} className="btn btn-outline btn-sm" target="_blank" rel="noopener noreferrer">
+                      <Linkedin /> View on LinkedIn
+                    </a>
+                  ) : null}
+                  {site.social.instagram ? (
+                    <a href={site.social.instagram} className="btn btn-outline btn-sm" target="_blank" rel="noopener noreferrer">
+                      <Instagram /> Follow on Instagram
+                    </a>
+                  ) : null}
                 </div>
               ) : null}
             </div>

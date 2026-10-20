@@ -81,7 +81,7 @@ Styling is plain CSS in `app/globals.css` (tokens on `:root`, no Tailwind). CSS 
 - **`app/not-found.tsx`:** sits at the root and renders its own header and footer.
 - **Server actions:** in `actions/`.
 
-**Public business details** live only in `config/site.ts`. Fields that are still unknown (Instagram and Facebook URLs) are empty strings and the UI hides or softly marks them; don't invent values. Brand images are in `public/brand/` and come from `Mohsen_Luxury_Auto_Logo.png`. `monogram.png` is the "M" cropped from that logo.
+**Public business details** live only in `config/site.ts`. Fields that are still unknown (the Facebook URL) are empty strings and the UI hides or softly marks them; don't invent values. Brand images are in `public/brand/` and come from `Mohsen_Luxury_Auto_Logo.png`. `monogram.png` is the "M" cropped from that logo.
 
 ## Setup and deployment
 

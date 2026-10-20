@@ -25,7 +25,7 @@ export const site = {
   },
 
   social: {
-    instagram: "", // TODO: profile URL for "Mohsen Luxury Auto", e.g. https://www.instagram.com/<handle>/
+    instagram: "https://www.instagram.com/mohsenluxuryauto/",
     linkedin: "https://www.linkedin.com/in/mohsen-mohimani-4a962636/",
     facebook: "", // TODO: page URL for "Mohsen Luxury Auto"
   },
@@ -44,6 +44,12 @@ export const site = {
 
 export function fullName() {
   return [site.person.firstName, site.person.lastName].filter(Boolean).join(" ");
+}
+
+/** "@handle" from a profile URL such as https://www.instagram.com/handle/ */
+export function socialHandle(url: string) {
+  const handle = url.split("/").filter(Boolean).pop();
+  return handle ? `@${handle}` : "";
 }
 
 export function telHref(phone: string) {
