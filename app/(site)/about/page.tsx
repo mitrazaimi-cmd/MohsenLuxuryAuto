@@ -105,7 +105,7 @@ export default function AboutPage() {
 
       <section className="section" aria-labelledby="career-title">
         <div className="container">
-          <SectionHead eyebrow="Experience" title="Every side of the business" id="career-title">
+          <SectionHead eyebrow="Experience" title="Every side of the business" id="career-title" center>
             Sales, dealership management and financial services: experience that turns into clear numbers and
             honest advice for every client.
           </SectionHead>
