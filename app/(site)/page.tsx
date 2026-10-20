@@ -144,7 +144,7 @@ export default async function HomePage() {
           </div>
           <ol className="steps boxed reveal" style={{ listStyle: "none", margin: 0, padding: 0 }}>
             {steps.map((s, i) => (
-              <li key={s.title} className="step">
+              <li key={s.title} className="step gold-hover">
                 <span className="n">{String(i + 1).padStart(2, "0")}</span>
                 <div>
                   <h3 className="h3">{s.title}</h3>

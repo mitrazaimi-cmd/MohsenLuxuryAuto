@@ -56,7 +56,7 @@ export default function ServicesPage() {
           </div>
           <ul className="check-list boxed reveal">
             {includes.map((t) => (
-              <li key={t}>
+              <li key={t} className="gold-hover">
                 <Check />
                 <span>{t}</span>
               </li>
@@ -70,7 +70,7 @@ export default function ServicesPage() {
           <SectionHead eyebrow="Specialties" title="Every Mercedes-Benz, known in depth" id="spec-title" />
           <div className="grid grid-3">
             {specialties.map(({ Icon, title, text }) => (
-              <article key={title} className="card hover reveal">
+              <article key={title} className="card gold-hover reveal">
                 <Icon className="icon" />
                 <h3 className="h3">{title}</h3>
                 <p>{text}</p>

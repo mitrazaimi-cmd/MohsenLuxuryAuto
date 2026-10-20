@@ -797,8 +797,8 @@ html:not(.js) .hero-logo-video {
 .step p {
   margin-top: 10px;
 }
-/* Boxed lists: each item is a card that fills with a soft gold wash on hover. Used by the
-   homepage "Your consultation" steps and the Services "What your consultation includes" list. */
+/* Boxed lists: each item is its own box (homepage "Your consultation" steps,
+   Services "What your consultation includes"). Pair the items with .gold-hover. */
 .steps.boxed,
 .check-list.boxed {
   gap: 16px;
@@ -806,16 +806,11 @@ html:not(.js) .hero-logo-video {
 .steps.boxed {
   border-top: 0;
 }
-.steps.boxed .step,
-.check-list.boxed li {
-  position: relative;
-  isolation: isolate;
+/* :where() keeps this at zero specificity so .gold-hover:hover can recolor the border. */
+:where(.steps.boxed .step, .check-list.boxed li) {
   background: var(--surface);
   border: 1px solid var(--line-soft);
   border-radius: var(--radius);
-  transition:
-    border-color 250ms var(--ease),
-    box-shadow 250ms var(--ease);
 }
 .steps.boxed .step {
   grid-template-columns: 64px minmax(0, 1fr);
@@ -824,9 +819,18 @@ html:not(.js) .hero-logo-video {
 .check-list.boxed li {
   padding: 20px 24px;
 }
-/* Soft gold wash behind the text; a layer so it can fade (gradients can't transition). */
-.steps.boxed .step::before,
-.check-list.boxed li::before {
+
+/* Gold hover: the whole box fills with a soft gold wash, and its text and icons brighten.
+   The wash is a layer so it can fade in (gradients can't transition). Text stays above
+   AA on the strongest gold: 7.5:1 for #ededed, 6.2:1 for the gold-hi accents. */
+.gold-hover {
+  position: relative;
+  isolation: isolate;
+  transition:
+    border-color 250ms var(--ease),
+    box-shadow 250ms var(--ease);
+}
+.gold-hover::before {
   content: "";
   position: absolute;
   inset: 0;
@@ -835,28 +839,25 @@ html:not(.js) .hero-logo-video {
   opacity: 0;
   transition: opacity 250ms var(--ease);
 }
-.steps.boxed .step:hover,
-.check-list.boxed li:hover {
+.gold-hover:hover {
   border-color: rgba(217, 174, 95, 0.55);
   box-shadow: 0 0 32px rgba(217, 174, 95, 0.1);
 }
-.steps.boxed .step:hover::before,
-.check-list.boxed li:hover::before {
+.gold-hover:hover::before {
   opacity: 1;
 }
-.steps.boxed .step .n,
-.steps.boxed .step p,
-.check-list.boxed li span,
-.check-list.boxed svg {
+.gold-hover p,
+.gold-hover span,
+.gold-hover svg {
   transition: color 250ms var(--ease);
 }
-.steps.boxed .step:hover .n,
-.check-list.boxed li:hover svg {
-  color: var(--gold-hi);
-}
-.steps.boxed .step:hover p,
-.check-list.boxed li:hover span {
+.gold-hover:hover p,
+.gold-hover:hover span {
   color: var(--silver-hi);
+}
+.gold-hover:hover .n,
+.gold-hover:hover svg {
+  color: var(--gold-hi);
 }
 @media (max-width: 640px) {
   .step {
