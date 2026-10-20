@@ -5,6 +5,8 @@ import { useEffect, useRef, useState } from "react";
 
 // The animated logo fades in from black, shimmers, and fades back to black at 5.3s.
 // Play it once and hold on the full logo just before that fade-out.
+// It deliberately ignores prefers-reduced-motion (the owner's call): it plays once,
+// gently, and Windows reports "reduce" whenever its animation effects are off.
 const HOLD_AT = 5;
 
 const alt = "Mohsen Luxury Auto";
@@ -17,16 +19,12 @@ function StillLogo() {
 
 export function HeroLogo() {
   const ref = useRef<HTMLVideoElement>(null);
-  // Reduced motion, blocked autoplay (e.g. iOS Low Power Mode) or a load error show the static logo.
+  // Blocked autoplay (e.g. iOS Low Power Mode) or a load error show the static logo.
   const [still, setStill] = useState(false);
 
   useEffect(() => {
     const video = ref.current;
     if (!video) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      setStill(true);
-      return;
-    }
     let frame = 0;
     const hold = () => {
       if (video.currentTime >= HOLD_AT) video.pause();

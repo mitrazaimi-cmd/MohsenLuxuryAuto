@@ -59,6 +59,8 @@ Balance: about 70% black, 22% silver, 8% gold. Never large gold areas or long go
 
 Fade-up 12px over 350ms, ease-out, on viewport enter. Under `prefers-reduced-motion: reduce`, show everything in its final state. Hover transitions 200ms. Nothing fast or flashy.
 
+One exception, the owner's decision: the homepage hero's animated logo (`components/hero-logo.tsx`) plays for everyone, reduced motion included. It plays once, about 5 seconds, then holds on the still logo. Windows reports reduced motion whenever its animation effects are turned off, which hid the logo animation from many laptop visitors.
+
 ## Page pattern
 
 Hero (logo, slogan, CTA) → proof stats → key messages → services → testimonials and deliveries (social proof) → final booking CTA. A sticky header keeps "Book a Consultation" visible.
