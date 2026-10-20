@@ -1,9 +1,16 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { CtaBand } from "@/components/cta-band";
-import { ArrowRight, Bolt, Car, Check, FileText, Key, Users } from "@/components/icons";
+import { ArrowRight, Check } from "@/components/icons";
 import { PageHero } from "@/components/page-hero";
 import { SectionHead } from "@/components/section-head";
+import amg from "@/public/images/specialties/amg.webp";
+import businessFleet from "@/public/images/specialties/business-fleet.webp";
+import certifiedPreOwned from "@/public/images/specialties/certified-pre-owned.webp";
+import eqElectric from "@/public/images/specialties/eq-electric.webp";
+import glcGle from "@/public/images/specialties/glc-gle.webp";
+import maybach from "@/public/images/specialties/maybach.webp";
 
 export const metadata: Metadata = {
   title: "Services",
@@ -20,13 +27,45 @@ const includes = [
   "Personal delivery, and a follow-up after every sale",
 ];
 
+// Photos from Pexels (free for commercial use, no attribution required); the number is the Pexels photo id.
 const specialties = [
-  { Icon: Car, title: "GLC & GLE", text: "The most-requested SUVs among business owners and professionals. New and Certified Pre-Owned, mostly financed." },
-  { Icon: Bolt, title: "AMG", text: "Performance models matched to how you actually drive, with the trade-offs explained plainly." },
-  { Icon: Key, title: "EQ electric", text: "Range, charging at home and on the road, and incentives, all walked through before you decide." },
-  { Icon: Car, title: "Maybach", text: "The highest level of Mercedes-Benz craftsmanship, with an experience to match." },
-  { Icon: FileText, title: "Certified Pre-Owned", text: "Exceptional value with the confidence of certification and a full, disclosed history." },
-  { Icon: Users, title: "Business & fleet", text: "Several vehicles for your company, coordinated by one contact who understands business owners." },
+  {
+    photo: glcGle, // 14719372
+    alt: "A black Mercedes-Benz GLE SUV seen from the side",
+    position: "30% 50%",
+    title: "GLC & GLE",
+    text: "The most-requested SUVs among business owners and professionals. New and Certified Pre-Owned, mostly financed.",
+  },
+  {
+    photo: amg, // 10292240
+    alt: "A matte black Mercedes-AMG GT from the rear",
+    title: "AMG",
+    text: "Performance models matched to how you actually drive, with the trade-offs explained plainly.",
+  },
+  {
+    photo: eqElectric, // 17000830
+    alt: "The open charging port of a black electric car",
+    title: "EQ electric",
+    text: "Range, charging at home and on the road, and incentives, all walked through before you decide.",
+  },
+  {
+    photo: maybach, // 29288795
+    alt: "The Maybach lettering above a lit tail light",
+    title: "Maybach",
+    text: "The highest level of Mercedes-Benz craftsmanship, with an experience to match.",
+  },
+  {
+    photo: certifiedPreOwned, // 16716122
+    alt: "Black leather seats inside a Mercedes-Benz",
+    title: "Certified Pre-Owned",
+    text: "Exceptional value with the confidence of certification and a full, disclosed history.",
+  },
+  {
+    photo: businessFleet, // 17016698
+    alt: "Two black Mercedes-Benz vehicles in a parking garage",
+    title: "Business & fleet",
+    text: "Several vehicles for your company, coordinated by one contact who understands business owners.",
+  },
 ];
 
 const prepare = [
@@ -68,12 +107,26 @@ export default function ServicesPage() {
       <section className="section" aria-labelledby="spec-title">
         <div className="container">
           <SectionHead eyebrow="Specialties" title="Every Mercedes-Benz, known in depth" id="spec-title" />
-          <div className="grid grid-3">
-            {specialties.map(({ Icon, title, text }) => (
-              <article key={title} className="card gold-hover reveal">
-                <Icon className="icon" />
-                <h3 className="h3">{title}</h3>
-                <p>{text}</p>
+          {/* reveal sits on the grid: on a card its transition would override the card's hover transition. */}
+          <div className="grid grid-3 reveal">
+            {specialties.map(({ photo, alt, position, title, text }) => (
+              <article key={title} className="spec-card" tabIndex={0}>
+                <Image
+                  src={photo}
+                  alt={alt}
+                  fill
+                  sizes="(max-width: 640px) 100vw, (max-width: 960px) 50vw, 400px"
+                  placeholder="blur"
+                  style={{ objectFit: "cover", objectPosition: position ?? "50% 50%" }}
+                />
+                <div className="spec-body">
+                  <h3 className="h3">{title}</h3>
+                  <div className="spec-text">
+                    <div>
+                      <p>{text}</p>
+                    </div>
+                  </div>
+                </div>
               </article>
             ))}
           </div>

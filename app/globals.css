@@ -797,6 +797,115 @@ html:not(.js) .hero-logo-video {
 .step p {
   margin-top: 10px;
 }
+/* Specialty cards (Services): a photo with the model name at the bottom. On hover or focus
+   the photo darkens under the same soft gold wash as .gold-hover and the description opens
+   above the name, which stays at the bottom. Touch screens can't hover, so they always show it. */
+.spec-card {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+  background: var(--surface);
+  border: 1px solid var(--line-soft);
+  border-radius: var(--radius);
+  transition:
+    border-color 250ms var(--ease),
+    box-shadow 250ms var(--ease);
+}
+.spec-card img {
+  transition: transform 700ms var(--ease);
+}
+/* Resting shade: just enough at the bottom to keep the name readable. */
+.spec-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.3) 45%, rgba(0, 0, 0, 0) 70%);
+}
+/* Hover shade: darkened photo under the gold wash, so the description stays readable. */
+.spec-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    linear-gradient(135deg, rgba(217, 174, 95, 0.38), rgba(217, 174, 95, 0.16)),
+    rgba(0, 0, 0, 0.62);
+  opacity: 0;
+  transition: opacity 300ms var(--ease);
+}
+.spec-body {
+  position: absolute;
+  inset: auto 0 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  padding: 24px 26px;
+}
+/* The name comes first for screen readers but sits under the description on screen. */
+.spec-body .spec-text {
+  order: -1;
+}
+.spec-body .h3 {
+  color: var(--silver-hi);
+  text-shadow: 0 1px 12px rgba(0, 0, 0, 0.6);
+}
+/* 0fr → 1fr lets the text open smoothly and push the name up. */
+.spec-text {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transition:
+    grid-template-rows 350ms var(--ease),
+    opacity 300ms var(--ease);
+}
+.spec-text > div {
+  min-height: 0;
+  overflow: hidden;
+}
+.spec-text p {
+  margin-bottom: 12px;
+  color: var(--silver-hi);
+}
+.spec-card:hover,
+.spec-card:focus-visible {
+  border-color: rgba(217, 174, 95, 0.55);
+  box-shadow: 0 0 32px rgba(217, 174, 95, 0.1);
+}
+.spec-card:hover img,
+.spec-card:focus-visible img {
+  transform: scale(1.04);
+}
+.spec-card:hover::before,
+.spec-card:focus-visible::before {
+  opacity: 1;
+}
+.spec-card:hover .spec-text,
+.spec-card:focus-visible .spec-text {
+  grid-template-rows: 1fr;
+  opacity: 1;
+}
+/* Touch screens: description always shown, on a deeper bottom shade so the top of the photo stays clear. */
+@media (hover: none) {
+  .spec-card::after {
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.92), rgba(0, 0, 0, 0.78) 45%, rgba(0, 0, 0, 0) 85%);
+  }
+  .spec-text {
+    grid-template-rows: 1fr;
+    opacity: 1;
+  }
+}
+@media (max-width: 640px) {
+  /* Taller on phones, where the description always shows, so more of the photo stays clear. */
+  .spec-card {
+    aspect-ratio: 1 / 1;
+  }
+  .spec-body {
+    padding: 20px;
+  }
+}
+
 /* Boxed lists: each item is its own box (homepage "Your consultation" steps,
    Services "What your consultation includes"). Pair the items with .gold-hover. */
 .steps.boxed,
