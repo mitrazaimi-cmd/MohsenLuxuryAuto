@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { ArrowRight, Close, Menu } from "./icons";
 
 export const NAV = [
+  { href: "/", label: "Home" },
   { href: "/services", label: "Services" },
   { href: "/portfolio", label: "Portfolio" },
   { href: "/about", label: "About Me" },
@@ -63,9 +64,6 @@ export function SiteHeader() {
       </div>
       {open ? (
         <nav id="mobile-nav" className="mobile-nav" aria-label="Mobile">
-          <Link href="/" aria-current={pathname === "/" ? "page" : undefined}>
-            Home
-          </Link>
           {NAV.map((n) => (
             <Link key={n.href} href={n.href} aria-current={current(n.href)}>
               {n.label}
