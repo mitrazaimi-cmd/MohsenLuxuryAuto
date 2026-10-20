@@ -12,6 +12,7 @@ import certifiedPreOwned from "@/public/images/specialties/certified-pre-owned.w
 import eqElectric from "@/public/images/specialties/eq-electric.webp";
 import glcGle from "@/public/images/specialties/glc-gle.webp";
 import maybach from "@/public/images/specialties/maybach.webp";
+import whatToBring from "@/public/images/what-to-bring.webp";
 
 export const metadata: Metadata = {
   title: "Services",
@@ -153,13 +154,25 @@ export default function ServicesPage() {
       </section>
 
       <section className="section" aria-labelledby="prep-title">
-        <div className="container split" style={{ alignItems: "start" }}>
-          <SectionHead eyebrow="Before we meet" title="What to bring" id="prep-title">
-            Nothing is required for a first conversation. If you would like to move quickly, these help.
-          </SectionHead>
-          <ul className="check-list reveal" style={{ paddingTop: 8 }}>
+        <div className="container">
+          <div className="split intro-split">
+            <SectionHead eyebrow="Before we meet" title="What to bring" id="prep-title">
+              Nothing is required for a first conversation. If you would like to move quickly, these help.
+            </SectionHead>
+            <div className="frame corners reveal photo-3x2">
+              <Image
+                src={whatToBring}
+                alt="Hands sliding a driver's license into a leather document holder beside a car key and a coffee"
+                fill
+                sizes="(max-width: 960px) 100vw, 560px"
+                placeholder="blur"
+                style={{ objectFit: "cover" }}
+              />
+            </div>
+          </div>
+          <ul className="check-list boxed grid-4 reveal">
             {prepare.map((t) => (
-              <li key={t}>
+              <li key={t} className="gold-hover">
                 <Check />
                 <span>{t}</span>
               </li>
