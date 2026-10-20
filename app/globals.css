@@ -803,6 +803,8 @@ html:not(.js) .hero-logo-video {
   border-top: 0;
 }
 .steps.boxed .step {
+  position: relative;
+  isolation: isolate;
   grid-template-columns: 64px minmax(0, 1fr);
   padding: 28px;
   background: var(--surface);
@@ -810,19 +812,34 @@ html:not(.js) .hero-logo-video {
   border-radius: var(--radius);
   transition:
     border-color 250ms var(--ease),
-    background-color 250ms var(--ease),
     box-shadow 250ms var(--ease);
 }
-.steps.boxed .step:hover {
-  border-color: var(--gold-soft);
-  background: var(--surface-2);
-  box-shadow: 0 0 32px rgba(217, 174, 95, 0.08);
+/* Soft gold wash behind the text; a layer so it can fade (gradients can't transition). */
+.steps.boxed .step::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(135deg, rgba(217, 174, 95, 0.38), rgba(217, 174, 95, 0.16));
+  opacity: 0;
+  transition: opacity 250ms var(--ease);
 }
-.steps.boxed .step .n {
+.steps.boxed .step:hover {
+  border-color: rgba(217, 174, 95, 0.55);
+  box-shadow: 0 0 32px rgba(217, 174, 95, 0.1);
+}
+.steps.boxed .step:hover::before {
+  opacity: 1;
+}
+.steps.boxed .step .n,
+.steps.boxed .step p {
   transition: color 250ms var(--ease);
 }
 .steps.boxed .step:hover .n {
   color: var(--gold-hi);
+}
+.steps.boxed .step:hover p {
+  color: var(--silver-hi);
 }
 @media (max-width: 640px) {
   .step {
