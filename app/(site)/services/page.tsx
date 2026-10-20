@@ -84,16 +84,11 @@ export default function ServicesPage() {
       </PageHero>
 
       <section className="section" aria-labelledby="consult-title">
-        <div className="container split" style={{ alignItems: "start" }}>
-          <div>
-            <SectionHead eyebrow="Purchase & leasing consultation" title="What your consultation includes" id="consult-title">
-              About 45 minutes, in person at the dealership, by phone or by video. No obligation and no pressure.
-            </SectionHead>
-            <Link href="/book" className="btn btn-gold reveal">
-              Book a Consultation <ArrowRight />
-            </Link>
-          </div>
-          <ul className="check-list boxed reveal">
+        <div className="container">
+          <SectionHead eyebrow="Purchase & leasing consultation" title="What your consultation includes" id="consult-title">
+            About 45 minutes, in person at the dealership, by phone or by video. No obligation and no pressure.
+          </SectionHead>
+          <ul className="check-list boxed grid-3 reveal">
             {includes.map((t) => (
               <li key={t} className="gold-hover">
                 <Check />
@@ -101,6 +96,11 @@ export default function ServicesPage() {
               </li>
             ))}
           </ul>
+          <div className="actions reveal" style={{ marginTop: 40 }}>
+            <Link href="/book" className="btn btn-gold">
+              Book a Consultation <ArrowRight />
+            </Link>
+          </div>
         </div>
       </section>
 
