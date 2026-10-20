@@ -797,16 +797,19 @@ html:not(.js) .hero-logo-video {
 .step p {
   margin-top: 10px;
 }
-/* Boxed steps (homepage "Your consultation"): each step is a card that lights up on hover. */
-.steps.boxed {
+/* Boxed lists: each item is a card that fills with a soft gold wash on hover. Used by the
+   homepage "Your consultation" steps and the Services "What your consultation includes" list. */
+.steps.boxed,
+.check-list.boxed {
   gap: 16px;
+}
+.steps.boxed {
   border-top: 0;
 }
-.steps.boxed .step {
+.steps.boxed .step,
+.check-list.boxed li {
   position: relative;
   isolation: isolate;
-  grid-template-columns: 64px minmax(0, 1fr);
-  padding: 28px;
   background: var(--surface);
   border: 1px solid var(--line-soft);
   border-radius: var(--radius);
@@ -814,8 +817,16 @@ html:not(.js) .hero-logo-video {
     border-color 250ms var(--ease),
     box-shadow 250ms var(--ease);
 }
+.steps.boxed .step {
+  grid-template-columns: 64px minmax(0, 1fr);
+  padding: 28px;
+}
+.check-list.boxed li {
+  padding: 20px 24px;
+}
 /* Soft gold wash behind the text; a layer so it can fade (gradients can't transition). */
-.steps.boxed .step::before {
+.steps.boxed .step::before,
+.check-list.boxed li::before {
   content: "";
   position: absolute;
   inset: 0;
@@ -824,21 +835,27 @@ html:not(.js) .hero-logo-video {
   opacity: 0;
   transition: opacity 250ms var(--ease);
 }
-.steps.boxed .step:hover {
+.steps.boxed .step:hover,
+.check-list.boxed li:hover {
   border-color: rgba(217, 174, 95, 0.55);
   box-shadow: 0 0 32px rgba(217, 174, 95, 0.1);
 }
-.steps.boxed .step:hover::before {
+.steps.boxed .step:hover::before,
+.check-list.boxed li:hover::before {
   opacity: 1;
 }
 .steps.boxed .step .n,
-.steps.boxed .step p {
+.steps.boxed .step p,
+.check-list.boxed li span,
+.check-list.boxed svg {
   transition: color 250ms var(--ease);
 }
-.steps.boxed .step:hover .n {
+.steps.boxed .step:hover .n,
+.check-list.boxed li:hover svg {
   color: var(--gold-hi);
 }
-.steps.boxed .step:hover p {
+.steps.boxed .step:hover p,
+.check-list.boxed li:hover span {
   color: var(--silver-hi);
 }
 @media (max-width: 640px) {
@@ -852,6 +869,9 @@ html:not(.js) .hero-logo-video {
   .steps.boxed .step {
     grid-template-columns: 48px minmax(0, 1fr);
     padding: 22px 20px;
+  }
+  .check-list.boxed li {
+    padding: 18px 20px;
   }
 }
 

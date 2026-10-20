@@ -54,16 +54,14 @@ export default function ServicesPage() {
               Book a Consultation <ArrowRight />
             </Link>
           </div>
-          <div className="card gold-top reveal">
-            <ul className="check-list">
-              {includes.map((t) => (
-                <li key={t}>
-                  <Check />
-                  <span>{t}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
+          <ul className="check-list boxed reveal">
+            {includes.map((t) => (
+              <li key={t}>
+                <Check />
+                <span>{t}</span>
+              </li>
+            ))}
+          </ul>
         </div>
       </section>
 
