@@ -9,6 +9,7 @@ import { TestimonialList } from "@/components/testimonials";
 import { fullName, site } from "@/config/site";
 import { store } from "@/lib/db";
 import heroPortrait from "@/public/images/mohsen-hero.webp";
+import whyPhoto from "@/public/images/why-clients-handshake.jpg";
 
 export const dynamic = "force-dynamic";
 
@@ -87,10 +88,22 @@ export default async function HomePage() {
 
       <section className="section" aria-labelledby="why-title">
         <div className="container">
-          <SectionHead eyebrow="Why clients come back" title="One specialist. Every detail." id="why-title" center>
-            The experience of buying a luxury car should feel like the car itself: refined, effortless and
-            completely transparent.
-          </SectionHead>
+          <div className="split why-intro">
+            <SectionHead eyebrow="Why clients come back" title="One specialist. Every detail." id="why-title">
+              The experience of buying a luxury car should feel like the car itself: refined, effortless and
+              completely transparent.
+            </SectionHead>
+            <div className="frame corners reveal why-photo">
+              <Image
+                src={whyPhoto}
+                alt="Mohsen shaking hands with a client as he hands her the key to her new Mercedes-Benz"
+                fill
+                sizes="(max-width: 960px) 100vw, 560px"
+                placeholder="blur"
+                style={{ objectFit: "cover" }}
+              />
+            </div>
+          </div>
           <div className="grid grid-3">
             {messages.map(({ Icon, title, text }) => (
               <article key={title} className="card gold-top hover reveal">

@@ -69,6 +69,8 @@ Hero (logo, slogan, CTA) → proof stats → key messages → services → testi
 
 Emoji icons · white page backgrounds · the Mercedes-Benz star · stretched or recolored logo · urgency wording ("last chance") · invisible focus states · placeholder-only labels.
 
+One exception, the owner's decision (2026-10-20), made knowing the star rule and the dealership/trademark risk: the homepage "Why clients come back" photo (`public/images/why-clients-handshake.jpg`) shows the star on the car's grille and hood. Don't treat that photo as license for others.
+
 ## Pre-delivery checklist
 
 - [ ] No emojis as icons (inline SVG, Lucide-style strokes)
