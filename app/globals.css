@@ -234,15 +234,21 @@ strong {
   margin-left: auto;
   margin-right: auto;
 }
-/* "Why clients come back": heading on the left, delivery photo on the right. */
-.why-intro {
+/* Section heading (and featured quote) on the left, a photo on the right; stacked below 960px. */
+.intro-split {
   margin-bottom: 56px;
 }
-.why-intro .section-head {
+.intro-split > .section-head {
   margin-bottom: 0;
 }
-.frame.why-photo {
+.intro-split .testimonial-feature {
+  text-align: left;
+}
+.frame.photo-3x2 {
   aspect-ratio: 3 / 2;
+}
+.frame.photo-6x5 {
+  aspect-ratio: 6 / 5;
 }
 
 .grid {

@@ -5,10 +5,11 @@ import { HeroLogo } from "@/components/hero-logo";
 import { ArrowRight, Award, Check, Clock, Handshake, Shield } from "@/components/icons";
 import { SectionHead } from "@/components/section-head";
 import { Stats } from "@/components/stats";
-import { TestimonialList } from "@/components/testimonials";
+import { TestimonialFeature, TestimonialGrid } from "@/components/testimonials";
 import { fullName, site } from "@/config/site";
 import { store } from "@/lib/db";
 import heroPortrait from "@/public/images/mohsen-hero.webp";
+import happyClient from "@/public/images/happy-client.webp";
 import whyPhoto from "@/public/images/why-clients-handshake.jpg";
 
 export const dynamic = "force-dynamic";
@@ -88,12 +89,12 @@ export default async function HomePage() {
 
       <section className="section" aria-labelledby="why-title">
         <div className="container">
-          <div className="split why-intro">
+          <div className="split intro-split">
             <SectionHead eyebrow="Why clients come back" title="One specialist. Every detail." id="why-title">
               The experience of buying a luxury car should feel like the car itself: refined, effortless and
               completely transparent.
             </SectionHead>
-            <div className="frame corners reveal why-photo">
+            <div className="frame corners reveal photo-3x2">
               <Image
                 src={whyPhoto}
                 alt="Mohsen shaking hands with a client as he hands her the key to her new Mercedes-Benz"
@@ -158,8 +159,23 @@ export default async function HomePage() {
       {testimonials.length ? (
         <section className="section" aria-labelledby="words-title">
           <div className="container">
-            <SectionHead eyebrow="In clients' words" title="Trusted by returning clients" id="words-title" center />
-            <TestimonialList items={testimonials.slice(0, 4)} />
+            <div className="split intro-split">
+              <div>
+                <SectionHead eyebrow="In clients' words" title="Trusted by returning clients" id="words-title" />
+                <TestimonialFeature item={testimonials[0]} />
+              </div>
+              <div className="frame corners reveal photo-6x5">
+                <Image
+                  src={happyClient}
+                  alt="A smiling couple holding up the key to their new car in the showroom"
+                  fill
+                  sizes="(max-width: 960px) 100vw, 560px"
+                  placeholder="blur"
+                  style={{ objectFit: "cover" }}
+                />
+              </div>
+            </div>
+            <TestimonialGrid items={testimonials.slice(1, 4)} />
             <div className="actions reveal" style={{ justifyContent: "center", marginTop: 56 }}>
               <Link href="/portfolio" className="btn btn-outline">
                 See deliveries and stories <ArrowRight />
