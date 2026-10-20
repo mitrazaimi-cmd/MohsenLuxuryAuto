@@ -797,6 +797,33 @@ html:not(.js) .hero-logo-video {
 .step p {
   margin-top: 10px;
 }
+/* Boxed steps (homepage "Your consultation"): each step is a card that lights up on hover. */
+.steps.boxed {
+  gap: 16px;
+  border-top: 0;
+}
+.steps.boxed .step {
+  grid-template-columns: 64px minmax(0, 1fr);
+  padding: 28px;
+  background: var(--surface);
+  border: 1px solid var(--line-soft);
+  border-radius: var(--radius);
+  transition:
+    border-color 250ms var(--ease),
+    background-color 250ms var(--ease),
+    box-shadow 250ms var(--ease);
+}
+.steps.boxed .step:hover {
+  border-color: var(--gold-soft);
+  background: var(--surface-2);
+  box-shadow: 0 0 32px rgba(217, 174, 95, 0.08);
+}
+.steps.boxed .step .n {
+  transition: color 250ms var(--ease);
+}
+.steps.boxed .step:hover .n {
+  color: var(--gold-hi);
+}
 @media (max-width: 640px) {
   .step {
     grid-template-columns: 48px minmax(0, 1fr);
@@ -804,6 +831,10 @@ html:not(.js) .hero-logo-video {
   }
   .step .n {
     font-size: 1.5rem;
+  }
+  .steps.boxed .step {
+    grid-template-columns: 48px minmax(0, 1fr);
+    padding: 22px 20px;
   }
 }
 
