@@ -128,12 +128,12 @@ export default function AboutPage() {
         <div className="container">
           <Stats />
           <div className="grid grid-2 reveal" style={{ marginTop: 48 }}>
-            <div className="card">
+            <div className="card gold-hover">
               <Award className="icon" />
               <h3 className="h3">Top salesperson</h3>
               <p>About 20 cars delivered every month, with the highest customer satisfaction and an outstanding CSI score.</p>
             </div>
-            <div className="card">
+            <div className="card gold-hover">
               <Globe className="icon" />
               <h3 className="h3">{site.person.languages.length} languages</h3>
               <p>English, Farsi and some Spanish, so every detail is clear.</p>
