@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { CtaBand } from "@/components/cta-band";
-import { Gallery } from "@/components/gallery";
 import { PageHero } from "@/components/page-hero";
 import { SectionHead } from "@/components/section-head";
 import { Stats } from "@/components/stats";
@@ -15,11 +14,8 @@ export const metadata: Metadata = {
   description: "Delivery days, client stories and reviews from Mohsen's Mercedes-Benz clients, 80 to 85 percent of whom come back.",
 };
 
-const placeholders = ["GLC", "GLE", "AMG", "EQ electric", "Maybach", "Certified Pre-Owned"];
-
 export default async function PortfolioPage() {
-  const [items, testimonials, stories] = await Promise.all([
-    store.listContent("portfolio_items", { publishedOnly: true }),
+  const [testimonials, stories] = await Promise.all([
     store.listContent("testimonials", { publishedOnly: true }),
     store.listContent("client_stories", { publishedOnly: true }),
   ]);
@@ -33,28 +29,6 @@ export default async function PortfolioPage() {
       <section className="section tight" aria-label="Track record">
         <div className="container">
           <Stats />
-        </div>
-      </section>
-
-      <section className="section" aria-labelledby="deliveries-title">
-        <div className="container">
-          <SectionHead eyebrow="Deliveries" title="Welcome to the family" id="deliveries-title" />
-          {items.length ? (
-            <Gallery items={items} />
-          ) : (
-            <div className="gallery" aria-label="Delivery photos coming soon">
-              {placeholders.map((m) => (
-                <figure key={m} className="reveal" style={{ margin: 0 }}>
-                  <div className="frame corners">
-                    <span className="frame-label">Delivery photos coming soon</span>
-                  </div>
-                  <figcaption style={{ marginTop: 12 }}>
-                    <b className="eyebrow" style={{ letterSpacing: "0.22em" }}>{m}</b>
-                  </figcaption>
-                </figure>
-              ))}
-            </div>
-          )}
         </div>
       </section>
 
