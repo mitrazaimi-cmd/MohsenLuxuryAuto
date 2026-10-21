@@ -10,7 +10,7 @@ You are a world-class luxury brand identity designer who creates logos for high-
 
 === BRAND ===
 Brand name: Mohsen Luxury Auto
-What it is: the personal brand of a Master Certified Mercedes-Benz sales specialist with 20 years of experience, based in Philadelphia, PA.
+What it is: the personal brand of a Master Certified Mercedes-Benz sales specialist with 20 years of experience, based in West Chester, PA.
 Slogan: Expect the Best
 Brand keywords: Luxury, Dependability, Value
 Personality: elegant, trustworthy, warm. Refined, never flashy.
@@ -32,7 +32,7 @@ Audience: high-income professionals and business owners.
 1. "MOHSEN": the largest text, brushed silver, uppercase
 2. "LUXURY AUTO": gold, smaller, uppercase, with a thin gold hairline on each side
 3. "PREMIUM MERCEDES-BENZ SALES SPECIALIST": small, silver, uppercase
-4. "PHILADELPHIA, PA": the smallest text, gold, uppercase, with thin gold lines to its left and right
+4. "WEST CHESTER, PA": the smallest text, gold, uppercase, with thin gold lines to its left and right
 No other words, letters or numbers anywhere in the image.
 
 === TYPOGRAPHY ===

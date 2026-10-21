@@ -74,7 +74,7 @@ Hero (logo, slogan, CTA) → proof stats → key messages → services → testi
 
 Emoji icons · white page backgrounds · the Mercedes-Benz star · stretched or recolored logo · urgency wording ("last chance") · invisible focus states · placeholder-only labels.
 
-Exceptions, the owner's decision (2026-10-20), made knowing the star rule and the dealership/trademark risk: three photos show the star: on a car's grille behind Mohsen in the homepage "Why clients come back" photo (`public/images/why-clients-handshake.jpg`) and the Services consultation photo (`public/images/consultation.webp`), and on the steering wheel in the homepage "Your consultation" test-drive photo (`public/images/test-drive.webp`). Don't treat them as license for other images.
+Exceptions, the owner's decision (2026-10-20), made knowing the star rule and the dealership/trademark risk: three photos show the star: on a car's grille behind Mohsen in the homepage "Why clients come back" photo (`public/images/why-clients-handshake.jpg`) and the Services consultation photo (`public/images/consultation.webp`), and on the steering wheel in the homepage "Your consultation" test-drive photo (`public/images/test-drive.webp`). The About portrait (`public/images/mohsen-portrait.webp`) also shows the star and a Mercedes-Benz sign; the owner chose on 2026-10-21 to keep it for now. Don't treat any of them as license for other images.
 
 ## Pre-delivery checklist
 
