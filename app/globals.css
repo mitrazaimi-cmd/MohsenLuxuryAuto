@@ -1028,6 +1028,7 @@ html:not(.js) .hero-logo-video {
   color: var(--silver-hi);
 }
 .gold-hover:hover .n,
+.gold-hover:hover .num,
 .gold-hover:hover .eyebrow,
 .gold-hover:hover svg {
   color: var(--gold-hi);

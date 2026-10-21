@@ -74,7 +74,7 @@ export default async function HomePage() {
                 <Link href="/book" className="btn btn-gold">
                   Book a Consultation <ArrowRight />
                 </Link>
-                <Link href="/services" className="btn btn-outline">
+                <Link href="/services" className="btn btn-gold">
                   How it works
                 </Link>
               </div>
@@ -158,7 +158,7 @@ export default async function HomePage() {
             ))}
           </ul>
           <div className="actions reveal" style={{ justifyContent: "center", marginTop: 36 }}>
-            <Link href="/services" className="btn btn-outline">
+            <Link href="/services" className="btn btn-gold">
               Explore services <ArrowRight />
             </Link>
           </div>
@@ -186,7 +186,7 @@ export default async function HomePage() {
             </div>
             <TestimonialGrid items={testimonials.slice(1, 4)} />
             <div className="actions reveal" style={{ justifyContent: "center", marginTop: 56 }}>
-              <Link href="/portfolio" className="btn btn-outline">
+              <Link href="/portfolio" className="btn btn-gold">
                 Read client reviews <ArrowRight />
               </Link>
             </div>

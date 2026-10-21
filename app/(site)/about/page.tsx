@@ -148,9 +148,9 @@ export default function AboutPage() {
             To put customer satisfaction first by taking the time to show every client each car patiently, advising
             them on what truly fits their needs, and following up on every sale.
           </SectionHead>
-          <div className="grid grid-3">
+          <div className="grid grid-3 reveal">
             {values.map((v) => (
-              <article key={v.title} className="card gold-top reveal">
+              <article key={v.title} className="card gold-hover">
                 <span className="num">{v.n}</span>
                 <h3 className="h3">{v.title}</h3>
                 <p>{v.text}</p>
