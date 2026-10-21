@@ -49,8 +49,8 @@ Balance: about 70% black, 22% silver, 8% gold. Never large gold areas or long go
 
 ## Components
 
-- **Primary button:** gold background, black text, uppercase Montserrat 600, letter spacing 0.18em, 2px radius, min height 48px; hover lighter gold; visible focus ring (2px gold outline, 3px offset).
-- **Secondary button:** transparent, 1px gold border, gold text.
+- **Primary button:** 3D gold (the owner asked for raised, not flat, buttons on 2026-10-20): a metallic gold gradient lit from above with a bright top edge, a 3px bronze lip below, a soft shadow and a warm gold glow; black text, uppercase Montserrat 600, letter spacing 0.18em, 2px radius, min height 48px. Hover lifts it 1px with a stronger glow; pressing sinks it onto its lip. Visible focus ring (2px gold outline, 3px offset).
+- **Secondary button:** the same 3D treatment in dark: near-black gradient face, gold border and text, a soft gold lip below.
 - **Card:** surface background, 1px line border, optional 1px gold top hairline; hover: border turns gold-soft (no layout shift).
 - **Input:** surface-2 background, 1px line border, 16px text, visible label above, error text below the field in `--danger`.
 - **Section header:** gold eyebrow, Cinzel title, short 48px gold hairline.
