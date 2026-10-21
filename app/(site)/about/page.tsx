@@ -19,17 +19,17 @@ const career = [
   {
     role: "Master Certified Sales & Leasing Consultant",
     place: "Mercedes-Benz of West Chester",
-    text: "Guiding clients through some of their most significant purchase decisions with a consultative, relationship-first approach, consistently exceeding sales targets in a fully commission-based, performance-driven environment.",
+    text: "One point of contact for about 20 clients a month, with an outstanding customer-satisfaction (CSI) record.",
   },
   {
     role: "General Manager / Sales Manager",
     place: "Lancaster County Motor",
-    text: "An insider's understanding of dealership operations: pricing, inventory, staffing, and client relationships.",
+    text: "An insider's understanding of dealership operations, now working in his clients' favor.",
   },
   {
     role: "Registered Representative (Series 6 & 63)",
     place: "Prudential Financial",
-    text: "A disciplined, analytical foundation built on strict compliance standards.",
+    text: "A foundation of clear numbers, honest advice, and strict standards.",
   },
 ];
 
@@ -43,8 +43,11 @@ export default function AboutPage() {
   return (
     <>
       <PageHero eyebrow="About me" title={fullName()}>
-        Master Certified Sales &amp; Leasing Consultant at Mercedes-Benz of West Chester, with 20 years of
-        experience in luxury automotive sales and dealership management.
+        Mohsen Mohimani is a Master Certified Sales &amp; Leasing Consultant at Mercedes-Benz of West Chester, with
+        20 years in luxury automotive sales. Clients don&apos;t just buy from Mohsen — they come back to him, year after
+        year, because one person they trust handles everything: honest numbers, every cost disclosed up front, and a
+        relationship that continues long after delivery day. It&apos;s why 80 to 85 percent of his clients return for
+        their next Mercedes-Benz.
       </PageHero>
 
       <section className="section" aria-labelledby="story-title">
@@ -64,17 +67,12 @@ export default function AboutPage() {
             <SectionHead eyebrow="My story" title="A relationship-first approach" id="story-title" />
             <div className="reveal" style={{ display: "grid", gap: 18 }}>
               <p className="lede">
-                Mohsen Mohimani is a Master Certified Sales &amp; Leasing Consultant at Mercedes-Benz of West Chester,
-                bringing 20 years of experience in luxury automotive sales and dealership management. Known for a
-                consultative, relationship-first approach, he guides clients through some of their most significant
-                purchase decisions, consistently exceeding sales targets in a fully commission-based,
-                performance-driven environment.
-              </p>
-              <p>
-                Previously General Manager / Sales Manager at Lancaster County Motor, Mohsen brings an insider&apos;s
-                understanding of dealership operations: pricing, inventory, staffing, and client relationships. His
-                earlier career as a Registered Representative (Series 6 &amp; 63) at Prudential Financial gave him a
-                disciplined, analytical foundation built on strict compliance standards.
+                Before Mercedes-Benz, Mohsen ran dealerships from the inside — as General Manager and Sales Manager at
+                Lancaster County Motor, he learned how pricing, inventory, and deals really work. Today he puts that
+                insider&apos;s knowledge on his clients&apos; side of the table. Earlier still, as a Registered
+                Representative (Series 6 &amp; 63) at Prudential Financial, he built the disciplined, analytical approach
+                behind how he presents every purchase, lease, and finance option: clearly, patiently, and with nothing
+                hidden.
               </p>
               <p>
                 His philosophy: <span className="gold" style={{ fontFamily: "var(--font-serif)", letterSpacing: "0.12em" }}>EXPECT THE BEST</span>.
@@ -131,7 +129,7 @@ export default function AboutPage() {
             <div className="card gold-hover">
               <Award className="icon" />
               <h3 className="h3">Top salesperson</h3>
-              <p>About 20 cars delivered every month, with the highest customer satisfaction and an outstanding CSI score.</p>
+              <p>20+ cars delivered every month, with the highest customer satisfaction and an outstanding CSI score.</p>
             </div>
             <div className="card gold-hover">
               <Globe className="icon" />

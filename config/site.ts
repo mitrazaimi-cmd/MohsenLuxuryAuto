@@ -6,7 +6,7 @@ export const site = {
   name: "Mohsen Luxury Auto",
   slogan: "Expect the Best",
   descriptor: "Premium Mercedes-Benz Sales Specialist",
-  location: "Philadelphia, PA",
+  location: "West Chester, PA",
   timezone: "America/New_York",
 
   person: {
@@ -34,7 +34,7 @@ export const site = {
 
   stats: [
     { value: "20", unit: "yrs", label: "In luxury automotive sales" },
-    { value: "~20", unit: "", label: "Cars delivered every month" },
+    { value: "20+", unit: "", label: "Cars delivered every month" },
     { value: "80–85", unit: "%", label: "Of clients come back to buy again" },
     { value: "Master", unit: "", label: "Certified sales specialist" },
   ],

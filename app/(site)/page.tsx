@@ -48,7 +48,7 @@ export default async function HomePage() {
       <section className="hero" aria-labelledby="hero-title">
         <div className="container">
           <h1 id="hero-title" className="sr-only">
-            Mohsen Luxury Auto: Premium Mercedes-Benz Sales Specialist in Philadelphia, PA
+            Mohsen Luxury Auto: Premium Mercedes-Benz Sales Specialist in West Chester, PA
           </h1>
           <HeroLogo />
           <div className="hero-intro">

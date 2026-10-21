@@ -8,7 +8,7 @@ Mohsen Luxury Auto is the personal brand of a Master Certified Mercedes-Benz sal
 
 ### Brand Story
 
-Mohsen has loved cars since childhood. The first time he sat behind the wheel of an S-Class, he knew he wanted to give that experience to others. Twenty years later, he is a Master Certified Mercedes-Benz sales specialist at the Westchester branch.
+Mohsen has loved cars since childhood. The first time he sat behind the wheel of an S-Class, he knew he wanted to give that experience to others. Twenty years later, he is a Master Certified Mercedes-Benz sales specialist at Mercedes-Benz of West Chester.
 
 - Top salesperson, averaging 20 cars per month
 - Highest customer satisfaction and an outstanding CSI score
@@ -74,7 +74,7 @@ When a client is comparing with BMW, the message is the driving experience: a Me
 | --- | --- |
 | Slogan | Expect the Best |
 | Descriptor (next to the logo) | Premium Mercedes-Benz Sales Specialist |
-| Location line | Philadelphia, PA |
+| Location line | West Chester, PA |
 | Brand keywords | Luxury, Dependability, Value |
 
 ## Verbal Identity
@@ -183,7 +183,6 @@ Every delivery ends with a photo of the client and their new car, shot in the br
 
 ## Open Items
 
-- [ ] Location: is Westchester the West Chester, PA branch, matching the Philadelphia, PA location line?
 - [ ] Logo: get the source file (vector or transparent PNG), plus the light and one-color versions
 - [ ] One client story for the About section
 - [ ] Dealership rules on advertising prices, discounts and official Mercedes-Benz photos
