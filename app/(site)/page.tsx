@@ -187,7 +187,7 @@ export default async function HomePage() {
             <TestimonialGrid items={testimonials.slice(1, 4)} />
             <div className="actions reveal" style={{ justifyContent: "center", marginTop: 56 }}>
               <Link href="/portfolio" className="btn btn-outline">
-                See deliveries and stories <ArrowRight />
+                Read client reviews <ArrowRight />
               </Link>
             </div>
           </div>
