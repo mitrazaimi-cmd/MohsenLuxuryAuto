@@ -38,9 +38,11 @@ Balance: about 70% black, 22% silver, 8% gold. Never large gold areas or long go
 
 ## Typography
 
-- Headings: **Cinzel** 400–600, uppercase, letter spacing 0.06–0.12em
+- Headings: **Cinzel** 400–700, uppercase, letter spacing 0.06–0.12em
 - Body: **Montserrat** 300–500, 16px base on the web, line height 1.6–1.7
 - Eyebrow / caption: Montserrat 500, 11–12px, uppercase, letter spacing 0.28em, gold
+- **Gold title** (the owner's name for it, «عنوان طلایی»): an eyebrow promoted to Cinzel 700, 16–19px, letter spacing 0.2em, gold: `.eyebrow.gold-title`, or `<SectionHead goldTitle>`. Used for the homepage eyebrows ("Why clients come back", "Your consultation", "In clients' words", "Comparing to other luxury cars?") and the "Expect the Best" eyebrow of the closing CTA band on every page. The hero slogan "Expect the Best" is gold Cinzel 700 as well.
+- Footer column headings ("Explore", "Get in touch"): Montserrat 700, gold, underlined.
 - Load with `next/font/google` (no layout shift)
 
 ## Spacing (spacious)
@@ -56,7 +58,7 @@ Balance: about 70% black, 22% silver, 8% gold. Never large gold areas or long go
 - **Section header:** gold eyebrow, Cinzel title, short 48px gold hairline.
 - **Centered heading** (the owner's name for it, «عنوان وسط»): the section header with its eyebrow, title, hairline and intro centered on the page, via `<SectionHead center>`. Used for About "Experience" and "Mission", Portfolio "Reviews", and homepage "Your consultation".
 - **Wide photo** (the owner's name for it, «عکس عریض»): a cinematic photo across the full container width, framed with gold corners, between a centered heading and the content below: `.frame.corners.photo-wide` (21:9, 16:9 on phones) with `sizes="(max-width: 1260px) 100vw, 1200px"`. Used for homepage "Your consultation", where `.check-list.inline` also puts the short check marks in one centered row.
-- **Gold boxes** (the owner's name for it): a list where each item is its own box that fills with a soft gold wash on hover, its border turns gold and its text and icons brighten. Usually laid out side by side. Markup: `.steps.boxed` (numbered) or `.check-list.boxed` (check marks) on the list, `.gold-hover` on each item, and `.grid-3` / `.grid-4` for the row (2 per row on tablets, 1 on phones). `.gold-hover` alone works on any box, such as a `.card`. Used for: homepage "Your consultation", Services "What your consultation includes" and "What to bring", About "Experience", the "Top salesperson" / "3 languages" cards and the Mission values (Integrity, Customer satisfaction, Best value). A `.card.gold-top` can't take `.gold-hover` (both use ::before), so drop `gold-top` on gold boxes.
+- **Gold boxes** (the owner's name for it): a list where each item is its own box that fills with a soft gold wash on hover, its border turns gold and its text and icons brighten. Usually laid out side by side. Markup: `.steps.boxed` (numbered) or `.check-list.boxed` (check marks) on the list, `.gold-hover` on each item, and `.grid-3` / `.grid-4` for the row (2 per row on tablets, 1 on phones). `.gold-hover` alone works on any box, such as a `.card`. Used for: the homepage stats (`<Stats boxed />`), "Why clients come back" cards and "Your consultation", Services "What your consultation includes" and "What to bring", About "Experience", the "Top salesperson" / "3 languages" cards the Mission values (Integrity, Customer satisfaction, Best value) and the Contact FAQ. A `.card.gold-top` can't take `.gold-hover` (both use ::before), so drop `gold-top` on gold boxes.
 - **Photo cards:** `.spec-card` (Services "Specialties"): a photo with the name at the bottom; the description opens on hover under the same gold wash, and always shows on touch screens.
 - **Heading beside a photo:** `.split.intro-split` with the section header and a `.frame.corners` photo (`.photo-3x2` or `.photo-6x5`); stacks below 960px.
 

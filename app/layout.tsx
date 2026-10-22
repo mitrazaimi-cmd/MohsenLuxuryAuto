@@ -3,10 +3,10 @@ import { Cinzel, Montserrat } from "next/font/google";
 import { site } from "@/config/site";
 import "./globals.css";
 
-const cinzel = Cinzel({ subsets: ["latin"], weight: ["400", "500", "600"], variable: "--font-cinzel", display: "swap" });
+const cinzel = Cinzel({ subsets: ["latin"], weight: ["400", "500", "600", "700"], variable: "--font-cinzel", display: "swap" });
 const montserrat = Montserrat({
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600"],
+  weight: ["300", "400", "500", "600", "700"],
   style: ["normal", "italic"],
   variable: "--font-montserrat",
   display: "swap",

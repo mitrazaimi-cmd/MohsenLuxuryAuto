@@ -166,6 +166,14 @@ h4 {
   text-transform: uppercase;
   color: var(--gold);
 }
+/* Gold title (the owner's name for it, «عنوان طلایی»): an eyebrow promoted to bold Cinzel. */
+.eyebrow.gold-title {
+  font-family: var(--font-serif);
+  font-size: clamp(1rem, 1.6vw, 1.2rem);
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  line-height: 1.4;
+}
 
 .lede {
   font-size: clamp(1.05rem, 1.6vw, 1.2rem);
@@ -625,9 +633,10 @@ html:not(.js) .hero-logo-video {
 .hero .slogan {
   margin-top: 28px;
   font-family: var(--font-serif);
-  font-size: clamp(1rem, 2vw, 1.3rem);
-  letter-spacing: 0.42em;
-  color: var(--silver-hi);
+  font-size: clamp(1.15rem, 2.4vw, 1.55rem);
+  font-weight: 700;
+  letter-spacing: 0.32em;
+  color: var(--gold);
   text-transform: uppercase;
 }
 .hero .rule {
@@ -784,6 +793,20 @@ html:not(.js) .hero-logo-video {
   .stat:nth-child(n + 3) {
     border-top: 1px solid var(--line-soft);
   }
+}
+/* Stats as gold boxes (homepage): each figure in its own box, paired with .gold-hover. */
+.stats.boxed {
+  gap: 16px;
+  border: 0;
+}
+.stats.boxed .stat {
+  background: var(--surface);
+  border: 1px solid var(--line-soft);
+  border-radius: var(--radius);
+}
+/* Same border as .gold-hover:hover, which the rule above outranks. */
+.stats.boxed .stat:hover {
+  border-color: rgba(217, 174, 95, 0.55);
 }
 
 /* ---------- cards ---------- */
@@ -1020,15 +1043,19 @@ html:not(.js) .hero-logo-video {
 }
 .gold-hover p,
 .gold-hover span,
-.gold-hover svg {
+.gold-hover svg,
+.gold-hover .l,
+.gold-hover small {
   transition: color 250ms var(--ease);
 }
 .gold-hover:hover p,
-.gold-hover:hover span {
+.gold-hover:hover span,
+.gold-hover:hover .l {
   color: var(--silver-hi);
 }
 .gold-hover:hover .n,
 .gold-hover:hover .num,
+.gold-hover:hover .v small,
 .gold-hover:hover .eyebrow,
 .gold-hover:hover svg {
   color: var(--gold-hi);
@@ -1237,7 +1264,10 @@ html:not(.js) .hero-logo-video {
   margin-bottom: 18px;
   color: var(--gold);
   font-family: var(--font-sans);
-  font-weight: 500;
+  font-weight: 700;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 8px;
 }
 .footer-grid ul {
   list-style: none;

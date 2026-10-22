@@ -1,10 +1,11 @@
 import { site } from "@/config/site";
 
-export function Stats() {
+/** `boxed` turns each figure into a gold box (homepage). */
+export function Stats({ boxed = false }: { boxed?: boolean }) {
   return (
-    <ul className="stats reveal" aria-label="Track record" style={{ listStyle: "none", margin: 0, padding: 0 }}>
+    <ul className={`stats${boxed ? " boxed" : ""} reveal`} aria-label="Track record" style={{ listStyle: "none", margin: 0, padding: 0 }}>
       {site.stats.map((s) => (
-        <li className="stat" key={s.label}>
+        <li className={boxed ? "stat gold-hover" : "stat"} key={s.label}>
           <div className="v">
             {s.value}
             {s.unit ? <small>{s.unit}</small> : null}

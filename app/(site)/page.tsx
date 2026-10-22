@@ -85,13 +85,13 @@ export default async function HomePage() {
       </section>
 
       <div className="container">
-        <Stats />
+        <Stats boxed />
       </div>
 
       <section className="section" aria-labelledby="why-title">
         <div className="container">
           <div className="split intro-split">
-            <SectionHead eyebrow="Why clients come back" title="One specialist. Every detail." id="why-title">
+            <SectionHead eyebrow="Why clients come back" title="One specialist. Every detail." id="why-title" goldTitle>
               The experience of buying a luxury car should feel like the car itself: refined, effortless and
               completely transparent.
             </SectionHead>
@@ -106,9 +106,9 @@ export default async function HomePage() {
               />
             </div>
           </div>
-          <div className="grid grid-3">
+          <div className="grid grid-3 reveal">
             {messages.map(({ Icon, title, text }) => (
-              <article key={title} className="card gold-top hover reveal">
+              <article key={title} className="card gold-hover">
                 <Icon className="icon" />
                 <h3 className="h3">{title}</h3>
                 <p>{text}</p>
@@ -125,7 +125,7 @@ export default async function HomePage() {
 
       <section className="section" aria-labelledby="how-title">
         <div className="container">
-          <SectionHead eyebrow="Your consultation" title="From first question to personal delivery" id="how-title" center>
+          <SectionHead eyebrow="Your consultation" title="From first question to personal delivery" id="how-title" center goldTitle>
             One relaxed consultation gives you a clear plan, with no obligation and nothing left unexplained.
           </SectionHead>
           <div className="frame corners reveal photo-wide">
@@ -170,7 +170,7 @@ export default async function HomePage() {
           <div className="container">
             <div className="split intro-split">
               <div>
-                <SectionHead eyebrow="In clients' words" title="Trusted by returning clients" id="words-title" />
+                <SectionHead eyebrow="In clients' words" title="Trusted by returning clients" id="words-title" goldTitle />
                 <TestimonialFeature item={testimonials[0]} />
               </div>
               <div className="frame corners reveal photo-6x5">
@@ -197,7 +197,7 @@ export default async function HomePage() {
       <section className="section tight" aria-labelledby="edge-title">
         <div className="container split">
           <div className="reveal">
-            <span className="eyebrow">Comparing with BMW?</span>
+            <span className="eyebrow gold-title">Comparing to other luxury cars?</span>
             <h2 id="edge-title" className="h2" style={{ marginTop: 16 }}>
               Feel the difference behind the wheel
             </h2>

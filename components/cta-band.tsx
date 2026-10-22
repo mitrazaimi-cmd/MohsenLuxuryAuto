@@ -13,7 +13,7 @@ export function CtaBand({
     <section className="cta-band" aria-labelledby="cta-title">
       <div className="container narrow reveal">
         <Swoosh />
-        <span className="eyebrow">Expect the Best</span>
+        <span className="eyebrow gold-title">Expect the Best</span>
         <h2 id="cta-title" className="h2" style={{ marginTop: 16 }}>
           {title}
         </h2>

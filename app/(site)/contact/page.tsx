@@ -116,9 +116,9 @@ export default function ContactPage() {
       <section className="section" aria-labelledby="faq-title">
         <div className="container">
           <SectionHead eyebrow="FAQ" title="Questions, answered" id="faq-title" center />
-          <div className="grid grid-2" style={{ gap: 24 }}>
+          <div className="grid grid-3 reveal" style={{ gap: 24 }}>
             {faqs.map((f) => (
-              <article key={f.q} className="card reveal">
+              <article key={f.q} className="card gold-hover">
                 <h3 className="h3" style={{ fontSize: "1.15rem" }}>{f.q}</h3>
                 <p style={{ marginTop: 10 }}>{f.a}</p>
               </article>
