@@ -5,20 +5,17 @@ export function SectionHead({
   title,
   children,
   center = false,
-  goldTitle = false,
   id,
 }: {
   eyebrow: string;
   title: string;
   children?: ReactNode;
   center?: boolean;
-  /** Show the eyebrow as a gold title: Cinzel, bold, larger. */
-  goldTitle?: boolean;
   id?: string;
 }) {
   return (
     <div className={`section-head reveal${center ? " center" : ""}`}>
-      <span className={goldTitle ? "eyebrow gold-title" : "eyebrow"}>{eyebrow}</span>
+      <span className="eyebrow gold-title">{eyebrow}</span>
       <h2 className="h2" id={id}>
         {title}
       </h2>

@@ -91,7 +91,7 @@ export default async function HomePage() {
       <section className="section" aria-labelledby="why-title">
         <div className="container">
           <div className="split intro-split">
-            <SectionHead eyebrow="Why clients come back" title="One specialist. Every detail." id="why-title" goldTitle>
+            <SectionHead eyebrow="Why clients come back" title="One specialist. Every detail." id="why-title">
               The experience of buying a luxury car should feel like the car itself: refined, effortless and
               completely transparent.
             </SectionHead>
@@ -125,7 +125,7 @@ export default async function HomePage() {
 
       <section className="section" aria-labelledby="how-title">
         <div className="container">
-          <SectionHead eyebrow="Your consultation" title="From first question to personal delivery" id="how-title" center goldTitle>
+          <SectionHead eyebrow="Your consultation" title="From first question to personal delivery" id="how-title" center>
             One relaxed consultation gives you a clear plan, with no obligation and nothing left unexplained.
           </SectionHead>
           <div className="frame corners reveal photo-wide">
@@ -170,7 +170,7 @@ export default async function HomePage() {
           <div className="container">
             <div className="split intro-split">
               <div>
-                <SectionHead eyebrow="In clients' words" title="Trusted by returning clients" id="words-title" goldTitle />
+                <SectionHead eyebrow="In clients' words" title="Trusted by returning clients" id="words-title" />
                 <TestimonialFeature item={testimonials[0]} />
               </div>
               <div className="frame corners reveal photo-6x5">

@@ -23,7 +23,7 @@ export default async function PortfolioPage() {
 
   return (
     <>
-      <PageHero eyebrow="Portfolio" title="Delivery days and the stories behind them">
+      <PageHero center eyebrow="Portfolio" title="Delivery days and the stories behind them">
         Every delivery ends with a photo of the client and their new car, shared with their permission.
       </PageHero>
 

@@ -42,7 +42,7 @@ const values = [
 export default function AboutPage() {
   return (
     <>
-      <PageHero eyebrow="About me" title={fullName()}>
+      <PageHero center eyebrow="About me" title={fullName()}>
         Mohsen Mohimani is a Master Certified Sales &amp; Leasing Consultant at Mercedes-Benz of West Chester, with
         20 years in luxury automotive sales. Clients don&apos;t just buy from Mohsen — they come back to him, year after
         year, because one person they trust handles everything: honest numbers, every cost disclosed up front, and a
@@ -75,7 +75,7 @@ export default function AboutPage() {
                 hidden.
               </p>
               <p>
-                His philosophy: <span className="gold" style={{ fontFamily: "var(--font-serif)", letterSpacing: "0.12em" }}>EXPECT THE BEST</span>.
+                His philosophy: <span className="gold" style={{ fontFamily: "var(--font-serif)", fontWeight: 700, letterSpacing: "0.12em" }}>EXPECT THE BEST</span>.
               </p>
               <p className="quote" style={{ fontSize: "1.1rem", marginTop: 12 }}>
                 “Mohsen always takes good care of us. He is always available, and everybody can easily get in touch

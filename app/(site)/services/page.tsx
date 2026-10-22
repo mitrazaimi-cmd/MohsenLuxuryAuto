@@ -80,7 +80,7 @@ const prepare = [
 export default function ServicesPage() {
   return (
     <>
-      <PageHero eyebrow="Services" title="One point of contact, from test drive to delivery">
+      <PageHero center eyebrow="Services" title="One point of contact, from test drive to delivery">
         Whether you buy, lease or finance, Mohsen handles everything: the first test drive, all the paperwork and
         personal delivery, and stays one call away afterwards.
       </PageHero>
@@ -145,7 +145,11 @@ export default function ServicesPage() {
             ))}
           </div>
           <div className="inline-cta reveal">
-            <p className="lede" style={{ flex: "1 1 320px" }}>Not sure which model fits? That is exactly what the consultation is for.</p>
+            <p className="lede" style={{ fontWeight: 600 }}>
+              Not sure which model fits?
+              <br />
+              That is exactly what the consultation is for.
+            </p>
             <Link href="/book" className="btn btn-gold">
               Book a Consultation <ArrowRight />
             </Link>

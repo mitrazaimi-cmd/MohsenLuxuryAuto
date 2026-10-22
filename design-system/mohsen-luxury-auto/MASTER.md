@@ -41,7 +41,7 @@ Balance: about 70% black, 22% silver, 8% gold. Never large gold areas or long go
 - Headings: **Cinzel** 400–700, uppercase, letter spacing 0.06–0.12em
 - Body: **Montserrat** 300–500, 16px base on the web, line height 1.6–1.7
 - Eyebrow / caption: Montserrat 500, 11–12px, uppercase, letter spacing 0.28em, gold
-- **Gold title** (the owner's name for it, «عنوان طلایی»): an eyebrow promoted to Cinzel 700, 16–19px, letter spacing 0.2em, gold: `.eyebrow.gold-title`, or `<SectionHead goldTitle>`. Used for the homepage eyebrows ("Why clients come back", "Your consultation", "In clients' words", "Comparing to other luxury cars?") and the "Expect the Best" eyebrow of the closing CTA band on every page. The hero slogan "Expect the Best" is gold Cinzel 700 as well.
+- **Gold title** (the owner's name for it, «عنوان طلایی»): an eyebrow promoted to Cinzel 700, 16–19px, letter spacing 0.2em, gold: `.eyebrow.gold-title`. Every `<SectionHead>` and `<PageHero>` eyebrow is one (2026-10-22), as are the homepage "Comparing to other luxury cars?" and the CTA band's "Expect the Best". The hero slogan "Expect the Best" is gold Cinzel 700 as well. `<PageHero center>` centers the hero (Services, Portfolio, About).
 - Footer column headings ("Explore", "Get in touch"): Montserrat 700, gold, underlined.
 - Load with `next/font/google` (no layout shift)
 

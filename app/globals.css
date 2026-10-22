@@ -652,7 +652,8 @@ html:not(.js) .hero-logo-video {
 }
 .hero-note {
   margin-top: 20px;
-  font-size: 0.82rem;
+  font-size: 0.92rem;
+  font-weight: 600;
   color: var(--muted);
   letter-spacing: 0.04em;
 }
@@ -721,6 +722,14 @@ html:not(.js) .hero-logo-video {
 .page-hero .lede {
   margin-top: 24px;
   max-width: 680px;
+}
+.page-hero.center {
+  text-align: center;
+}
+.page-hero.center .rule,
+.page-hero.center .lede {
+  margin-left: auto;
+  margin-right: auto;
 }
 .page-hero .swoosh {
   position: absolute;
