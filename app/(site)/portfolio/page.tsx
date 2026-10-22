@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { CtaBand } from "@/components/cta-band";
+import { Gallery } from "@/components/gallery";
 import { PageHero } from "@/components/page-hero";
 import { SectionHead } from "@/components/section-head";
-import { Stats } from "@/components/stats";
 import { TestimonialList } from "@/components/testimonials";
 import { store } from "@/lib/db";
 
@@ -15,9 +15,10 @@ export const metadata: Metadata = {
 };
 
 export default async function PortfolioPage() {
-  const [testimonials, stories] = await Promise.all([
+  const [testimonials, stories, items] = await Promise.all([
     store.listContent("testimonials", { publishedOnly: true }),
     store.listContent("client_stories", { publishedOnly: true }),
+    store.listContent("portfolio_items", { publishedOnly: true }),
   ]);
 
   return (
@@ -26,11 +27,14 @@ export default async function PortfolioPage() {
         Every delivery ends with a photo of the client and their new car, shared with their permission.
       </PageHero>
 
-      <section className="section tight" aria-label="Track record">
-        <div className="container">
-          <Stats />
-        </div>
-      </section>
+      {items.length ? (
+        <section className="section" aria-labelledby="deliveries-title">
+          <div className="container">
+            <SectionHead eyebrow="Deliveries" title="Recent delivery days" id="deliveries-title" />
+            <Gallery items={items} />
+          </div>
+        </section>
+      ) : null}
 
       {stories.length ? (
         <section className="section" aria-labelledby="stories-title">
