@@ -120,7 +120,7 @@ export default function ServicesPage() {
 
       <section className="section" aria-labelledby="spec-title">
         <div className="container">
-          <SectionHead eyebrow="Specialties" title="Every Mercedes-Benz, known in depth" id="spec-title" />
+          <SectionHead eyebrow="Specialties" title="Every Mercedes-Benz, known in depth" id="spec-title" center />
           {/* reveal sits on the grid: on a card its transition would override the card's hover transition. */}
           <div className="grid grid-3 reveal">
             {specialties.map(({ photo, alt, position, title, text }) => (

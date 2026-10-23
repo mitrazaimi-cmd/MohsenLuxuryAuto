@@ -47,7 +47,7 @@ Balance: about 70% black, 22% silver, 8% gold. Never large gold areas or long go
 
 ## Spacing (spacious)
 
-4 · 8 · 16 · 24 · 32 · 48 · 64 · 96 · 128 px. Section padding: 96px desktop, 64px mobile. Content max width: 1200px. Side gutter: 24px (mobile 20px).
+4 · 8 · 16 · 24 · 32 · 48 · 64 · 96 · 128 px. Section padding: 72px desktop, 64px tablet, 48px phone (tightened at the owner's request on 2026-10-22). Content max width: 1200px. Side gutter: 24px (mobile 20px).
 
 ## Components
 
