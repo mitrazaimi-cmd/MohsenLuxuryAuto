@@ -1862,16 +1862,54 @@ dialog.lightbox::backdrop {
 
 /* ---------- reveal motion ---------- */
 
-.js .reveal {
-  opacity: 0;
-  transform: translateY(12px);
-  transition:
-    opacity 400ms var(--ease),
-    transform 400ms var(--ease);
+/* Scroll reveal: .reveal elements rise and fade in as they enter the viewport
+   (components/reveal.tsx adds .in). Grids and lists bring their items in one after
+   another. These are animations, not transitions, so they never override an item's
+   own hover transitions, and the `backwards` fill hands the item back to its normal
+   styles once it has arrived. */
+@keyframes reveal-up {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
 }
-.js .reveal.in {
-  opacity: 1;
-  transform: none;
+@keyframes reveal-fade {
+  from {
+    opacity: 0;
+  }
+}
+.js .reveal:not(.in) {
+  opacity: 0;
+}
+.js .reveal.in,
+.js .reveal.in:is(.grid, .steps, .check-list, .stats) > * {
+  animation: reveal-up 850ms var(--ease) backwards;
+  animation-delay: calc(var(--i, 0) * 110ms);
+}
+.js .reveal.in:is(.grid, .steps, .check-list, .stats) {
+  animation: none;
+}
+:is(.grid, .steps, .check-list, .stats) > :nth-child(2) {
+  --i: 1;
+}
+:is(.grid, .steps, .check-list, .stats) > :nth-child(3) {
+  --i: 2;
+}
+:is(.grid, .steps, .check-list, .stats) > :nth-child(4) {
+  --i: 3;
+}
+:is(.grid, .steps, .check-list, .stats) > :nth-child(5) {
+  --i: 4;
+}
+:is(.grid, .steps, .check-list, .stats) > :nth-child(6) {
+  --i: 5;
+}
+:is(.grid, .steps, .check-list, .stats) > :nth-child(n + 7) {
+  --i: 6;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1885,9 +1923,11 @@ dialog.lightbox::backdrop {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
-  .js .reveal {
-    opacity: 1;
-    transform: none;
+  /* Content still appears as it scrolls in, but only fades: no movement. */
+  .js .reveal.in,
+  .js .reveal.in:is(.grid, .steps, .check-list, .stats) > * {
+    animation-name: reveal-fade;
+    animation-duration: 850ms !important;
   }
 }
 

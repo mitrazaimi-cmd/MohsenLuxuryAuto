@@ -3,8 +3,9 @@
 import { usePathname } from "next/navigation";
 import { useEffect } from "react";
 
-// Fades sections in as they enter the viewport. Content stays visible without JS
-// (the hidden state only applies under html.js) and under reduced motion.
+// Reveals sections as they enter the viewport (the motion is in globals.css: a rise and
+// fade, or a plain fade under reduced motion). Content stays visible without JS, since
+// the hidden state only applies under html.js.
 export function RevealObserver() {
   const pathname = usePathname();
   useEffect(() => {

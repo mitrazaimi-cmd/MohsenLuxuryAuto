@@ -64,7 +64,7 @@ Balance: about 70% black, 22% silver, 8% gold. Never large gold areas or long go
 
 ## Motion
 
-Fade-up 12px over 350ms, ease-out, on viewport enter. Under `prefers-reduced-motion: reduce`, show everything in its final state. Hover transitions 200ms. Nothing fast or flashy.
+Scroll reveal (the owner asked for a visible one on 2026-10-24): `.reveal` rises 28px and fades in over 850ms, ease-out, as it enters the viewport; grids and lists (`.grid`, `.steps`, `.check-list`, `.stats`) bring their items in one after another, 110ms apart. Under `prefers-reduced-motion: reduce` it only fades, with no movement, and every other animation and transition is cut to its final state. Hover transitions 200ms. Nothing fast or flashy.
 
 One exception, the owner's decision: the homepage hero's animated logo (`components/hero-logo.tsx`) plays for everyone, reduced motion included. It plays once, about 5 seconds, then holds on the still logo. Windows reports reduced motion whenever its animation effects are turned off, which hid the logo animation from many laptop visitors.
 
