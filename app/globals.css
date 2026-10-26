@@ -1877,11 +1877,6 @@ dialog.lightbox::backdrop {
     transform: none;
   }
 }
-@keyframes reveal-fade {
-  from {
-    opacity: 0;
-  }
-}
 .js .reveal:not(.in) {
   opacity: 0;
 }
@@ -1923,10 +1918,10 @@ dialog.lightbox::backdrop {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
-  /* Content still appears as it scrolls in, but only fades: no movement. */
+  /* The owner's decision (2026-10-25), like the hero logo: the scroll reveal plays for
+     everyone, since Windows reports reduced motion whenever its animation effects are off. */
   .js .reveal.in,
   .js .reveal.in:is(.grid, .steps, .check-list, .stats) > * {
-    animation-name: reveal-fade;
     animation-duration: 850ms !important;
   }
 }

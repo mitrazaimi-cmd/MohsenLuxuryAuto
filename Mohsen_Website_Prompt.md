@@ -63,12 +63,12 @@ You MUST use the ui-ux-pro-max skill for the design of this website. Do not writ
   1. Always available.
   2. A relationship that continues after delivery.
   3. Integrity: everything disclosed, no hidden costs.
-- Proof points: 20 years with Mercedes-Benz, Master Certified, 20+ cars sold per month, 80 to 85 percent repeat clients, highest customer satisfaction and an outstanding CSI score, speaks English, Farsi and some Spanish.
+- Proof points: 20 years with Mercedes-Benz, Master Certified, top salesperson, 80 to 85 percent repeat clients, highest customer satisfaction and an outstanding CSI score, speaks English, Farsi and some Spanish.
 
 # PAGES AND SECTIONS
 1. Home
    - Hero: full logo, "Expect the Best", one-line value promise, gold "Book a Consultation" button.
-   - Proof stats bar (20 years, 20+ cars a month, 80–85% repeat clients, Master Certified).
+   - Proof stats bar (20 years, 80–85% repeat clients, Master Certified).
    - The three key messages.
    - Services preview with a link to Services.
    - Featured testimonials and delivery photos with a link to Portfolio.

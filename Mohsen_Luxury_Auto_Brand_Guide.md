@@ -10,7 +10,7 @@ Mohsen Luxury Auto is the personal brand of a Master Certified Mercedes-Benz sal
 
 Mohsen has loved cars since childhood. The first time he sat behind the wheel of an S-Class, he knew he wanted to give that experience to others. Twenty years later, he is a Master Certified Mercedes-Benz sales specialist at Mercedes-Benz of West Chester.
 
-- Top salesperson, with 20+ cars per month
+- Top salesperson
 - Highest customer satisfaction and an outstanding CSI score
 - Master Certified
 - 80 to 85 percent of his clients come back to buy again
@@ -60,7 +60,6 @@ One point of contact who handles everything, from the first test drive to all th
 ### Proof Points
 
 - 20 years with Mercedes-Benz and Master Certified
-- 20+ cars sold per month
 - 80 to 85 percent repeat clients
 - What clients say: Mohsen always takes good care of us. He is always available, and everybody can easily get in touch with him.
 
