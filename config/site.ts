@@ -34,7 +34,6 @@ export const site = {
 
   stats: [
     { value: "20", unit: "yrs", label: "In luxury automotive sales" },
-    { value: "20+", unit: "", label: "Cars delivered every month" },
     { value: "80–85", unit: "%", label: "Of clients come back to buy again" },
     { value: "Master", unit: "", label: "Certified sales specialist" },
   ],

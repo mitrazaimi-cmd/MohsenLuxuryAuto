@@ -19,7 +19,7 @@ const career = [
   {
     role: "Master Certified Sales & Leasing Consultant",
     place: "Mercedes-Benz of West Chester",
-    text: "One point of contact for about 20 clients a month, with an outstanding customer-satisfaction (CSI) record.",
+    text: "One point of contact for every client, with an outstanding customer-satisfaction (CSI) record.",
   },
   {
     role: "General Manager / Sales Manager",
@@ -129,7 +129,7 @@ export default function AboutPage() {
             <div className="card gold-hover">
               <Award className="icon" />
               <h3 className="h3">Top salesperson</h3>
-              <p>20+ cars delivered every month, with the highest customer satisfaction and an outstanding CSI score.</p>
+              <p>The highest customer satisfaction and an outstanding CSI score.</p>
             </div>
             <div className="card gold-hover">
               <Globe className="icon" />
