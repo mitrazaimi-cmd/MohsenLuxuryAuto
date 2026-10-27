@@ -23,11 +23,18 @@ export interface KnowledgeResult {
 }
 
 export async function searchKnowledge(query: string, limit = 5): Promise<KnowledgeResult> {
-  const [embedding] = await embed([query], "query");
+  // If Voyage is down, fall back to keyword search rather than failing the answer.
+  const [embedding] = await embed([query], "query").catch((err) => {
+    console.error("[kb] query embedding failed:", err);
+    return [null];
+  });
   const candidates = await store.searchKb({ embedding, terms: searchTerms(query), limit: limit * 3 });
   if (!candidates.length) return { matches: [], unanswered: true };
 
-  const scores = await rerank(query, candidates.map((c) => `${c.heading}\n${c.content}`));
+  const scores = await rerank(query, candidates.map((c) => `${c.heading}\n${c.content}`)).catch((err) => {
+    console.error("[kb] rerank failed:", err);
+    return null;
+  });
   if (!scores) {
     return { matches: candidates.slice(0, limit).map((c) => ({ ...c, relevance: null })), unanswered: false };
   }

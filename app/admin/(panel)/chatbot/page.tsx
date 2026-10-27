@@ -2,7 +2,8 @@ import Link from "next/link";
 import { site } from "@/config/site";
 import { requireAdmin } from "@/lib/auth";
 import { store, type ChatConversation } from "@/lib/db";
-import { deployVersion, integrations } from "@/lib/env";
+import { integrations } from "@/lib/env";
+import { kbVersion } from "@/lib/kb/ingest";
 import { formatDateTime } from "@/lib/time";
 
 export const metadata = { title: "Chatbot" };
@@ -41,7 +42,7 @@ export default async function ChatbotOverviewPage() {
   const checklist = [
     { done: integrations.gemini, text: "Gemini API key (GEMINI_API_KEY) for the conversations" },
     { done: integrations.voyage, text: "Voyage AI key (VOYAGE_API_KEY) for meaning-based search; without it, keyword search only" },
-    { done: site_?.status === "ready" && site_.version === deployVersion(), text: "Website content synced to the knowledge base for this deploy" },
+    { done: site_?.status === "ready" && site_.version === kbVersion(), text: "Website content synced to the knowledge base for this deploy" },
     { done: sources.some((s) => s.kind !== "site"), text: "At least one PDF, text or Q&A of your own in Knowledge" },
     { done: Boolean(bot.telegramAdminChatId), text: "Telegram alerts linked (Widget & channels)" },
   ];

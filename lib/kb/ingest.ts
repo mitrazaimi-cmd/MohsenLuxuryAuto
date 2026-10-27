@@ -2,7 +2,7 @@ import "server-only";
 import { parse } from "node-html-parser";
 import { extractText, getDocumentProxy } from "unpdf";
 import { store, type KbKind, type KbSource } from "@/lib/db";
-import { deployVersion, siteUrl } from "@/lib/env";
+import { deployVersion, integrations, siteUrl } from "@/lib/env";
 import { chunkSections, hashText, normalize, sectionsFromText, type Section } from "./chunk";
 import { embed } from "./voyage";
 
@@ -18,13 +18,19 @@ async function indexSource(source: KbSource, sections: Section[]) {
       (await store.listKbChunks(source.id)).filter((c) => c.embedding).map((c) => [c.contentHash, c.embedding]),
     );
     const missing = chunks.filter((c) => !known.has(c.contentHash));
-    const vectors = await embed(missing.map((c) => embedText(c.heading, c.content)), "document");
+    // Without embeddings the chunks still work for keyword search, so a Voyage failure isn't fatal.
+    let warning = "";
+    const vectors = await embed(missing.map((c) => embedText(c.heading, c.content)), "document").catch((err) => {
+      console.error(`[kb] embedding "${source.title}" failed:`, err);
+      warning = "Indexed for keyword search only: Voyage AI didn't respond. Press Re-index to try again.";
+      return missing.map(() => null);
+    });
     missing.forEach((c, i) => known.set(c.contentHash, vectors[i]));
     await store.replaceKbChunks(
       source.id,
       chunks.map((c) => ({ ...c, embedding: known.get(c.contentHash) ?? null })),
     );
-    return await store.saveKbSource({ id: source.id, status: "ready", error: "" });
+    return await store.saveKbSource({ id: source.id, status: "ready", error: warning });
   } catch (err) {
     console.error(`[kb] indexing "${source.title}" failed:`, err);
     return await store.saveKbSource({ id: source.id, status: "error", error: String(err).slice(0, 500) });
@@ -141,20 +147,34 @@ export async function syncSite() {
   const done = await indexSource(source, sections);
   return store.saveKbSource({
     id: done.id,
-    version: deployVersion(),
+    version: kbVersion(),
     url: siteUrl(),
     error: failed.length ? `Skipped pages that failed to load: ${failed.join(", ")}` : done.error,
   });
 }
 
 /**
+ * What the website index was built from: the deploy, plus whether embeddings were
+ * on. Adding the Voyage key changes it, so the knowledge base re-indexes by itself.
+ */
+export function kbVersion() {
+  return `${deployVersion()}${integrations.voyage ? "+embeddings" : ""}`;
+}
+
+/**
  * Re-syncs the website after each deploy: called (inside after()) by the chat API
- * and the admin knowledge page; does nothing when the synced deploy is current.
+ * and the admin knowledge page; does nothing when the synced version is current.
  */
 export async function ensureSiteSynced() {
-  const source = (await store.listKbSources()).find((s) => s.kind === "site");
-  if (source?.version === deployVersion()) return;
+  const sources = await store.listKbSources();
+  const source = sources.find((s) => s.kind === "site");
+  if (source?.version === kbVersion()) return;
   // Another request is already syncing (a sync that hangs for 10 minutes is retried).
   if (source?.status === "processing" && Date.now() - Date.parse(source.updatedAt) < 10 * 60_000) return;
+  const embeddingsJustAdded = integrations.voyage && !source?.version.endsWith("+embeddings");
   await syncSite();
+  // Voyage was just connected: give PDFs, texts and Q&As their embeddings too.
+  if (embeddingsJustAdded) {
+    for (const s of sources.filter((x) => x.kind !== "site")) await reindexSource(s.id);
+  }
 }

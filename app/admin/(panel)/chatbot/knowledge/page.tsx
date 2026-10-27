@@ -4,8 +4,8 @@ import { PdfUploadForm, TextSourceForm } from "@/components/admin/chatbot-forms"
 import { site } from "@/config/site";
 import { requireAdmin } from "@/lib/auth";
 import { store, type KbKind } from "@/lib/db";
-import { deployVersion, integrations } from "@/lib/env";
-import { ensureSiteSynced } from "@/lib/kb/ingest";
+import { integrations } from "@/lib/env";
+import { ensureSiteSynced, kbVersion } from "@/lib/kb/ingest";
 import { searchKnowledge } from "@/lib/kb/search";
 import { formatDateTime } from "@/lib/time";
 
@@ -38,7 +38,7 @@ export default async function KnowledgePage({ searchParams }: { searchParams: Pr
             <p className="muted" style={{ fontSize: "0.88rem", marginTop: 6 }}>
               Every public page is added automatically after each deploy.{" "}
               {siteSource
-                ? `${siteSource.chunkCount} sections · ${siteSource.status === "processing" ? "syncing now" : `last synced ${formatDateTime(siteSource.updatedAt, site.timezone)}`}${siteSource.version === deployVersion() ? " (current deploy)" : " (a newer deploy is waiting)"}`
+                ? `${siteSource.chunkCount} sections · ${siteSource.status === "processing" ? "syncing now" : `last synced ${formatDateTime(siteSource.updatedAt, site.timezone)}`}${siteSource.version === kbVersion() ? " (up to date)" : " (an update is waiting)"}`
                 : "Not synced yet."}
             </p>
             {siteSource?.error ? <p className="error" style={{ marginTop: 6 }}>{siteSource.error}</p> : null}
