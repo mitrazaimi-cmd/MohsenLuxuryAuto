@@ -1167,7 +1167,7 @@ html:not(.js) .hero-logo-video {
   color: var(--muted);
 }
 /* Testimonials: words beside the client's photo, or centered like a letter,
-   in Cormorant Garamond italic (the owner's choice for client words). */
+   in Cormorant italic (the owner's choice for client words). */
 .testimonials {
   display: grid;
   gap: 72px;

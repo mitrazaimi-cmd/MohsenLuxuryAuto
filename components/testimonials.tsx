@@ -52,7 +52,7 @@ function Words({ item }: { item: Testimonial }) {
 
 /**
  * Client testimonials, one after another: beside their photo when they have one,
- * otherwise centered like a letter. Set in the elegant italic (Cormorant Garamond).
+ * otherwise centered like a letter. Set in the elegant italic (Cormorant).
  */
 export function Testimonials({ items }: { items: Testimonial[] }) {
   if (!items.length) return null;

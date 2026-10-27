@@ -43,7 +43,7 @@ Balance: about 70% black, 22% silver, 8% gold. Never large gold areas or long go
 - Eyebrow / caption: Montserrat 500, 11–12px, uppercase, letter spacing 0.28em, gold
 - **Gold title** (the owner's name for it, «عنوان طلایی»): an eyebrow promoted to Cinzel 700, 16–19px, letter spacing 0.2em, gold: `.eyebrow.gold-title`. Every `<SectionHead>` and `<PageHero>` eyebrow is one (2026-10-22), as are the homepage "Comparing to other luxury cars?" and the CTA band's "Expect the Best". The hero slogan "Expect the Best" is gold Cinzel 700 as well. `<PageHero center>` centers the hero (Services, Portfolio, About).
 - Footer column headings ("Explore", "Get in touch"): Montserrat 700, gold, underlined.
-- Client testimonials: **Cormorant Garamond** italic 400 (`--font-cormorant`), 21–25px, line height 1.55. The owner asked on 2026-10-27 for a more elegant face for clients' words; it is the only place the third font is used.
+- Client testimonials: **Cormorant** italic 400 (`--font-cormorant`), 21–25px, line height 1.55. The owner asked on 2026-10-27 for a more elegant face for clients' words; it is the only place the third font is used.
 - Load with `next/font/google` (no layout shift)
 
 ## Spacing (spacious)
