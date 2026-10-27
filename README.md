@@ -74,6 +74,17 @@ You need: a free Vercel account and a GitHub account.
 
 The live site needs Supabase (Stage 1). Vercel's file system is temporary, so local mode is for this computer only.
 
+### Stage 5: Chat assistant (Gemini, Voyage AI, Telegram)
+
+An AI assistant answers visitors' questions from a knowledge base, gently guides them to a consultation, collects their details and books it. It appears as a chat button on every page, as a full page at `/chat`, and on Telegram. Without a Gemini key it stays hidden.
+
+1. **Database:** run `supabase/migrations/0002_chatbot.sql` in the Supabase SQL editor (after `0001_init.sql`).
+2. **Gemini (the conversation):** at https://aistudio.google.com create an API key and put it in `GEMINI_API_KEY`. Pick the model in **Admin → Chatbot → Behavior** (Gemini 3.1 Pro by default, or 3.1 Flash-Lite for lower cost).
+3. **Voyage AI (search by meaning):** at https://www.voyageai.com create an API key and put it in `VOYAGE_API_KEY`. Without it the assistant searches by keywords only. After adding it, press **Re-index** on each source in **Knowledge**.
+4. **Telegram (optional):** in Telegram, message @BotFather, send `/newbot`, and copy the token into `TELEGRAM_BOT_TOKEN`; set `TELEGRAM_WEBHOOK_SECRET` to any long random string. Redeploy, then in **Admin → Chatbot → Widget & channels** press **Connect**, tick "Telegram bot", and use **Link my Telegram** so lead alerts reach Mohsen there too.
+
+The website's own pages are added to the knowledge base automatically after every deploy. Add PDFs, texts and Q&As in **Admin → Chatbot → Knowledge**.
+
 ## Admin panel (`/admin`)
 
 - **Bookings:** today, upcoming, past, cancelled; filter by model; change status (cancelling frees the time, removes the calendar event and can email the client); private notes.
@@ -82,6 +93,7 @@ The live site needs Supabase (Stage 1). Vercel's file system is temporary, so lo
 - **Portfolio photos / Testimonials / Client stories:** add, edit, order, hide/publish, with photo upload (under 4 MB).
 - **Emails:** every email sent (or previewed), plus buttons to run reminders and follow-ups now.
 - **Settings:** working hours, consultation length, break between consultations, booking window, minimum notice, days off, alert email.
+- **Chatbot:** results (conversations, leads, bookings, questions it couldn't answer, cost), every conversation with its transcript, the knowledge base (website sync, PDFs, texts, Q&As, test a question), behavior (persona, welcome message, suggested questions, rules, model, limits), widget and channels (button, /chat page, Telegram), and a playground to test changes safely.
 
 Mark a booking **No-show** to skip its follow-up email. Bookings still "Upcoming" after they end are treated as held: they get the follow-up and move to "Completed".
 
@@ -111,6 +123,8 @@ lib/calendar.ts      Google Calendar
 lib/slots.ts         availability rules
 lib/email/           brand email templates and sending
 lib/bookings.ts      booking lifecycle (confirm, reschedule, cancel, reminders, follow-ups)
+lib/chat/            chat assistant: Gemini, instructions, tools, Telegram
+lib/kb/              knowledge base: website/PDF/text ingestion, Voyage search
 supabase/migrations/ database schema
 design-system/       ui-ux-pro-max design system, aligned to the brand guide
 ```

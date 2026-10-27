@@ -13,7 +13,16 @@ export const integrations = {
       process.env.GOOGLE_CALENDAR_ID,
   ),
   resend: Boolean(process.env.RESEND_API_KEY && process.env.EMAIL_FROM),
+  // Chatbot: Gemini answers; Voyage adds meaning-based search (without it, keyword search only).
+  gemini: Boolean(process.env.GEMINI_API_KEY),
+  voyage: Boolean(process.env.VOYAGE_API_KEY),
+  telegram: Boolean(process.env.TELEGRAM_BOT_TOKEN && process.env.TELEGRAM_WEBHOOK_SECRET),
 };
+
+/** The deploy this server runs (git commit on Vercel). The website knowledge re-syncs when it changes. */
+export function deployVersion() {
+  return process.env.VERCEL_GIT_COMMIT_SHA || "local";
+}
 
 export function siteUrl() {
   return (process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000").replace(/\/$/, "");

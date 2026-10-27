@@ -53,6 +53,7 @@ Styling is plain CSS in `app/globals.css` (tokens on `:root`, no Tailwind). CSS 
 - **Supabase:** missing → data goes to `.data/db.json` and photo uploads to `.data/uploads/`, served by `app/api/media/[name]`.
 - **Google Calendar:** missing → only bookings made on the site block times.
 - **Resend:** missing → emails are written to `.data/outbox/` and viewed in Admin → Emails.
+- **Gemini / Voyage / Telegram (chatbot):** no `GEMINI_API_KEY` → the chat widget and `/chat` stay hidden; no `VOYAGE_API_KEY` → keyword-only knowledge search; no Telegram token → no bot.
 
 **Storage abstraction.** `lib/db/types.ts` defines the `Store` interface. `lib/db/local.ts` (JSON file, writes serialized through a promise chain) and `lib/db/supabase.ts` (service-role client) both implement it; `lib/db/index.ts` picks one.
 - **Keeping them in sync:** any data change must update both implementations and `supabase/migrations/`.
@@ -73,6 +74,13 @@ Styling is plain CSS in `app/globals.css` (tokens on `:root`, no Tailwind). CSS 
 - **Scheduled jobs:** reminders and follow-ups are cron routes (`app/api/cron/*`, bearer `CRON_SECRET`), scheduled once a day in `vercel.json` (the Vercel Hobby limit).
 - **No duplicates:** `reminderSentAt` and `followupSentAt` on each booking stop repeat sends.
 
+**Chatbot.** A sales assistant whose goal is booking a consultation, on three channels: the widget (`components/chat/chat-widget.tsx`, config fetched from `/api/chat/config` so pages stay static), `/chat`, and Telegram (`/api/telegram/webhook`).
+- **Model:** Google Gemini through the Interactions API (`@google/genai`, `ai.interactions.create`), chosen in Admin → Chatbot → Behavior (`lib/chat/gemini.ts`). The owner chose Gemini over Claude; don't switch providers.
+- **Stateless turns:** `lib/chat/agent.ts` runs `store: false` and resends the stored steps every turn. Steps (thoughts with their signatures, function calls and results) are kept verbatim in `chat_messages.steps`; never edit or drop them, or Gemini loses its reasoning.
+- **Tools:** `lib/chat/tools.ts` (search_knowledge, get_available_times, book_consultation, save_lead, notify_mohsen). Booking goes through `lib/bookings.ts#bookConsultation`, the same path as the booking form. The `playground` channel simulates bookings and alerts.
+- **Knowledge base:** `lib/kb/`. Sources are the website (re-crawled from the sitemap when `VERCEL_GIT_COMMIT_SHA` changes, via `ensureSiteSynced()` in `after()`), PDFs, texts and Q&As. Hybrid search: Voyage embeddings + full-text, fused by rank (`match_kb_chunks` in Supabase, `lib/db/search.ts` locally), then the Voyage reranker. The embedding size (1024) is fixed in `0002_chatbot.sql`.
+- **Instructions:** `lib/chat/prompt.ts` holds the brand rules (no prices, no pressure, reply in the visitor's language); Admin → Behavior adds to them.
+
 **Admin auth.** A single admin, using `ADMIN_EMAIL` + `ADMIN_PASSWORD` from the environment, and a jose-signed http-only cookie (`lib/auth.ts`). There is no Supabase Auth. Call `requireAdmin()` / `getAdmin()` in every admin page, server action and API route; the `(panel)` layout check alone is not enough.
 
 **Routes.**
@@ -85,10 +93,11 @@ Styling is plain CSS in `app/globals.css` (tokens on `:root`, no Tailwind). CSS 
 
 ## Setup and deployment
 
-`README.md` covers going live in four stages:
+`README.md` covers going live in five stages:
 1. Supabase: run `supabase/migrations/0001_init.sql`.
 2. Google Calendar: through a service account that Mohsen's calendar is shared with.
 3. Resend: needs a verified domain.
 4. Vercel: set the environment variables listed in `.env.example`.
+5. Chat assistant: run `0002_chatbot.sql`, add the Gemini and Voyage keys, optionally the Telegram bot.
 
 `.env.local` and `.data/` are gitignored. The live site needs Supabase, because Vercel's file system is temporary.

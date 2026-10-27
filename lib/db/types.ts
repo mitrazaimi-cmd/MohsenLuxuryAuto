@@ -12,10 +12,12 @@ export interface Contact {
   consentAt: string | null;
   unsubscribed: boolean;
   unsubscribeToken: string;
-  source: "booking" | "contact_form";
+  source: ContactSource;
   createdAt: string;
   updatedAt: string;
 }
+
+export type ContactSource = "booking" | "contact_form" | "chatbot" | "telegram";
 
 export interface Booking {
   id: string;
@@ -114,7 +116,9 @@ export type EmailType =
   | "followup"
   | "cancellation"
   | "reschedule"
-  | "contact_notification";
+  | "contact_notification"
+  | "chat_lead"
+  | "chat_handoff";
 
 export interface WorkingHours {
   start: string; // "09:00"
@@ -173,8 +177,160 @@ export interface ContactInput {
   email: string;
   phone: string;
   marketingOptIn: boolean;
-  source: Contact["source"];
+  source: ContactSource;
 }
+
+// ---------- chatbot ----------
+
+export type ChatChannel = "web" | "page" | "telegram" | "playground";
+export type ConversationStatus = "open" | "lead" | "booked" | "handoff";
+
+export interface ChatConversation {
+  id: string;
+  channel: ChatChannel;
+  /** The visitor's secret browser token, or the Telegram chat id. */
+  externalId: string;
+  status: ConversationStatus;
+  contactId: string | null;
+  bookingId: string | null;
+  visitorName: string;
+  visitorEmail: string;
+  visitorPhone: string;
+  pageUrl: string;
+  messageCount: number;
+  costUsd: number;
+  reviewed: boolean;
+  note: string;
+  notifiedAt: string | null;
+  createdAt: string;
+  lastMessageAt: string;
+}
+
+export interface ChatMessage {
+  id: string;
+  conversationId: string;
+  role: "user" | "assistant";
+  text: string;
+  /** Raw model steps (thoughts, tool calls and results) replayed as history on the next turn. */
+  steps: unknown[];
+  /** Tools used, knowledge sources cited, token usage, and whether the knowledge base had an answer. */
+  meta: ChatMessageMeta;
+  createdAt: string;
+}
+
+export interface ChatMessageMeta {
+  tools?: string[];
+  sources?: string[];
+  unanswered?: boolean;
+  inputTokens?: number;
+  outputTokens?: number;
+  costUsd?: number;
+  model?: string;
+}
+
+export type KbKind = "site" | "pdf" | "text" | "qa";
+
+export interface KbSource {
+  id: string;
+  kind: KbKind;
+  title: string;
+  url: string;
+  /** Full text for text and Q&A sources (PDF and site text lives only in the chunks). */
+  body: string;
+  status: "ready" | "processing" | "error";
+  error: string;
+  /** For the website source: the deploy (git commit) it was last synced from. */
+  version: string;
+  enabled: boolean;
+  chunkCount: number;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface KbChunk {
+  id: string;
+  sourceId: string;
+  heading: string;
+  content: string;
+  contentHash: string;
+  embedding: number[] | null;
+  createdAt: string;
+}
+
+export type NewKbChunk = Pick<KbChunk, "heading" | "content" | "contentHash" | "embedding">;
+
+export interface KbMatch {
+  chunkId: string;
+  sourceId: string;
+  sourceTitle: string;
+  sourceUrl: string;
+  heading: string;
+  content: string;
+  score: number;
+}
+
+export interface ChatbotSettings {
+  enabled: boolean;
+  widgetEnabled: boolean;
+  pageEnabled: boolean;
+  telegramEnabled: boolean;
+  assistantName: string;
+  welcomeMessage: string;
+  starterQuestions: string[];
+  launcherLabel: string;
+  widgetPosition: "right" | "left";
+  /** Seconds before the launcher shows a greeting bubble; 0 turns it off. */
+  greetingDelaySeconds: number;
+  /** Pages (path prefixes) where the widget stays hidden. */
+  hiddenPaths: string[];
+  tone: string;
+  instructions: string;
+  avoidTopics: string;
+  /** Answers given before the assistant suggests a consultation. */
+  suggestBookingAfter: number;
+  requirePhone: boolean;
+  handoffMessage: string;
+  model: string;
+  thinkingLevel: "low" | "medium" | "high";
+  maxReplyWords: number;
+  dailyMessageCap: number;
+  retentionDays: number;
+  telegramAdminChatId: string;
+  telegramLinkCode: string;
+}
+
+export const defaultChatbotSettings: ChatbotSettings = {
+  enabled: true,
+  widgetEnabled: true,
+  pageEnabled: true,
+  telegramEnabled: false,
+  assistantName: "Mohsen's Assistant",
+  welcomeMessage:
+    "Welcome. I'm Mohsen's assistant. Ask me anything about Mercedes-Benz models, leasing or financing, or how a consultation works.",
+  starterQuestions: [
+    "Which SUV fits a family of five?",
+    "Lease or finance: what's the difference?",
+    "How does a consultation work?",
+    "Can I book a test drive?",
+  ],
+  launcherLabel: "Ask a question",
+  widgetPosition: "right",
+  greetingDelaySeconds: 0,
+  hiddenPaths: [],
+  tone: "Warm, calm and refined, like a trusted personal advisor. Short paragraphs. Never pushy.",
+  instructions: "",
+  avoidTopics: "Exact prices, discounts or payment quotes; inventory promises; competitors' dealerships.",
+  suggestBookingAfter: 2,
+  requirePhone: true,
+  handoffMessage: "I've let Mohsen know. He'll reach out to you personally, usually the same day.",
+  model: "gemini-3.1-pro-preview",
+  thinkingLevel: "low",
+  maxReplyWords: 120,
+  dailyMessageCap: 500,
+  retentionDays: 365,
+  telegramAdminChatId: "",
+  telegramLinkCode: "",
+};
 
 /** The storage contract. Both the local file store and Supabase implement it. */
 export interface Store {
@@ -205,4 +361,26 @@ export interface Store {
   saveSettings(settings: Settings): Promise<void>;
 
   saveMedia(file: File): Promise<string>; // returns a public URL
+
+  createConversation(input: Pick<ChatConversation, "channel" | "externalId" | "pageUrl">): Promise<ChatConversation>;
+  getConversation(id: string): Promise<ChatConversation | null>;
+  findConversation(channel: ChatChannel, externalId: string): Promise<ChatConversation | null>;
+  updateConversation(id: string, patch: Partial<ChatConversation>): Promise<ChatConversation>;
+  listConversations(filter: { channel?: ChatChannel; status?: ConversationStatus; since?: string; limit?: number }): Promise<ChatConversation[]>;
+  deleteConversationsBefore(iso: string): Promise<number>;
+  addChatMessages(messages: Omit<ChatMessage, "id" | "createdAt">[]): Promise<void>;
+  listChatMessages(conversationId: string, opts?: { last?: number }): Promise<ChatMessage[]>;
+  listRecentUserMessages(since: string, limit: number): Promise<ChatMessage[]>;
+  countUserMessagesSince(iso: string): Promise<number>;
+
+  listKbSources(): Promise<KbSource[]>;
+  getKbSource(id: string): Promise<KbSource | null>;
+  saveKbSource(item: Partial<KbSource> & { id?: string }): Promise<KbSource>;
+  deleteKbSource(id: string): Promise<void>;
+  listKbChunks(sourceId: string): Promise<KbChunk[]>;
+  replaceKbChunks(sourceId: string, chunks: NewKbChunk[]): Promise<void>;
+  searchKb(query: { embedding: number[] | null; terms: string[]; limit: number }): Promise<KbMatch[]>;
+
+  getChatbotSettings(): Promise<ChatbotSettings>;
+  saveChatbotSettings(settings: ChatbotSettings): Promise<void>;
 }

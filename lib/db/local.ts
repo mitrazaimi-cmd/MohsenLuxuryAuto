@@ -2,19 +2,26 @@ import "server-only";
 import { mkdir, readFile, rename, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { newId, newToken } from "@/lib/tokens";
+import { fuseRanks } from "./search";
 import {
   type Booking,
   type BookingWithContact,
+  type ChatConversation,
+  type ChatMessage,
+  type ChatbotSettings,
   type ClientStory,
   type Contact,
   type ContactMessage,
   type ContentKind,
   type ContentMap,
   type EmailLog,
+  type KbChunk,
+  type KbSource,
   type PortfolioItem,
   type Settings,
   type Store,
   type Testimonial,
+  defaultChatbotSettings,
   defaultSettings,
   SlotTakenError,
 } from "./types";
@@ -35,6 +42,11 @@ interface Data {
   client_stories: ClientStory[];
   email_log: EmailLog[];
   settings: Settings;
+  chat_conversations: ChatConversation[];
+  chat_messages: ChatMessage[];
+  kb_sources: KbSource[];
+  kb_chunks: KbChunk[];
+  chatbot_settings: ChatbotSettings;
 }
 
 function seed(): Data {
@@ -60,6 +72,11 @@ function seed(): Data {
     client_stories: [],
     email_log: [],
     settings: defaultSettings,
+    chat_conversations: [],
+    chat_messages: [],
+    kb_sources: [],
+    kb_chunks: [],
+    chatbot_settings: defaultChatbotSettings,
   };
 }
 
@@ -70,6 +87,12 @@ async function load(): Promise<Data> {
     const raw = await readFile(DB_FILE, "utf8");
     const data = JSON.parse(raw) as Data;
     data.settings = { ...defaultSettings, ...data.settings };
+    // Files written before the chatbot existed lack its tables.
+    data.chat_conversations ??= [];
+    data.chat_messages ??= [];
+    data.kb_sources ??= [];
+    data.kb_chunks ??= [];
+    data.chatbot_settings = { ...defaultChatbotSettings, ...data.chatbot_settings };
     return data;
   } catch {
     const data = seed();
@@ -322,7 +345,226 @@ export const localStore: Store = {
     await writeFile(path.join(UPLOAD_DIR, name), Buffer.from(await file.arrayBuffer()));
     return `/api/media/${name}`;
   },
+
+  createConversation(input) {
+    return write((d) => {
+      const now = new Date().toISOString();
+      const c: ChatConversation = {
+        ...input,
+        id: newId(),
+        status: "open",
+        contactId: null,
+        bookingId: null,
+        visitorName: "",
+        visitorEmail: "",
+        visitorPhone: "",
+        messageCount: 0,
+        costUsd: 0,
+        reviewed: false,
+        note: "",
+        notifiedAt: null,
+        createdAt: now,
+        lastMessageAt: now,
+      };
+      d.chat_conversations.push(c);
+      return { ...c };
+    });
+  },
+
+  getConversation(id) {
+    return read((d) => d.chat_conversations.find((c) => c.id === id) ?? null);
+  },
+
+  findConversation(channel, externalId) {
+    return read(
+      (d) =>
+        d.chat_conversations
+          .filter((c) => c.channel === channel && c.externalId === externalId)
+          .toSorted((a, b) => b.lastMessageAt.localeCompare(a.lastMessageAt))[0] ?? null,
+    );
+  },
+
+  updateConversation(id, patch) {
+    return write((d) => {
+      const c = d.chat_conversations.find((x) => x.id === id);
+      if (!c) throw new Error("Conversation not found");
+      Object.assign(c, patch);
+      return { ...c };
+    });
+  },
+
+  listConversations({ channel, status, since, limit = 200 }) {
+    return read((d) =>
+      d.chat_conversations
+        .filter(
+          (c) =>
+            (!channel || c.channel === channel) && (!status || c.status === status) && (!since || c.lastMessageAt >= since),
+        )
+        .toSorted((a, b) => b.lastMessageAt.localeCompare(a.lastMessageAt))
+        .slice(0, limit),
+    );
+  },
+
+  deleteConversationsBefore(iso) {
+    return write((d) => {
+      const old = new Set(d.chat_conversations.filter((c) => c.lastMessageAt < iso).map((c) => c.id));
+      d.chat_conversations = d.chat_conversations.filter((c) => !old.has(c.id));
+      d.chat_messages = d.chat_messages.filter((m) => !old.has(m.conversationId));
+      return old.size;
+    });
+  },
+
+  addChatMessages(messages) {
+    return write((d) => {
+      const now = Date.now();
+      // Distinct timestamps keep the order stable when one turn stores several messages.
+      messages.forEach((m, i) =>
+        d.chat_messages.push({ ...m, id: newId(), createdAt: new Date(now + i).toISOString() }),
+      );
+    });
+  },
+
+  listChatMessages(conversationId, opts) {
+    return read((d) => {
+      const all = d.chat_messages
+        .filter((m) => m.conversationId === conversationId)
+        .toSorted((a, b) => a.createdAt.localeCompare(b.createdAt));
+      return opts?.last ? all.slice(-opts.last) : all;
+    });
+  },
+
+  listRecentUserMessages(since, limit) {
+    return read((d) =>
+      d.chat_messages
+        .filter((m) => m.role === "user" && m.createdAt >= since)
+        .toSorted((a, b) => b.createdAt.localeCompare(a.createdAt))
+        .slice(0, limit),
+    );
+  },
+
+  countUserMessagesSince(iso) {
+    return read((d) => d.chat_messages.filter((m) => m.role === "user" && m.createdAt >= iso).length);
+  },
+
+  listKbSources() {
+    return read((d) => d.kb_sources.toSorted((a, b) => b.createdAt.localeCompare(a.createdAt)));
+  },
+
+  getKbSource(id) {
+    return read((d) => d.kb_sources.find((x) => x.id === id) ?? null);
+  },
+
+  saveKbSource(item) {
+    return write((d) => {
+      const now = new Date().toISOString();
+      if (item.id) {
+        const existing = d.kb_sources.find((x) => x.id === item.id);
+        if (!existing) throw new Error("Source not found");
+        Object.assign(existing, item, { updatedAt: now });
+        return { ...existing };
+      }
+      const created: KbSource = {
+        kind: "text",
+        title: "",
+        url: "",
+        body: "",
+        status: "processing",
+        error: "",
+        version: "",
+        enabled: true,
+        chunkCount: 0,
+        ...item,
+        id: newId(),
+        createdAt: now,
+        updatedAt: now,
+      };
+      d.kb_sources.push(created);
+      return { ...created };
+    });
+  },
+
+  deleteKbSource(id) {
+    return write((d) => {
+      d.kb_sources = d.kb_sources.filter((x) => x.id !== id);
+      d.kb_chunks = d.kb_chunks.filter((c) => c.sourceId !== id);
+    });
+  },
+
+  listKbChunks(sourceId) {
+    return read((d) => d.kb_chunks.filter((c) => c.sourceId === sourceId));
+  },
+
+  replaceKbChunks(sourceId, chunks) {
+    return write((d) => {
+      const now = new Date().toISOString();
+      d.kb_chunks = d.kb_chunks.filter((c) => c.sourceId !== sourceId);
+      for (const c of chunks) d.kb_chunks.push({ ...c, id: newId(), sourceId, createdAt: now });
+      const src = d.kb_sources.find((x) => x.id === sourceId);
+      if (src) Object.assign(src, { chunkCount: chunks.length, updatedAt: now });
+    });
+  },
+
+  searchKb({ embedding, terms, limit }) {
+    return read((d) => {
+      const sources = new Map(d.kb_sources.filter((s) => s.enabled).map((s) => [s.id, s]));
+      const active = d.kb_chunks.filter((c) => sources.has(c.sourceId));
+      const semantic = embedding
+        ? active
+            .filter((c) => c.embedding)
+            .map((c) => ({ id: c.id, score: cosine(embedding, c.embedding!) }))
+            .toSorted((a, b) => b.score - a.score)
+            .slice(0, limit * 3)
+            .map((x) => x.id)
+        : [];
+      const keyword = terms.length
+        ? active
+            .map((c) => {
+              const hay = `${c.heading} ${c.content}`.toLowerCase();
+              return { id: c.id, score: terms.reduce((n, t) => n + (hay.includes(t) ? 1 : 0), 0) };
+            })
+            .filter((x) => x.score > 0)
+            .toSorted((a, b) => b.score - a.score)
+            .slice(0, limit * 3)
+            .map((x) => x.id)
+        : [];
+      return fuseRanks([semantic, keyword], limit).map(({ id, score }) => {
+        const c = active.find((x) => x.id === id)!;
+        const src = sources.get(c.sourceId)!;
+        return {
+          chunkId: c.id,
+          sourceId: c.sourceId,
+          sourceTitle: src.title,
+          sourceUrl: src.url,
+          heading: c.heading,
+          content: c.content,
+          score,
+        };
+      });
+    });
+  },
+
+  getChatbotSettings() {
+    return read((d) => d.chatbot_settings);
+  },
+
+  saveChatbotSettings(settings) {
+    return write((d) => {
+      d.chatbot_settings = settings;
+    });
+  },
 };
+
+function cosine(a: number[], b: number[]) {
+  let dot = 0;
+  let na = 0;
+  let nb = 0;
+  for (let i = 0; i < a.length; i++) {
+    dot += a[i] * b[i];
+    na += a[i] * a[i];
+    nb += b[i] * b[i];
+  }
+  return na && nb ? dot / Math.sqrt(na * nb) : 0;
+}
 
 export function mediaExtension(type: string) {
   const map: Record<string, string> = {

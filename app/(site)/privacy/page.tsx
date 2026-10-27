@@ -21,6 +21,14 @@ export default function PrivacyPage() {
             the details you choose to share, such as the model you are interested in, whether you have a trade-in,
             and any notes.
           </p>
+          <h2>The chat assistant</h2>
+          <p>
+            The chat assistant on this site and on Telegram is an AI. Your messages, and any details you share in the
+            chat, are saved so Mohsen can follow up and improve the answers. To reply, the assistant sends your
+            messages to Google&apos;s Gemini service, and uses Voyage AI to search Mohsen&apos;s own guidance. These
+            providers process the text only to produce the answer. Please don&apos;t share sensitive information such
+            as financial account numbers in the chat. Conversations are deleted automatically after a set period.
+          </p>
           <h2>How we use it</h2>
           <ul>
             <li>To schedule and prepare for your consultation, and to contact you about it.</li>
@@ -33,8 +41,8 @@ export default function PrivacyPage() {
           <h2>Who we share it with</h2>
           <p>
             We never sell your information. We use trusted service providers to run this site: hosting, a secure
-            database, a calendar service to schedule your consultation, and an email service to send your
-            confirmations. They process data only on our behalf.
+            database, a calendar service to schedule your consultation, an email service to send your
+            confirmations, and the AI services behind the chat assistant. They process data only on our behalf.
           </p>
           <h2>How long we keep it</h2>
           <p>We keep your details while we have a client relationship with you, or until you ask us to delete them.</p>

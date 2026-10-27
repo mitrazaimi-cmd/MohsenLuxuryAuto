@@ -2,7 +2,7 @@
 
 import { after } from "next/server";
 import { redirect } from "next/navigation";
-import { afterBookingCreated, cancelBooking, rescheduleBooking } from "@/lib/bookings";
+import { bookConsultation, cancelBooking, rescheduleBooking } from "@/lib/bookings";
 import { store, SlotTakenError } from "@/lib/db";
 import { notifyAddress, sendEmail } from "@/lib/email/send";
 import { contactNotificationEmail } from "@/lib/email/templates";
@@ -33,32 +33,15 @@ export async function createBookingAction(_prev: FormState, fd: FormData): Promi
   }
   const input = parsed.data;
 
-  if (!(await isSlotOpen(input.startAt))) return { errors: { startAt: SLOT_GONE }, message: SLOT_GONE, values };
-
   let manageToken: string;
   try {
-    const contact = await store.upsertContact({
-      name: input.name,
-      email: input.email,
-      phone: input.phone,
+    const { booking } = await bookConsultation({
+      ...input,
+      tradeIn: input.tradeIn === "yes",
       marketingOptIn: input.marketingOptIn === "on",
       source: "booking",
     });
-    const booking = await store.createBooking({
-      contactId: contact.id,
-      startAt: new Date(input.startAt).toISOString(),
-      endAt: await slotEnd(input.startAt),
-      modelInterest: input.modelInterest,
-      condition: input.condition,
-      purchaseType: input.purchaseType,
-      tradeIn: input.tradeIn === "yes",
-      meetingType: input.meetingType,
-      contactMethod: input.contactMethod,
-      notes: input.notes,
-    });
     manageToken = booking.manageToken;
-    // Calendar event + emails run after the response, so the client isn't kept waiting.
-    after(() => afterBookingCreated(booking.id));
   } catch (err) {
     if (err instanceof SlotTakenError) return { errors: { startAt: SLOT_GONE }, message: SLOT_GONE, values };
     console.error("[booking] failed:", err);

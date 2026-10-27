@@ -1,8 +1,9 @@
 import "server-only";
+import { after } from "next/server";
 import { site } from "@/config/site";
 import { integrations } from "@/lib/env";
 import { createEvent, deleteEvent, updateEvent } from "@/lib/calendar";
-import { store, type BookingWithContact } from "@/lib/db";
+import { store, SlotTakenError, type Booking, type BookingWithContact, type ContactSource } from "@/lib/db";
 import { notifyAddress, sendEmail } from "@/lib/email/send";
 import {
   cancellationEmail,
@@ -13,6 +14,7 @@ import {
   rescheduleEmail,
 } from "@/lib/email/templates";
 import { bookingIcs } from "@/lib/ics";
+import { isSlotOpen, slotEnd } from "@/lib/slots";
 import { addDays, dateKey, zonedToUtc } from "@/lib/time";
 
 const ics = (b: BookingWithContact, method?: "PUBLISH" | "CANCEL") => [
@@ -24,6 +26,53 @@ async function notifyMohsen(b: BookingWithContact, kind: "new" | "rescheduled" |
   if (!to) return;
   const mail = notificationEmail(b, kind);
   await sendEmail({ type: "booking_notification", to, ...mail, bookingId: b.id, contactId: b.contactId });
+}
+
+export interface ConsultationRequest {
+  name: string;
+  email: string;
+  phone: string;
+  startAt: string;
+  modelInterest: string;
+  condition: Booking["condition"];
+  purchaseType: Booking["purchaseType"];
+  tradeIn: boolean;
+  meetingType: Booking["meetingType"];
+  contactMethod: Booking["contactMethod"];
+  notes: string;
+  marketingOptIn: boolean;
+  source: ContactSource;
+}
+
+/**
+ * Books a consultation: re-checks the slot, stores the contact and booking, then
+ * puts it on the calendar and sends the emails after the response. Used by the
+ * booking form and the chatbot. Throws SlotTakenError when the time is gone.
+ */
+export async function bookConsultation(input: ConsultationRequest) {
+  if (!(await isSlotOpen(input.startAt))) throw new SlotTakenError();
+  const contact = await store.upsertContact({
+    name: input.name,
+    email: input.email,
+    phone: input.phone,
+    marketingOptIn: input.marketingOptIn,
+    source: input.source,
+  });
+  const booking = await store.createBooking({
+    contactId: contact.id,
+    startAt: new Date(input.startAt).toISOString(),
+    endAt: await slotEnd(input.startAt),
+    modelInterest: input.modelInterest,
+    condition: input.condition,
+    purchaseType: input.purchaseType,
+    tradeIn: input.tradeIn,
+    meetingType: input.meetingType,
+    contactMethod: input.contactMethod,
+    notes: input.notes,
+  });
+  // Calendar event + emails run after the response, so the client isn't kept waiting.
+  after(() => afterBookingCreated(booking.id));
+  return { contact, booking };
 }
 
 /** After a booking is stored: put it on Mohsen's calendar, then email both sides. */

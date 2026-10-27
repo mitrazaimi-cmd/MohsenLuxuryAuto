@@ -7,6 +7,7 @@ const LINKS = [
   { href: "/admin", label: "Bookings" },
   { href: "/admin/contacts", label: "Contacts" },
   { href: "/admin/messages", label: "Messages" },
+  { href: "/admin/chatbot", label: "Chatbot" },
   { href: "/admin/portfolio", label: "Portfolio photos" },
   { href: "/admin/testimonials", label: "Testimonials" },
   { href: "/admin/stories", label: "Client stories" },
@@ -19,7 +20,11 @@ export function AdminNav({ unread }: { unread: number }) {
   return (
     <nav aria-label="Admin">
       {LINKS.map((l) => (
-        <Link key={l.href} href={l.href} aria-current={pathname === l.href ? "page" : undefined}>
+        <Link
+          key={l.href}
+          href={l.href}
+          aria-current={pathname === l.href || (l.href !== "/admin" && pathname.startsWith(`${l.href}/`)) ? "page" : undefined}
+        >
           {l.label}
           {l.href === "/admin/messages" && unread ? <span className="badge" aria-label={`${unread} unread`}>{unread}</span> : null}
         </Link>

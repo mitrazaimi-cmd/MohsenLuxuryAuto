@@ -5,11 +5,18 @@ import { mediaExtension } from "./local";
 import {
   type Booking,
   type BookingWithContact,
+  type ChatConversation,
+  type ChatMessage,
+  type ChatbotSettings,
   type Contact,
   type ContentKind,
   type ContentMap,
+  type KbChunk,
+  type KbMatch,
+  type KbSource,
   type Settings,
   type Store,
+  defaultChatbotSettings,
   defaultSettings,
   SlotTakenError,
 } from "./types";
@@ -231,5 +238,153 @@ export const supabaseStore: Store = {
         .upload(name, Buffer.from(await file.arrayBuffer()), { contentType: file.type, upsert: false }),
     );
     return db().storage.from("media").getPublicUrl(name).data.publicUrl;
+  },
+
+  async createConversation(input) {
+    const row = check(await db().from("chat_conversations").insert(snake({ ...input })).select().single());
+    return camel<ChatConversation>(row);
+  },
+
+  async getConversation(id) {
+    const row = check(await db().from("chat_conversations").select("*").eq("id", id).maybeSingle());
+    return row ? camel<ChatConversation>(row) : null;
+  },
+
+  async findConversation(channel, externalId) {
+    const row = check(
+      await db()
+        .from("chat_conversations")
+        .select("*")
+        .eq("channel", channel)
+        .eq("external_id", externalId)
+        .order("last_message_at", { ascending: false })
+        .limit(1)
+        .maybeSingle(),
+    );
+    return row ? camel<ChatConversation>(row) : null;
+  },
+
+  async updateConversation(id, patch) {
+    const { id: _id, createdAt: _c, ...rest } = patch;
+    const row = check(await db().from("chat_conversations").update(snake(rest)).eq("id", id).select().single());
+    return camel<ChatConversation>(row);
+  },
+
+  async listConversations({ channel, status, since, limit = 200 }) {
+    let query = db().from("chat_conversations").select("*").order("last_message_at", { ascending: false }).limit(limit);
+    if (channel) query = query.eq("channel", channel);
+    if (status) query = query.eq("status", status);
+    if (since) query = query.gte("last_message_at", since);
+    return must(await query).map((r) => camel<ChatConversation>(r));
+  },
+
+  async deleteConversationsBefore(iso) {
+    // chat_messages rows go with them (on delete cascade).
+    const rows = must(await db().from("chat_conversations").delete().lt("last_message_at", iso).select("id"));
+    return rows.length;
+  },
+
+  async addChatMessages(messages) {
+    if (!messages.length) return;
+    const now = Date.now();
+    // Distinct timestamps keep the order stable when one turn stores several messages.
+    const rows = messages.map((m, i) => ({ ...snake({ ...m }), created_at: new Date(now + i).toISOString() }));
+    check(await db().from("chat_messages").insert(rows));
+  },
+
+  async listChatMessages(conversationId, opts) {
+    let query = db()
+      .from("chat_messages")
+      .select("*")
+      .eq("conversation_id", conversationId)
+      .order("created_at", { ascending: !opts?.last });
+    if (opts?.last) query = query.limit(opts.last);
+    const rows = must(await query).map((r) => camel<ChatMessage>(r));
+    return opts?.last ? rows.toReversed() : rows;
+  },
+
+  async listRecentUserMessages(since, limit) {
+    const rows = must(
+      await db()
+        .from("chat_messages")
+        .select("*")
+        .eq("role", "user")
+        .gte("created_at", since)
+        .order("created_at", { ascending: false })
+        .limit(limit),
+    );
+    return rows.map((r) => camel<ChatMessage>(r));
+  },
+
+  async countUserMessagesSince(iso) {
+    const res = await db()
+      .from("chat_messages")
+      .select("id", { count: "exact", head: true })
+      .eq("role", "user")
+      .gte("created_at", iso);
+    check(res);
+    return res.count ?? 0;
+  },
+
+  async listKbSources() {
+    const rows = must(await db().from("kb_sources").select("*").order("created_at", { ascending: false }));
+    return rows.map((r) => camel<KbSource>(r));
+  },
+
+  async getKbSource(id) {
+    const row = check(await db().from("kb_sources").select("*").eq("id", id).maybeSingle());
+    return row ? camel<KbSource>(row) : null;
+  },
+
+  async saveKbSource(item) {
+    const { id, createdAt: _c, updatedAt: _u, ...rest } = item;
+    const res = id
+      ? await db().from("kb_sources").update(snake(rest)).eq("id", id).select().single()
+      : await db().from("kb_sources").insert(snake(rest)).select().single();
+    return camel<KbSource>(must(res));
+  },
+
+  async deleteKbSource(id) {
+    check(await db().from("kb_sources").delete().eq("id", id)); // chunks cascade
+  },
+
+  async listKbChunks(sourceId) {
+    const rows = must(await db().from("kb_chunks").select("*").eq("source_id", sourceId));
+    return rows.map((r) => {
+      const c = camel<KbChunk & { embedding: unknown }>(r);
+      // pgvector values come back as the text "[0.1,0.2,...]".
+      return { ...c, embedding: typeof c.embedding === "string" ? (JSON.parse(c.embedding) as number[]) : null };
+    });
+  },
+
+  async replaceKbChunks(sourceId, chunks) {
+    check(await db().from("kb_chunks").delete().eq("source_id", sourceId));
+    for (let i = 0; i < chunks.length; i += 100) {
+      const rows = chunks.slice(i, i + 100).map((c) => ({ ...snake({ ...c }), source_id: sourceId }));
+      check(await db().from("kb_chunks").insert(rows));
+    }
+    check(await db().from("kb_sources").update({ chunk_count: chunks.length }).eq("id", sourceId));
+  },
+
+  async searchKb({ embedding, terms, limit }) {
+    const rows = must(
+      await db().rpc("match_kb_chunks", {
+        query_embedding: embedding ? JSON.stringify(embedding) : null,
+        query_terms: terms.join(" | "),
+        match_count: limit,
+      }),
+    ) as Record<string, unknown>[];
+    return rows.map((r) => camel<KbMatch>(r));
+  },
+
+  async getChatbotSettings() {
+    const row = check(await db().from("chatbot_settings").select("value").eq("id", 1).maybeSingle());
+    return { ...defaultChatbotSettings, ...((row?.value as Partial<ChatbotSettings>) ?? {}) };
+  },
+
+  async saveChatbotSettings(settings) {
+    check(
+      await db().from("chatbot_settings").upsert({ id: 1, value: settings, updated_at: new Date().toISOString() }),
+    );
   },
 };

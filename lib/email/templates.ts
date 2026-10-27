@@ -2,7 +2,7 @@ import "server-only";
 import { fullName, site } from "@/config/site";
 import { siteUrl } from "@/lib/env";
 import { bookingLabels, describeBooking } from "@/lib/calendar";
-import type { BookingWithContact, ContactMessage } from "@/lib/db";
+import type { BookingWithContact, ChatConversation, ContactMessage } from "@/lib/db";
 import { formatDate, formatTime } from "@/lib/time";
 
 // Table-based, inline-styled HTML so it renders in Gmail, Outlook and Apple Mail.
@@ -184,6 +184,32 @@ export function rescheduleEmail(b: BookingWithContact) {
       body: p("Here are the updated details. An updated calendar invite is attached.") + detailsTable(b),
       cta: { label: "Manage my booking", url: manageUrl(b) },
       unsubscribeToken: b.contact.unsubscribeToken,
+    }),
+  };
+}
+
+/** To Mohsen: the chatbot captured a lead, or a visitor asked to talk to him. */
+export function chatAlertEmail(
+  c: ChatConversation,
+  kind: "lead" | "handoff",
+  summary: string,
+) {
+  const who = c.visitorName || "A website visitor";
+  const details = [
+    c.visitorEmail && `<a style="color:${C.gold};" href="mailto:${esc(c.visitorEmail)}">${esc(c.visitorEmail)}</a>`,
+    c.visitorPhone && esc(c.visitorPhone),
+    c.channel === "telegram" ? "via Telegram" : "via the website chat",
+  ].filter(Boolean);
+  return {
+    subject: kind === "handoff" ? `${who} would like to talk to you` : `New lead from the chat: ${who}`,
+    html: layout({
+      preheader: summary.slice(0, 90),
+      eyebrow: kind === "handoff" ? "Please reach out" : "Chatbot lead",
+      heading: kind === "handoff" ? `${who} asked for you` : `${who} is interested`,
+      body:
+        p(`<strong style="color:${C.hi};">${esc(who)}</strong> · ${details.join(" · ")}`) +
+        `<p style="margin:0 0 16px;white-space:pre-wrap;">${esc(summary)}</p>`,
+      cta: { label: "Read the conversation", url: `${siteUrl()}/admin/chatbot/conversations/${c.id}` },
     }),
   };
 }
