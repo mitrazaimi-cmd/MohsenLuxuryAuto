@@ -116,7 +116,7 @@ export async function saveContentAction(_prev: AdminState, fd: FormData): Promis
   } else if (kind === "testimonials") {
     const quote = text(fd, "quote");
     if (quote.length < 10) return { message: "Please enter the client's words (at least 10 characters)." };
-    await store.saveContent(kind, { id, quote, clientName: text(fd, "clientName", 80), model: text(fd, "model", 60), ...common });
+    await store.saveContent(kind, { id, quote, clientName: text(fd, "clientName", 80), model: text(fd, "model", 60), imageUrl, ...common });
   } else {
     const title = text(fd, "title", 140);
     if (!title) return { message: "Please add a title." };

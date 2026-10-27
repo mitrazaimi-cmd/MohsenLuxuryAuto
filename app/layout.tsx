@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Cinzel, Montserrat } from "next/font/google";
+import { Cinzel, Cormorant_Garamond, Montserrat } from "next/font/google";
 import { site } from "@/config/site";
 import "./globals.css";
 
@@ -9,6 +9,15 @@ const montserrat = Montserrat({
   weight: ["300", "400", "500", "600", "700"],
   style: ["normal", "italic"],
   variable: "--font-montserrat",
+  display: "swap",
+});
+// Client testimonials only (the owner asked for a more elegant face there): a classical
+// italic that pairs with Cinzel.
+const cormorant = Cormorant_Garamond({
+  subsets: ["latin"],
+  weight: ["400", "500"],
+  style: ["italic"],
+  variable: "--font-cormorant",
   display: "swap",
 });
 
@@ -31,7 +40,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${cinzel.variable} ${montserrat.variable}`} data-scroll-behavior="smooth" suppressHydrationWarning>
+    <html lang="en" className={`${cinzel.variable} ${montserrat.variable} ${cormorant.variable}`} data-scroll-behavior="smooth" suppressHydrationWarning>
       <head>
         {/* Enables the scroll-reveal hidden state only when JS runs. */}
         <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js')" }} />

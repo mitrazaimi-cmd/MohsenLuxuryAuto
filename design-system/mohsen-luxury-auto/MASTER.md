@@ -43,6 +43,7 @@ Balance: about 70% black, 22% silver, 8% gold. Never large gold areas or long go
 - Eyebrow / caption: Montserrat 500, 11–12px, uppercase, letter spacing 0.28em, gold
 - **Gold title** (the owner's name for it, «عنوان طلایی»): an eyebrow promoted to Cinzel 700, 16–19px, letter spacing 0.2em, gold: `.eyebrow.gold-title`. Every `<SectionHead>` and `<PageHero>` eyebrow is one (2026-10-22), as are the homepage "Comparing to other luxury cars?" and the CTA band's "Expect the Best". The hero slogan "Expect the Best" is gold Cinzel 700 as well. `<PageHero center>` centers the hero (Services, Portfolio, About).
 - Footer column headings ("Explore", "Get in touch"): Montserrat 700, gold, underlined.
+- Client testimonials: **Cormorant Garamond** italic 400 (`--font-cormorant`), 21–25px, line height 1.55. The owner asked on 2026-10-27 for a more elegant face for clients' words; it is the only place the third font is used.
 - Load with `next/font/google` (no layout shift)
 
 ## Spacing (spacious)
@@ -61,6 +62,8 @@ Balance: about 70% black, 22% silver, 8% gold. Never large gold areas or long go
 - **Gold boxes** (the owner's name for it): a list where each item is its own box that fills with a soft gold wash on hover, its border turns gold and its text and icons brighten. Usually laid out side by side. Markup: `.steps.boxed` (numbered) or `.check-list.boxed` (check marks) on the list, `.gold-hover` on each item, and `.grid-3` / `.grid-4` for the row (2 per row on tablets, 1 on phones). `.gold-hover` alone works on any box, such as a `.card`. Used for: the homepage stats (`<Stats boxed />`), "Why clients come back" cards and "Your consultation", Services "What your consultation includes" and "What to bring", About "Experience", the "Top salesperson" / "3 languages" cards the Mission values (Integrity, Customer satisfaction, Best value) and the Contact FAQ. A `.card.gold-top` can't take `.gold-hover` (both use ::before), so drop `gold-top` on gold boxes.
 - **Photo cards:** `.spec-card` (Services "Specialties"): a photo with the name at the bottom; the description opens on hover under the same gold wash, and always shows on touch screens.
 - **Heading beside a photo:** `.split.intro-split` with the section header and a `.frame.corners` photo (`.photo-3x2` or `.photo-6x5`); stacks below 960px.
+  `.split.photo-sm` makes the photo smaller (340px wide), as in homepage "In clients' words".
+- **Testimonials** (`components/testimonials.tsx`): one after another, separated by a short gold hairline. With a photo (uploaded in Admin → Testimonials), the words sit beside it and the photo stays in view while scrolling; without one, they're centered like a letter (max 760px). Pasted hard-wrapped text is rejoined into paragraphs, and a closing line that repeats the client's name is dropped.
 
 ## Motion
 
@@ -76,7 +79,7 @@ Hero (logo, slogan, CTA) → proof stats → key messages → services → testi
 
 Emoji icons · white page backgrounds · the Mercedes-Benz star · stretched or recolored logo · urgency wording ("last chance") · invisible focus states · placeholder-only labels.
 
-Exceptions, the owner's decision (2026-10-20), made knowing the star rule and the dealership/trademark risk: three photos show the star: on a car's grille behind Mohsen in the homepage "Why clients come back" photo (`public/images/why-clients-handshake.jpg`) and the Services consultation photo (`public/images/consultation.webp`), and on the steering wheel in the homepage "Your consultation" test-drive photo (`public/images/test-drive.webp`). The About portrait (`public/images/mohsen-portrait.webp`) also shows the star and a Mercedes-Benz sign; the owner chose on 2026-10-21 to keep it for now. Don't treat any of them as license for other images.
+Exceptions, the owner's decision (2026-10-20), made knowing the star rule and the dealership/trademark risk: three photos show the star: on a car's grille behind Mohsen in the homepage "Why clients come back" photo (`public/images/why-clients-handshake.jpg`) and the Services consultation photo (`public/images/consultation.webp`), and on the steering wheel in the homepage "Your consultation" test-drive photo (`public/images/test-drive.webp`). The About portrait (`public/images/mohsen-portrait.webp`) also shows the star and a Mercedes-Benz sign; the owner chose on 2026-10-21 to keep it for now. The black-and-white delivery photo beside the Daris M. testimonial (`public/images/testimonials/daris-delivery.webp`, a real client photo the owner supplied on 2026-10-27) also shows the star on the grille. Don't treat any of them as license for other images.
 
 ## Pre-delivery checklist
 

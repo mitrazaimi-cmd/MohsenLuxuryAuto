@@ -242,21 +242,31 @@ strong {
   margin-left: auto;
   margin-right: auto;
 }
-/* Section heading (and featured quote) on the left, a photo on the right; stacked below 960px. */
+/* Section heading on the left, a photo on the right; stacked below 960px. */
 .intro-split {
   margin-bottom: 56px;
 }
 .intro-split > .section-head {
   margin-bottom: 0;
 }
-.intro-split .testimonial-feature {
-  text-align: left;
-}
 .frame.photo-3x2 {
   aspect-ratio: 3 / 2;
 }
 .frame.photo-6x5 {
   aspect-ratio: 6 / 5;
+}
+/* Heading beside a smaller photo (homepage "In clients' words"). */
+.split.photo-sm {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 340px);
+  gap: 48px;
+}
+@media (max-width: 960px) {
+  .split.photo-sm {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .split.photo-sm .frame {
+    width: min(420px, 100%);
+  }
 }
 /* A wide, cinematic photo across the container, under a centered heading. */
 .frame.photo-wide {
@@ -1156,10 +1166,74 @@ html:not(.js) .hero-logo-video {
   text-transform: uppercase;
   color: var(--muted);
 }
-.testimonial-feature {
-  max-width: 860px;
+/* Testimonials: words beside the client's photo, or centered like a letter,
+   in Cormorant Garamond italic (the owner's choice for client words). */
+.testimonials {
+  display: grid;
+  gap: 72px;
+}
+.testimonials > * + * {
+  position: relative;
+}
+.testimonials > * + *::before {
+  content: "";
+  position: absolute;
+  top: -36px;
+  left: 50%;
+  width: 48px;
+  height: 1px;
+  background: var(--gold-soft);
+  transform: translateX(-50%);
+}
+.testimonial-words {
+  margin: 0;
+}
+.testimonial-letter {
+  max-width: 760px;
   margin: 0 auto;
   text-align: center;
+}
+.testimonial-photo {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: 56px;
+  align-items: start;
+}
+/* Beside a long letter the photo stays in view while the reader scrolls. */
+.testimonial-photo .frame {
+  aspect-ratio: 16 / 9;
+  position: sticky;
+  top: calc(var(--header-h) + 32px);
+  margin-top: 44px;
+}
+.letter-text {
+  margin: 0;
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(1.3rem, 2vw, 1.55rem);
+  line-height: 1.55;
+  color: var(--silver-hi);
+  text-wrap: pretty;
+}
+.letter-text p + p {
+  margin-top: 0.8em;
+}
+.testimonials .quote-mark {
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-size: 5rem;
+  height: 44px;
+}
+@media (max-width: 960px) {
+  .testimonial-photo {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 32px;
+  }
+  .testimonial-photo .frame {
+    position: relative;
+    top: auto;
+    margin-top: 0;
+  }
 }
 
 /* ---------- photo frames ---------- */

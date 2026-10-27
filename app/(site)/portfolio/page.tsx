@@ -4,7 +4,7 @@ import { CtaBand } from "@/components/cta-band";
 import { Gallery } from "@/components/gallery";
 import { PageHero } from "@/components/page-hero";
 import { SectionHead } from "@/components/section-head";
-import { TestimonialList } from "@/components/testimonials";
+import { Testimonials } from "@/components/testimonials";
 import { store } from "@/lib/db";
 
 export const dynamic = "force-dynamic";
@@ -77,7 +77,7 @@ export default async function PortfolioPage() {
         <section className="section" aria-labelledby="reviews-title">
           <div className="container">
             <SectionHead eyebrow="Reviews" title="In clients' words" id="reviews-title" center />
-            <TestimonialList items={testimonials} />
+            <Testimonials items={testimonials} />
           </div>
         </section>
       ) : null}

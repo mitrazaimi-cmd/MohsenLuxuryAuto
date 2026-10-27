@@ -71,6 +71,8 @@ export interface Testimonial {
   quote: string;
   clientName: string;
   model: string;
+  /** Optional photo shown beside the words (0003_testimonial_photo.sql). */
+  imageUrl: string;
   published: boolean;
   sortOrder: number;
   createdAt: string;

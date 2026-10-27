@@ -5,7 +5,7 @@ import { HeroLogo } from "@/components/hero-logo";
 import { ArrowRight, Award, Check, Clock, Handshake, Shield } from "@/components/icons";
 import { SectionHead } from "@/components/section-head";
 import { Stats } from "@/components/stats";
-import { TestimonialFeature, TestimonialGrid } from "@/components/testimonials";
+import { Testimonials } from "@/components/testimonials";
 import { fullName, site } from "@/config/site";
 import { store } from "@/lib/db";
 import heroPortrait from "@/public/images/mohsen-hero.webp";
@@ -168,23 +168,20 @@ export default async function HomePage() {
       {testimonials.length ? (
         <section className="section" aria-labelledby="words-title">
           <div className="container">
-            <div className="split intro-split">
-              <div>
-                <SectionHead eyebrow="In clients' words" title="Trusted by returning clients" id="words-title" />
-                <TestimonialFeature item={testimonials[0]} />
-              </div>
+            <div className="split intro-split photo-sm">
+              <SectionHead eyebrow="In clients' words" title="Trusted by returning clients" id="words-title" />
               <div className="frame corners reveal photo-6x5">
                 <Image
                   src={happyClient}
                   alt="A smiling couple holding up the key to their new car in the showroom"
                   fill
-                  sizes="(max-width: 960px) 100vw, 560px"
+                  sizes="(max-width: 960px) 420px, 340px"
                   placeholder="blur"
                   style={{ objectFit: "cover" }}
                 />
               </div>
             </div>
-            <TestimonialGrid items={testimonials.slice(1, 4)} />
+            <Testimonials items={testimonials.slice(0, 3)} />
             <div className="actions reveal" style={{ justifyContent: "center", marginTop: 56 }}>
               <Link href="/portfolio" className="btn btn-gold">
                 Read client reviews <ArrowRight />

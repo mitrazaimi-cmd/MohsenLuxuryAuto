@@ -64,6 +64,7 @@ function seed(): Data {
           "Mohsen always takes good care of us. He is always available, and everybody can easily get in touch with him.",
         clientName: "A returning client",
         model: "",
+        imageUrl: "",
         published: true,
         sortOrder: 0,
         createdAt: now,
