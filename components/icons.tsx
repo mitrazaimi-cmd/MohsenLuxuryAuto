@@ -34,8 +34,10 @@ export const Bolt = (p: P) => (<svg {...base(p)}><path d="M13 2 4 14h7l-1 8 9-12
 export const Users = (p: P) => (<svg {...base(p)}><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" /><path d="M22 21v-2a4 4 0 0 0-3-3.9M16 3.1a4 4 0 0 1 0 7.8" /></svg>);
 export const Globe = (p: P) => (<svg {...base(p)}><circle cx="12" cy="12" r="10" /><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20" /></svg>);
 export const Award = (p: P) => (<svg {...base(p)}><circle cx="12" cy="8" r="6" /><path d="M15.5 13 17 22l-5-3-5 3 1.5-9" /></svg>);
-export const Play = (p: P) => (<svg {...base(p)}><path d="M7 4v16l13-8Z" /></svg>);
-export const Pause = (p: P) => (<svg {...base(p)}><path d="M8 5v14M16 5v14" /></svg>);
+export const Play = (p: P) => (<svg {...base(p)}><path d="M7 4v16l13-8Z" fill="currentColor" /></svg>);
+export const Pause = (p: P) => (<svg {...base(p)}><rect x="6" y="5" width="4" height="14" rx="1" fill="currentColor" /><rect x="14" y="5" width="4" height="14" rx="1" fill="currentColor" /></svg>);
+export const Volume = (p: P) => (<svg {...base(p)}><path d="M11 5 6 9H2v6h4l5 4Z" fill="currentColor" /><path d="M15.5 8.5a5 5 0 0 1 0 7M19 5a10 10 0 0 1 0 14" /></svg>);
+export const VolumeOff = (p: P) => (<svg {...base(p)}><path d="M11 5 6 9H2v6h4l5 4Z" fill="currentColor" /><path d="m22 9-6 6M16 9l6 6" /></svg>);
 export const Video = (p: P) => (<svg {...base(p)}><rect x="2" y="6" width="14" height="12" rx="1" /><path d="m22 8-6 4 6 4Z" /></svg>);
 export const Instagram = (p: P) => (<svg {...base(p)}><rect x="3" y="3" width="18" height="18" rx="5" /><circle cx="12" cy="12" r="4" /><circle cx="17.5" cy="6.5" r=".6" fill="currentColor" /></svg>);
 export const Linkedin = (p: P) => (<svg {...base(p)}><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6Z" /><rect x="2" y="9" width="4" height="12" /><circle cx="4" cy="4" r="2" /></svg>);

@@ -667,7 +667,9 @@ html:not(.js) .hero-logo-video {
   color: var(--muted);
   letter-spacing: 0.04em;
 }
-/* The brand film (720 × 1068). The 4:5 frame trims about 8% from its top and bottom. */
+/* The brand film (720 × 1068), cropped to the 4:5 frame. For its first seconds `.zoom` pushes
+   the generator's "Veo" mark (video px 680-702 from the left) out of the frame, showing
+   px 29-672; then the film eases back out so the closing logo keeps its margins. */
 .hero-film {
   background: #000;
 }
@@ -677,34 +679,44 @@ html:not(.js) .hero-logo-video {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transform-origin: 38% 50%;
+  transition: transform 2.4s ease-in-out;
+}
+.hero-film video.zoom {
+  transform: scale(1.12);
+  transition: none;
 }
 /* Bottom-left, clear of the gold corner at bottom-right. */
-.film-toggle {
+.film-controls {
   position: absolute;
   left: 14px;
   bottom: 14px;
   z-index: 3;
-  width: 36px;
-  height: 36px;
+  display: flex;
+  gap: 8px;
+}
+.film-btn {
+  width: 44px;
+  height: 44px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   color: var(--gold);
-  background: rgba(0, 0, 0, 0.55);
-  border: 1px solid var(--line);
+  background: rgba(0, 0, 0, 0.6);
+  border: 2px solid var(--gold);
   border-radius: 50%;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
   cursor: pointer;
-  opacity: 0.75;
-  transition: opacity 0.2s, border-color 0.2s;
+  transition: background 0.2s, color 0.2s;
 }
-.film-toggle:hover,
-.film-toggle:focus-visible {
-  opacity: 1;
-  border-color: var(--gold);
+.film-btn:hover,
+.film-btn:focus-visible {
+  background: var(--gold);
+  color: #000;
 }
-.film-toggle svg {
-  width: 14px;
-  height: 14px;
+.film-btn svg {
+  width: 18px;
+  height: 18px;
 }
 /* Film on the left, slogan and intro on the right; stacked on phones. */
 .hero-intro {
