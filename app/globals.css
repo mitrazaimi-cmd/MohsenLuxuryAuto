@@ -1506,7 +1506,8 @@ html:not(.js) .hero-logo-video {
   justify-content: space-between;
   gap: 12px;
   font-size: 0.78rem;
-  color: #7a7a7a;
+  font-weight: 600;
+  color: var(--silver);
 }
 .footer-bottom a:hover {
   color: var(--gold);

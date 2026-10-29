@@ -60,9 +60,9 @@ export function SiteFooter() {
             <span>
               © {new Date().getFullYear()} {site.name}. {site.slogan}.
             </span>
-            <span className="nowrap">
-              Designed &amp; developed by <a href={`mailto:${site.credit.email}`}>{site.credit.name}</a>
-            </span>
+            <a className="nowrap" href={`mailto:${site.credit.email}`}>
+              Designed &amp; developed by {site.credit.name}
+            </a>
           </span>
           <span>
             <Link href="/privacy">Privacy</Link>
