@@ -95,7 +95,7 @@ async function sitePages(): Promise<string[]> {
   } catch (err) {
     console.error("[kb] sitemap fetch failed:", err);
   }
-  return ["/", "/services", "/portfolio", "/about", "/contact"];
+  return ["/", "/services", "/about", "/contact"];
 }
 
 /** The page's <main> text, split into sections at its headings. */

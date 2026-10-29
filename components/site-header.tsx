@@ -9,7 +9,6 @@ import { ArrowRight, Close, Menu } from "./icons";
 export const NAV = [
   { href: "/", label: "Home" },
   { href: "/services", label: "Services" },
-  { href: "/portfolio", label: "Portfolio" },
   { href: "/about", label: "About Me" },
   { href: "/contact", label: "Contact" },
 ];
@@ -37,7 +36,7 @@ export function SiteHeader() {
     <header className="site-header">
       <div className="container">
         <Link href="/" className="brand-link" aria-label="Mohsen Luxury Auto, home">
-          <Image src="/brand/logo.png" alt="" width={1774} height={887} priority sizes="96px" />
+          <Image src="/brand/logo-header.png" alt="" width={800} height={300} priority sizes="140px" />
         </Link>
         <nav className="nav" aria-label="Main">
           {NAV.map((n) => (

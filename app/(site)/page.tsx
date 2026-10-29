@@ -124,7 +124,7 @@ export default async function HomePage() {
               src={testDrive}
               alt="A client on a test drive while Mohsen points out a feature on the dashboard"
               fill
-              sizes="(max-width: 1260px) 100vw, 1200px"
+              sizes="(max-width: 960px) 100vw, 880px"
               placeholder="blur"
               style={{ objectFit: "cover", objectPosition: "50% 45%" }}
             />
@@ -172,12 +172,7 @@ export default async function HomePage() {
                 />
               </div>
             </div>
-            <Testimonials items={testimonials.slice(0, 3)} />
-            <div className="actions reveal" style={{ justifyContent: "center", marginTop: 56 }}>
-              <Link href="/portfolio" className="btn btn-gold">
-                Read client reviews <ArrowRight />
-              </Link>
-            </div>
+            <Testimonials items={testimonials} />
           </div>
         </section>
       ) : null}

@@ -268,9 +268,12 @@ strong {
     width: min(420px, 100%);
   }
 }
-/* A wide, cinematic photo across the container, under a centered heading. */
+/* A wide, cinematic photo under a centered heading; narrower than the container so the
+   content after it stays close. */
 .frame.photo-wide {
   aspect-ratio: 21 / 9;
+  max-width: 880px;
+  margin-inline: auto;
 }
 @media (max-width: 640px) {
   .frame.photo-wide {
@@ -494,8 +497,9 @@ strong {
   gap: 12px;
   flex-shrink: 0;
 }
+/* logo-header.png is the logo without its black margins, so "LUXURY AUTO" reads at this size. */
 .brand-link img {
-  height: 46px;
+  height: 50px;
   width: auto;
 }
 .nav {
@@ -590,7 +594,7 @@ strong {
 }
 @media (max-width: 640px) {
   .brand-link img {
-    height: 38px;
+    height: 34px;
   }
   .header-cta .btn {
     padding: 0 14px;
@@ -598,7 +602,18 @@ strong {
     letter-spacing: 0.14em;
   }
 }
-@media (max-width: 380px) {
+/* Fits logo, "Book a Consultation" and the menu button inside the gutters from 390px up
+   (iPhone); narrower phones show just "Book". */
+@media (max-width: 440px) {
+  .site-header .container {
+    gap: 12px;
+  }
+  .header-cta .btn {
+    padding: 0 10px;
+    letter-spacing: 0.08em;
+  }
+}
+@media (max-width: 389px) {
   .header-cta .btn .long {
     display: none;
   }

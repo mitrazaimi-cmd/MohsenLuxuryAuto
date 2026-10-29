@@ -34,7 +34,6 @@ export function SiteFooter() {
             <h2>Explore</h2>
             <ul>
               <li><Link href="/services">Services</Link></li>
-              <li><Link href="/portfolio">Portfolio</Link></li>
               <li><Link href="/about">About Me</Link></li>
               <li><Link href="/contact">Contact</Link></li>
               <li><Link href="/book" className="gold">Book a Consultation</Link></li>
