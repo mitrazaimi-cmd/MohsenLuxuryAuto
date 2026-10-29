@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ArrowRight } from "./icons";
+import { keepTogether } from "./keep-together";
 import { Swoosh } from "./swoosh";
 
 export function CtaBand({
@@ -15,7 +16,7 @@ export function CtaBand({
         <Swoosh />
         <span className="eyebrow gold-title">Expect the Best</span>
         <h2 id="cta-title" className="h2" style={{ marginTop: 16 }}>
-          {title}
+          {keepTogether(title)}
         </h2>
         <p className="lede">{text}</p>
         <div className="actions">

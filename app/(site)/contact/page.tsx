@@ -44,11 +44,12 @@ const faqs = [
 
 export default function ContactPage() {
   const { contact, social } = site;
-  const mapQuery = contact.address ? encodeURIComponent(contact.address) : "";
+  // The dealership's name as well, so the map card names it rather than just the street.
+  const mapQuery = contact.address ? encodeURIComponent(`${contact.dealershipName}, ${contact.address}`) : "";
 
   return (
     <>
-      <PageHero eyebrow="Contact me" title="Always one call away">
+      <PageHero center eyebrow="Contact me" title="Always one call away">
         Questions about a model, a lease, or your current Mercedes-Benz? Reach out any way you like. Every message
         is answered personally.
       </PageHero>

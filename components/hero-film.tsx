@@ -4,6 +4,8 @@ import { useEffect, useRef, useState } from "react";
 import { Pause, Play, Volume, VolumeOff } from "@/components/icons";
 
 const SRC = "/images/specialties/Benz-video-landing-page.mp4";
+// 540px wide, 1.7 MB instead of 4.7: phones show the film at most 300px wide.
+const SRC_PHONE = "/images/specialties/Benz-video-landing-page-mobile.mp4";
 const POSTER = "/images/hero-film-poster.webp";
 // Clicks on these navigate or have their own job; they shouldn't also start the music.
 const OWN_ACTION = "a, button, input, select, textarea, label, summary";
@@ -102,7 +104,6 @@ export function HeroFilm() {
     <div className="frame portrait corners hero-film">
       <video
         ref={ref}
-        src={SRC}
         poster={POSTER}
         width={720}
         height={1068}
@@ -117,7 +118,10 @@ export function HeroFilm() {
         }}
         onPause={() => setPlaying(false)}
         onVolumeChange={(e) => setMuted(e.currentTarget.muted)}
-      />
+      >
+        <source src={SRC_PHONE} type="video/mp4" media="(max-width: 760px)" />
+        <source src={SRC} type="video/mp4" />
+      </video>
       <div className="film-controls">
         <button type="button" className="film-btn" onClick={togglePlay} aria-label={playing ? "Pause the film" : "Play the film"}>
           {playing ? <Pause /> : <Play />}

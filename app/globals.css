@@ -102,6 +102,9 @@ textarea {
   white-space: nowrap;
   border: 0;
 }
+.nowrap {
+  white-space: nowrap;
+}
 
 .skip-link {
   position: absolute;
@@ -860,15 +863,27 @@ html:not(.js) .hero-logo-video {
   background: var(--gold);
   margin: 14px auto 0;
 }
-@media (max-width: 760px) {
-  .stats {
-    grid-template-columns: minmax(0, 1fr);
-  }
+/* Phones keep the three figures side by side, compact, instead of three tall rows. */
+@media (max-width: 640px) {
   .stat {
-    border-left: 0;
+    padding: 20px 6px;
   }
-  .stat:nth-child(n + 2) {
-    border-top: 1px solid var(--line-soft);
+  .stat .v {
+    font-size: clamp(1rem, 5vw, 1.35rem);
+    letter-spacing: 0.02em;
+  }
+  .stat .bar {
+    width: 20px;
+    margin-top: 10px;
+  }
+  .stat .l {
+    margin-top: 10px;
+    font-size: 0.66rem;
+    line-height: 1.4;
+    letter-spacing: 0.04em;
+  }
+  .stats.boxed {
+    gap: 8px;
   }
 }
 /* Stats as gold boxes (homepage): each figure in its own box, paired with .gold-hover. */
@@ -1053,13 +1068,45 @@ html:not(.js) .hero-logo-video {
     opacity: 1;
   }
 }
+/* Phones: two columns of shorter cards (one column took six screens of scrolling). */
 @media (max-width: 640px) {
-  /* Taller on phones, where the description always shows, so more of the photo stays clear. */
+  .spec-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
   .spec-card {
-    aspect-ratio: 1 / 1;
+    aspect-ratio: 3 / 4;
+    cursor: pointer;
   }
   .spec-body {
-    padding: 20px;
+    padding: 14px;
+  }
+  .spec-body .h3 {
+    font-size: 0.82rem;
+    letter-spacing: 0.1em;
+  }
+  .spec-text p {
+    margin-bottom: 8px;
+    font-size: 0.8rem;
+    line-height: 1.5;
+  }
+}
+/* Too narrow to show the description over the photo all the time: a tap opens it, like hover
+   on a desktop (:hover covers iOS, which applies it on tap; :focus covers Android). */
+@media (hover: none) and (max-width: 640px) {
+  .spec-card::after {
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.3) 45%, rgba(0, 0, 0, 0) 70%);
+  }
+  .spec-text {
+    grid-template-rows: 0fr;
+    opacity: 0;
+  }
+  .spec-card:is(:hover, :focus)::before {
+    opacity: 1;
+  }
+  .spec-card:is(:hover, :focus) .spec-text {
+    grid-template-rows: 1fr;
+    opacity: 1;
   }
 }
 
@@ -1290,7 +1337,8 @@ html:not(.js) .hero-logo-video {
   height: 44px;
 }
 /* The client's name signs the letter: gold Cinzel, like the gold titles. */
-.testimonials .quote-by {
+.testimonials .quote-by,
+.quote-by.signature {
   margin-top: 28px;
   font-family: var(--font-serif);
   font-size: clamp(0.95rem, 1.4vw, 1.1rem);
@@ -1409,9 +1457,10 @@ html:not(.js) .hero-logo-video {
 
 /* ---------- footer ---------- */
 
+/* The bottom padding keeps the last line clear of the floating chat button (72px tall with its offset). */
 .site-footer {
   border-top: 1px solid var(--line);
-  padding: 72px 0 40px;
+  padding: 72px 0 96px;
   background: var(--black);
 }
 .footer-grid {

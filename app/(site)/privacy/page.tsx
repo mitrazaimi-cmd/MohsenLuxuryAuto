@@ -2,7 +2,11 @@ import type { Metadata } from "next";
 import { PageHero } from "@/components/page-hero";
 import { site } from "@/config/site";
 
-export const metadata: Metadata = { title: "Privacy Policy" };
+export const metadata: Metadata = {
+  title: "Privacy Policy",
+  description:
+    "What Mohsen Luxury Auto collects when you book a consultation, send a message or chat with the assistant, how it is used, and how to have it deleted.",
+};
 
 // TODO: have this reviewed before launch. It describes what the site actually does.
 export default function PrivacyPage() {

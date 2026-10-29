@@ -40,7 +40,6 @@ export function HeroLogo() {
       <video
         ref={ref}
         className="hero-logo hero-logo-video"
-        src="/brand/logo-animated.mp4"
         width={1774}
         height={888}
         muted
@@ -48,8 +47,12 @@ export function HeroLogo() {
         preload="auto"
         role="img"
         aria-label={alt}
-        onError={() => setStill(true)}
-      />
+      >
+        {/* 720px wide (0.2 MB instead of 1.2) for phones, where the logo is at most ~360px wide.
+            A load error fires on the last <source> the browser tried, not on the <video>. */}
+        <source src="/brand/logo-animated-mobile.mp4" type="video/mp4" media="(max-width: 760px)" />
+        <source src="/brand/logo-animated.mp4" type="video/mp4" onError={() => setStill(true)} />
+      </video>
       <noscript>
         {/* Plain <img>: next/image with priority would preload the PNG for every visitor. */}
         <img className="hero-logo" src="/brand/logo.png" alt={alt} width={1774} height={887} />

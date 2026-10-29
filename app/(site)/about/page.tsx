@@ -19,7 +19,7 @@ const career = [
   {
     role: "Master Certified Sales & Leasing Consultant",
     place: "Mercedes-Benz of West Chester",
-    text: "One point of contact for every client, with an outstanding customer-satisfaction (CSI) record.",
+    text: "One point of contact for every client, with top customer-satisfaction scores.",
   },
   {
     role: "General Manager / Sales Manager",
@@ -77,11 +77,11 @@ export default function AboutPage() {
               <p>
                 His philosophy: <span className="gold" style={{ fontFamily: "var(--font-serif)", fontWeight: 700, letterSpacing: "0.12em" }}>EXPECT THE BEST</span>.
               </p>
-              <p className="quote" style={{ fontSize: "1.1rem", marginTop: 12 }}>
-                “Mohsen always takes good care of us. He is always available, and everybody can easily get in touch
-                with him.”
+              {/* A line from Daris M.'s testimonial (the full letter is on the homepage). */}
+              <p className="letter-text" style={{ fontSize: "1.3rem", marginTop: 12 }}>
+                “He was incredibly friendly, generous, helpful, honest, caring, and overall amazing.”
               </p>
-              <p className="quote-by" style={{ marginTop: 0 }}>A returning client</p>
+              <p className="quote-by signature" style={{ marginTop: 12 }}>Daris M.</p>
               {site.social.linkedin || site.social.instagram ? (
                 <div className="actions" style={{ marginTop: 8 }}>
                   {site.social.linkedin ? (
@@ -129,7 +129,7 @@ export default function AboutPage() {
             <div className="card gold-hover">
               <Award className="icon" />
               <h3 className="h3">Top salesperson</h3>
-              <p>The highest customer satisfaction and an outstanding CSI score.</p>
+              <p>The highest customer-satisfaction scores.</p>
             </div>
             <div className="card gold-hover">
               <Globe className="icon" />

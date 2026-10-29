@@ -1,7 +1,13 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight } from "@/components/icons";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
+
+export const metadata: Metadata = {
+  title: "Page not found",
+  description: "This page has moved or no longer exists. Head home, or book a consultation with Mohsen.",
+};
 
 export default function NotFound() {
   return (

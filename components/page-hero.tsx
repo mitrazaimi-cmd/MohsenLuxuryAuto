@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { keepTogether } from "./keep-together";
 import { Swoosh } from "./swoosh";
 
 export function PageHero({
@@ -16,7 +17,7 @@ export function PageHero({
     <section className={`page-hero${center ? " center" : ""}`}>
       <div className="container">
         <span className="eyebrow gold-title">{eyebrow}</span>
-        <h1 className="h1">{title}</h1>
+        <h1 className="h1">{keepTogether(title)}</h1>
         <div className="rule" />
         {children ? <div className="lede">{children}</div> : null}
       </div>
