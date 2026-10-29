@@ -667,9 +667,7 @@ html:not(.js) .hero-logo-video {
   color: var(--muted);
   letter-spacing: 0.04em;
 }
-/* The brand film (720 × 1068), cropped to the 4:5 frame. For its first seconds `.zoom` pushes
-   the generator's "Veo" mark (video px 680-702 from the left) out of the frame, showing
-   px 29-672; then the film eases back out so the closing logo keeps its margins. */
+/* The brand film (720 × 1068). The 4:5 frame trims about 8% from its top and bottom. */
 .hero-film {
   background: #000;
 }
@@ -679,12 +677,6 @@ html:not(.js) .hero-logo-video {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transform-origin: 38% 50%;
-  transition: transform 2.4s ease-in-out;
-}
-.hero-film video.zoom {
-  transform: scale(1.12);
-  transition: none;
 }
 /* Bottom-left, clear of the gold corner at bottom-right. */
 .film-controls {
