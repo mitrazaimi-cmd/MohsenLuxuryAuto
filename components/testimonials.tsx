@@ -51,16 +51,17 @@ function Words({ item }: { item: Testimonial }) {
 }
 
 /**
- * Client testimonials, one after another: beside their photo when they have one,
- * otherwise centered like a letter. Set in the elegant italic (Cormorant).
+ * Client testimonials, one after another: beside their photo when they have one (alternating
+ * sides), otherwise centered like a letter. Set in the elegant italic (Cormorant).
  */
 export function Testimonials({ items }: { items: Testimonial[] }) {
   if (!items.length) return null;
+  let photos = 0;
   return (
     <div className="testimonials">
       {items.map((t) =>
         t.imageUrl ? (
-          <div key={t.id} className="testimonial-photo reveal">
+          <div key={t.id} className={`testimonial-photo reveal${photos++ % 2 ? " flip" : ""}`}>
             <div className="frame corners">
               <Image
                 src={t.imageUrl}

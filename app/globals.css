@@ -1249,6 +1249,13 @@ html:not(.js) .hero-logo-video {
   top: calc(var(--header-h) + 32px);
   margin-top: 44px;
 }
+/* Photos alternate sides: every second one sits on the right. */
+.testimonial-photo.flip {
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+}
+.testimonial-photo.flip .frame {
+  order: 2;
+}
 .letter-text {
   margin: 0;
   font-family: var(--font-cormorant), Georgia, serif;
@@ -1268,7 +1275,8 @@ html:not(.js) .hero-logo-video {
   height: 44px;
 }
 @media (max-width: 960px) {
-  .testimonial-photo {
+  .testimonial-photo,
+  .testimonial-photo.flip {
     grid-template-columns: minmax(0, 1fr);
     gap: 32px;
   }
@@ -1276,6 +1284,9 @@ html:not(.js) .hero-logo-video {
     position: relative;
     top: auto;
     margin-top: 0;
+  }
+  .testimonial-photo.flip .frame {
+    order: 0;
   }
 }
 

@@ -56,8 +56,10 @@ export default async function HomePage() {
               <p className="slogan">Expect the Best</p>
               <div className="rule" />
               <p className="lede">
-                A Mercedes-Benz without the usual dealership stress. A Master Certified specialist who discloses
-                everything up front, handles every detail, and is always one call away.
+                A Mercedes-Benz without the usual dealership stress.
+                <br />
+                Mohsen, a Master Certified specialist who discloses everything up front, handles every detail, and
+                is always one call away.
               </p>
               <div className="actions">
                 <Link href="/book" className="btn btn-gold">
