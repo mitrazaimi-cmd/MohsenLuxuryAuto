@@ -1511,6 +1511,13 @@ html:not(.js) .hero-logo-video {
 .footer-bottom a:hover {
   color: var(--gold);
 }
+/* Copyright and the designer credit: side by side, or the credit on its own line on phones. */
+.footer-meta {
+  display: inline-flex;
+  flex-wrap: wrap;
+  column-gap: 1.6em;
+  row-gap: 6px;
+}
 @media (max-width: 860px) {
   .footer-grid {
     grid-template-columns: 1fr;

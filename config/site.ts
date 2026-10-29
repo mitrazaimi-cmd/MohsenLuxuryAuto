@@ -32,6 +32,9 @@ export const site = {
 
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
 
+  // The site's designer and developer, credited in the footer; linked to email only, at their request.
+  credit: { name: "Mitra Zaimi", email: "mitrazaimi@gmail.com" },
+
   stats: [
     { value: "20", unit: "yrs", label: "In luxury automotive sales" },
     { value: "80–85", unit: "%", label: "Of clients come back to buy again" },

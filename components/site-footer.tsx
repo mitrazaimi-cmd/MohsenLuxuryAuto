@@ -56,7 +56,14 @@ export function SiteFooter() {
           </div>
         </div>
         <div className="footer-bottom">
-          <span>© {new Date().getFullYear()} {site.name}. {site.slogan}.</span>
+          <span className="footer-meta">
+            <span>
+              © {new Date().getFullYear()} {site.name}. {site.slogan}.
+            </span>
+            <span className="nowrap">
+              Designed &amp; developed by <a href={`mailto:${site.credit.email}`}>{site.credit.name}</a>
+            </span>
+          </span>
           <span>
             <Link href="/privacy">Privacy</Link>
             <span aria-hidden="true"> &nbsp;·&nbsp; </span>
