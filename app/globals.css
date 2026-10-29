@@ -1274,6 +1274,15 @@ html:not(.js) .hero-logo-video {
   font-size: 5rem;
   height: 44px;
 }
+/* The client's name signs the letter: gold Cinzel, like the gold titles. */
+.testimonials .quote-by {
+  margin-top: 28px;
+  font-family: var(--font-serif);
+  font-size: clamp(0.95rem, 1.4vw, 1.1rem);
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  color: var(--gold);
+}
 @media (max-width: 960px) {
   .testimonial-photo,
   .testimonial-photo.flip {
