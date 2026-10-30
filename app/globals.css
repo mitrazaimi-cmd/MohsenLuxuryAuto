@@ -23,6 +23,8 @@
   --container: 1200px;
   --gutter: 24px;
   --header-h: 76px;
+  /* The header's second row (the nav) on phones and tablets. */
+  --nav-row: 40px;
   --section: 72px;
   --radius: 2px;
   --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
@@ -304,6 +306,12 @@ strong {
   align-items: center;
 }
 
+/* Two-row header below 1020px: 76px + the nav row. */
+@media (max-width: 1020px) {
+  :root {
+    --header-h: calc(76px + var(--nav-row));
+  }
+}
 @media (max-width: 960px) {
   :root {
     --section: 64px;
@@ -321,7 +329,7 @@ strong {
   :root {
     --gutter: 20px;
     --section: 48px;
-    --header-h: 68px;
+    --header-h: calc(68px + var(--nav-row));
   }
   .grid-2,
   .grid-3,
@@ -544,55 +552,64 @@ strong {
   align-items: center;
   gap: 12px;
 }
-.menu-btn {
+/* Phones and tablets only: tap to call. */
+.call-btn {
   display: none;
   width: 44px;
   height: 44px;
+  flex-shrink: 0;
   align-items: center;
   justify-content: center;
-  background: transparent;
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  cursor: pointer;
-  color: var(--silver-hi);
-}
-.menu-btn svg {
-  width: 20px;
-  height: 20px;
-}
-.mobile-nav {
-  position: fixed;
-  inset: var(--header-h) 0 0 0;
-  background: var(--black);
-  padding: 32px var(--gutter);
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  z-index: 49;
-  overflow-y: auto;
-}
-.mobile-nav a:not(.btn) {
-  font-family: var(--font-serif);
-  font-size: 1.35rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--silver-hi);
-  padding: 16px 0;
-  border-bottom: 1px solid var(--line-soft);
-}
-.mobile-nav a[aria-current="page"] {
+  border: 1px solid var(--gold);
+  border-radius: 50%;
   color: var(--gold);
 }
-.mobile-nav .btn {
-  margin-top: 28px;
+.call-btn svg {
+  width: 18px;
+  height: 18px;
 }
 
+/* Phones and tablets: logo, Book and Call on the first row; the nav on a second row, always
+   visible. --header-h (set at the top of the file) covers both rows. */
 @media (max-width: 1020px) {
-  .nav {
-    display: none;
+  .site-header .container {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    grid-template-rows: minmax(0, 1fr) var(--nav-row);
+    gap: 0 12px;
   }
-  .menu-btn {
+  .brand-link {
+    grid-area: 1 / 1;
+  }
+  .header-cta {
+    grid-area: 1 / 2;
+    justify-self: end;
+  }
+  .nav {
+    grid-area: 2 / 1 / 3 / -1;
+    justify-content: center;
+    gap: clamp(14px, 5vw, 44px);
+    margin: 0 calc(var(--gutter) * -1);
+    padding: 0 var(--gutter);
+    border-top: 1px solid var(--line-soft);
+  }
+  .nav a {
+    padding: 8px 0;
+    font-size: 0.7rem;
+    letter-spacing: 0.16em;
+    white-space: nowrap;
+  }
+  .call-btn {
     display: inline-flex;
+  }
+}
+@media (max-width: 380px) {
+  .nav {
+    gap: 12px;
+  }
+  .nav a {
+    font-size: 0.64rem;
+    letter-spacing: 0.08em;
   }
 }
 @media (max-width: 640px) {
@@ -609,7 +626,7 @@ strong {
    (iPhone); narrower phones show just "Book". */
 @media (max-width: 440px) {
   .site-header .container {
-    gap: 12px;
+    column-gap: 12px;
   }
   .header-cta .btn {
     padding: 0 10px;
@@ -1522,6 +1539,21 @@ html:not(.js) .hero-logo-video {
 @media (max-width: 860px) {
   .footer-grid {
     grid-template-columns: 1fr;
+  }
+}
+/* Phones: links tall enough to tap without hitting the neighbour. */
+@media (max-width: 640px) {
+  .footer-grid ul {
+    gap: 2px;
+  }
+  .footer-grid ul a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 40px;
+  }
+  .footer-bottom a {
+    display: inline-block;
+    padding: 8px 0;
   }
 }
 

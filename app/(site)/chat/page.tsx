@@ -9,6 +9,7 @@ import { integrations } from "@/lib/env";
 
 export const metadata: Metadata = {
   title: "Ask Mohsen's Assistant",
+  alternates: { canonical: "/chat" },
   description: "Questions about Mercedes-Benz models, leasing or financing? Ask Mohsen's assistant, and book a consultation when you're ready.",
 };
 

@@ -8,6 +8,7 @@ import { site, socialHandle, telHref } from "@/config/site";
 
 export const metadata: Metadata = {
   title: "Contact",
+  alternates: { canonical: "/contact" },
   description: "Call, email or send Mohsen a message. Or book a purchase and leasing consultation directly.",
 };
 

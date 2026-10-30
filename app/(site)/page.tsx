@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { CtaBand } from "@/components/cta-band";
@@ -12,7 +13,11 @@ import testDrive from "@/public/images/test-drive.webp";
 import happyClient from "@/public/images/happy-client.webp";
 import whyPhoto from "@/public/images/why-clients-handshake.jpg";
 
-export const dynamic = "force-dynamic";
+// Prerendered and refreshed hourly; saving or deleting a testimonial in admin refreshes it at
+// once (revalidatePath("/") in actions/admin.ts). Rendering it per request cost ~2s on a cold start.
+export const revalidate = 3600;
+
+export const metadata: Metadata = { alternates: { canonical: "/" } };
 
 const messages = [
   {

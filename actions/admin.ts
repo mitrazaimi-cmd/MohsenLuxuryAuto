@@ -145,6 +145,7 @@ export async function deleteContentAction(fd: FormData) {
   await store.deleteContent(kind, String(fd.get("id")));
   revalidatePath(PATHS[kind]);
   revalidatePath("/portfolio");
+  revalidatePath("/");
 }
 
 // ---------- settings ----------

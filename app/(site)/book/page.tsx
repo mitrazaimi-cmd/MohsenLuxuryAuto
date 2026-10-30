@@ -7,6 +7,7 @@ export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "Book a Consultation",
+  alternates: { canonical: "/book" },
   description: "Choose a time for a purchase or leasing consultation with Mohsen, Master Certified Mercedes-Benz sales specialist.",
 };
 

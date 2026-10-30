@@ -11,6 +11,7 @@ import portrait from "@/public/images/mohsen-portrait.webp";
 
 export const metadata: Metadata = {
   title: "About Me",
+  alternates: { canonical: "/about" },
   description:
     "Mohsen Mohimani is a Master Certified Sales & Leasing Consultant at Mercedes-Benz of West Chester, with 20 years of experience in luxury automotive sales and dealership management.",
 };

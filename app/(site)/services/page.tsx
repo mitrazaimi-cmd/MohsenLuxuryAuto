@@ -16,6 +16,7 @@ import whatToBring from "@/public/images/what-to-bring.webp";
 
 export const metadata: Metadata = {
   title: "Services",
+  alternates: { canonical: "/services" },
   description:
     "Purchase and leasing consultations for GLC, GLE, AMG, EQ electric, Maybach, Certified Pre-Owned, and business and fleet purchases. One point of contact from test drive to delivery.",
 };

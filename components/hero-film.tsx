@@ -66,19 +66,27 @@ export function HeroFilm() {
     const stop = () => gestures.forEach((g) => document.removeEventListener(g, onGesture));
     stopWaiting.current = stop;
 
-    video.muted = false;
-    video
-      .play()
-      .catch(() => {
-        if (cancelled) return;
-        video.muted = true;
-        gestures.forEach((g) => document.addEventListener(g, onGesture));
-        return video.play();
-      })
-      .catch(() => {});
+    // Start (and so download) the film only once the page has loaded, so it doesn't compete
+    // with the page itself on a slow phone connection; the poster shows until then.
+    const start = () => {
+      if (cancelled) return;
+      video.muted = false;
+      video
+        .play()
+        .catch(() => {
+          if (cancelled) return;
+          video.muted = true;
+          gestures.forEach((g) => document.addEventListener(g, onGesture));
+          return video.play();
+        })
+        .catch(() => {});
+    };
+    if (document.readyState === "complete") start();
+    else window.addEventListener("load", start, { once: true });
 
     return () => {
       cancelled = true;
+      window.removeEventListener("load", start);
       observer.disconnect();
       stop();
     };
@@ -109,7 +117,7 @@ export function HeroFilm() {
         height={1068}
         loop
         playsInline
-        preload="auto"
+        preload="none"
         role="img"
         aria-label="A black Mercedes-Benz in cinematic light, ending on the Mohsen Luxury Auto logo"
         onPlay={(e) => {
