@@ -56,14 +56,12 @@ export function SiteFooter() {
           </div>
         </div>
         <div className="footer-bottom">
-          <span className="footer-meta">
-            <span>
-              © {new Date().getFullYear()} {site.name}. {site.slogan}.
-            </span>
-            <a className="nowrap" href={`mailto:${site.credit.email}`}>
-              Designed &amp; developed by {site.credit.name}
-            </a>
+          <span>
+            © {new Date().getFullYear()} {site.name}. {site.slogan}.
           </span>
+          <a className="credit nowrap" href={`mailto:${site.credit.email}`}>
+            Designed &amp; developed by {site.credit.name}
+          </a>
           <span>
             <Link href="/privacy">Privacy</Link>
             <span aria-hidden="true"> &nbsp;·&nbsp; </span>

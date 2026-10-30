@@ -1529,12 +1529,21 @@ html:not(.js) .hero-logo-video {
 .footer-bottom a:hover {
   color: var(--gold);
 }
-/* Copyright and the designer credit: side by side, or the credit on its own line on phones. */
-.footer-meta {
-  display: inline-flex;
-  flex-wrap: wrap;
-  column-gap: 1.6em;
-  row-gap: 6px;
+/* The designer credit, between the copyright and the legal line (space-between spaces the
+   three evenly); gold so it reads as a separate note. */
+.footer-bottom .credit {
+  color: var(--gold);
+}
+.footer-bottom .credit:hover {
+  color: var(--gold-hi);
+}
+/* Too narrow for one line (it needs ~1110px): one part per line rather than an uneven wrap. */
+@media (max-width: 1140px) {
+  .footer-bottom {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
 }
 @media (max-width: 860px) {
   .footer-grid {
