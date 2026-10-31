@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import type { CSSProperties } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { CtaBand } from "@/components/cta-band";
@@ -6,6 +7,7 @@ import { HeroFilm } from "@/components/hero-film";
 import { HeroLogo } from "@/components/hero-logo";
 import { ArrowRight, Award, Check, Clock, Handshake, Shield } from "@/components/icons";
 import { SectionHead } from "@/components/section-head";
+import { StackCards } from "@/components/stack-cards";
 import { Stats } from "@/components/stats";
 import { Testimonials } from "@/components/testimonials";
 import { store } from "@/lib/db";
@@ -134,17 +136,19 @@ export default async function HomePage() {
               style={{ objectFit: "cover", objectPosition: "50% 45%" }}
             />
           </div>
-          <ol className="steps boxed grid-4 reveal" style={{ listStyle: "none", margin: "24px 0 0", padding: 0 }}>
+          <StackCards>
             {steps.map((s, i) => (
-              <li key={s.title} className="step gold-hover">
-                <span className="n">{String(i + 1).padStart(2, "0")}</span>
-                <div>
-                  <h3 className="h3">{s.title}</h3>
-                  <p>{s.text}</p>
+              <li key={s.title} className="stack-card" style={{ "--n": i } as CSSProperties}>
+                <div className="stack-face gold-hover reveal">
+                  <span className="n">{String(i + 1).padStart(2, "0")}</span>
+                  <div>
+                    <h3 className="h3">{s.title}</h3>
+                    <p>{s.text}</p>
+                  </div>
                 </div>
               </li>
             ))}
-          </ol>
+          </StackCards>
           <ul className="check-list inline reveal" style={{ marginTop: 40 }}>
             {["No obligation, no pressure", "In person, by phone or by video", "New and Certified Pre-Owned", "Business and fleet purchases"].map((t) => (
               <li key={t}>

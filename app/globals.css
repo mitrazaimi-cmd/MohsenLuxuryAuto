@@ -1127,8 +1127,8 @@ html:not(.js) .hero-logo-video {
   }
 }
 
-/* Boxed lists: each item is its own box (homepage "Your consultation" steps,
-   Services "What your consultation includes"). Pair the items with .gold-hover. */
+/* Boxed lists: each item is its own box (About "Experience", Services "What your
+   consultation includes"). Pair the items with .gold-hover. */
 .steps.boxed,
 .check-list.boxed {
   gap: 16px;
@@ -1215,6 +1215,99 @@ html:not(.js) .hero-logo-video {
   }
   .check-list.boxed li {
     padding: 18px 20px;
+  }
+}
+
+/* Stacked cards (the owner's name for them, «کارت‌های روی هم»; components/stack-cards.tsx):
+   each card stops under the header a step lower than the last and the next slides over it.
+   The sticky shell (li) is measured by the script; the face inside it is what moves. */
+.stack {
+  --stack-step: 18px;
+  display: grid;
+  gap: 24px;
+  max-width: 880px;
+  margin: 24px auto 0;
+  padding: 0;
+  list-style: none;
+}
+.stack-card {
+  position: sticky;
+  top: calc(var(--header-h) + 24px + var(--n, 0) * var(--stack-step));
+}
+.stack-face {
+  position: relative;
+  display: grid;
+  grid-template-columns: 64px minmax(0, 1fr);
+  gap: 28px;
+  align-items: start;
+  padding: 40px 44px;
+  background:
+    radial-gradient(circle at 100% 0%, rgba(217, 174, 95, 0.13), transparent 45%),
+    linear-gradient(180deg, #181818, #0b0b0b);
+  border: 1px solid #2a2a2a;
+  border-radius: var(--radius);
+  /* Shadow cast upward onto the card it covers. */
+  box-shadow: 0 -14px 40px rgba(0, 0, 0, 0.8);
+  transform-origin: 50% 0;
+}
+/* A gold hairline along the top edge: in the pile, the edges show as a stack of gold lines. */
+.stack-face::after {
+  content: "";
+  position: absolute;
+  top: -1px;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold) 50%, transparent);
+  opacity: 0.85;
+}
+.stack-face.gold-hover:hover {
+  box-shadow:
+    0 -14px 40px rgba(0, 0, 0, 0.8),
+    0 0 32px rgba(217, 174, 95, 0.1);
+}
+.stack-face .n {
+  display: grid;
+  place-items: center;
+  width: 64px;
+  height: 64px;
+  border: 1px solid var(--gold-soft);
+  border-radius: 50%;
+  font-family: var(--font-serif);
+  font-size: 1.3rem;
+  line-height: 1;
+  color: var(--gold);
+}
+.stack-face .h3 {
+  font-size: clamp(1.1rem, 2vw, 1.4rem);
+  margin-top: 4px;
+}
+.stack-face p {
+  margin-top: 12px;
+}
+@media (max-width: 640px) {
+  .stack {
+    --stack-step: 12px;
+    gap: 16px;
+  }
+  .stack-card {
+    top: calc(var(--header-h) + 16px + var(--n, 0) * var(--stack-step));
+  }
+  .stack-face {
+    grid-template-columns: 44px minmax(0, 1fr);
+    gap: 16px;
+    padding: 24px 20px;
+  }
+  .stack-face .n {
+    width: 44px;
+    height: 44px;
+    font-size: 1rem;
+  }
+  .stack-face .h3 {
+    margin-top: 0;
+  }
+  .stack-face p {
+    margin-top: 8px;
   }
 }
 
