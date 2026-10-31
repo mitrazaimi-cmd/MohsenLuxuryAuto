@@ -1127,8 +1127,8 @@ html:not(.js) .hero-logo-video {
   }
 }
 
-/* Boxed lists: each item is its own box (About "Experience", Services "What your
-   consultation includes"). Pair the items with .gold-hover. */
+/* Boxed lists: each item is its own box (Services "What your consultation includes"
+   and "What to bring"). Pair the items with .gold-hover. */
 .steps.boxed,
 .check-list.boxed {
   gap: 16px;

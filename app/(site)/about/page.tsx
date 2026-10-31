@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
+import type { CSSProperties } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { CtaBand } from "@/components/cta-band";
 import { ArrowRight, Award, Globe, Instagram, Linkedin } from "@/components/icons";
 import { PageHero } from "@/components/page-hero";
 import { SectionHead } from "@/components/section-head";
+import { StackCards } from "@/components/stack-cards";
 import { Stats } from "@/components/stats";
 import { fullName, site } from "@/config/site";
 import portrait from "@/public/images/mohsen-portrait.webp";
@@ -108,18 +110,20 @@ export default function AboutPage() {
             Sales, dealership management and financial services: experience that turns into clear numbers and
             honest advice for every client.
           </SectionHead>
-          <ol className="steps boxed grid-3 reveal" style={{ listStyle: "none", margin: 0, padding: 0 }}>
+          <StackCards>
             {career.map((c, i) => (
-              <li key={c.place} className="step gold-hover">
-                <span className="n">{String(i + 1).padStart(2, "0")}</span>
-                <div>
-                  <span className="eyebrow">{c.place}</span>
-                  <h3 className="h3" style={{ marginTop: 8 }}>{c.role}</h3>
-                  <p>{c.text}</p>
+              <li key={c.place} className="stack-card" style={{ "--n": i } as CSSProperties}>
+                <div className="stack-face gold-hover reveal">
+                  <span className="n">{String(i + 1).padStart(2, "0")}</span>
+                  <div>
+                    <span className="eyebrow">{c.place}</span>
+                    <h3 className="h3" style={{ marginTop: 8 }}>{c.role}</h3>
+                    <p>{c.text}</p>
+                  </div>
                 </div>
               </li>
             ))}
-          </ol>
+          </StackCards>
         </div>
       </section>
 
